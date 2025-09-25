@@ -1,0 +1,59 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "PbaU12Tools/1.0.0": {
+        "dependencies": {
+          "Microsoft-WindowsAPICodePack-Shell-6.0": "1.1.7"
+        },
+        "runtime": {
+          "PbaU12Tools.dll": {}
+        }
+      },
+      "Microsoft-WindowsAPICodePack-Core-6.0/1.1.7": {
+        "runtime": {
+          "lib/net8.0-windows7.0/Microsoft.WindowsAPICodePack.dll": {
+            "assemblyVersion": "1.1.7.0",
+            "fileVersion": "1.1.7.0"
+          }
+        }
+      },
+      "Microsoft-WindowsAPICodePack-Shell-6.0/1.1.7": {
+        "dependencies": {
+          "Microsoft-WindowsAPICodePack-Core-6.0": "1.1.7"
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Microsoft.WindowsAPICodePack.Shell.dll": {
+            "assemblyVersion": "1.1.7.0",
+            "fileVersion": "1.1.7.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PbaU12Tools/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft-WindowsAPICodePack-Core-6.0/1.1.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BPSLHq+qOgNEvo65rvlOECrxqUlxa9AoW5wHoEjaOOqhpr9k7vUb7hjlUTJv/+PtoVtG6QW03n/1Fo1NWgcLaQ==",
+      "path": "microsoft-windowsapicodepack-core-6.0/1.1.7",
+      "hashPath": "microsoft-windowsapicodepack-core-6.0.1.1.7.nupkg.sha512"
+    },
+    "Microsoft-WindowsAPICodePack-Shell-6.0/1.1.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-C3/U/YX1nDcMQN0MrqRW/TohCE1Q1n+xCug9PsXeGDSthJAJMdk/UnWnovmjeJMO4z+nJEPONjg89LHzTstPXw==",
+      "path": "microsoft-windowsapicodepack-shell-6.0/1.1.7",
+      "hashPath": "microsoft-windowsapicodepack-shell-6.0.1.1.7.nupkg.sha512"
+    }
+  }
+}

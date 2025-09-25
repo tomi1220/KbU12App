@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ERQB5vrRKTU=",
+  "success": true,
+  "projectFilePath": "E:\\tomi\\KbU12App\\PbaU12Tools\\PbaU12Tools.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Tomisako\\.nuget\\packages\\microsoft-windowsapicodepack-core-6.0\\1.1.7\\microsoft-windowsapicodepack-core-6.0.1.1.7.nupkg.sha512",
+    "C:\\Users\\Tomisako\\.nuget\\packages\\microsoft-windowsapicodepack-shell-6.0\\1.1.7\\microsoft-windowsapicodepack-shell-6.0.1.1.7.nupkg.sha512"
+  ],
+  "logs": []
+}

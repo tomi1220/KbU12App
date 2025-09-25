@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TournamentNameDatas>
+  <TournamentNameDatasList>
+    <TournamentNameData>
+      <Name>二俣旗鹿児島市U12バスケットボール春季大会</Name>
+      <FixedNumOfBoysTeams>0</FixedNumOfBoysTeams>
+      <FixedNumOfGirlsTeams>0</FixedNumOfGirlsTeams>
+    </TournamentNameData>
+    <TournamentNameData>
+      <Name>会長旗鹿児島市U12バスケットボール秋季大会</Name>
+      <FixedNumOfBoysTeams>0</FixedNumOfBoysTeams>
+      <FixedNumOfGirlsTeams>0</FixedNumOfGirlsTeams>
+    </TournamentNameData>
+    <TournamentNameData>
+      <Name>鹿児島城山ライオンズ旗鹿児島市U12バスケットボール大会</Name>
+      <FixedNumOfBoysTeams>0</FixedNumOfBoysTeams>
+      <FixedNumOfGirlsTeams>0</FixedNumOfGirlsTeams>
+    </TournamentNameData>
+  </TournamentNameDatasList>
+</TournamentNameDatas>

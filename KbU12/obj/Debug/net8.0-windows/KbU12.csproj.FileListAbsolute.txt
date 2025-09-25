@@ -1,0 +1,16 @@
+E:\tomi\KbU12App\KbU12\bin\Debug\net8.0-windows\KbU12.exe
+E:\tomi\KbU12App\KbU12\bin\Debug\net8.0-windows\KbU12.deps.json
+E:\tomi\KbU12App\KbU12\bin\Debug\net8.0-windows\KbU12.runtimeconfig.json
+E:\tomi\KbU12App\KbU12\bin\Debug\net8.0-windows\KbU12.dll
+E:\tomi\KbU12App\KbU12\bin\Debug\net8.0-windows\KbU12.pdb
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\KbU12.FormKbU12Main.resources
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\KbU12.csproj.GenerateResource.cache
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\KbU12.GeneratedMSBuildEditorConfig.editorconfig
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\KbU12.AssemblyInfoInputs.cache
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\KbU12.AssemblyInfo.cs
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\KbU12.csproj.CoreCompileInputs.cache
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\KbU12.dll
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\refint\KbU12.dll
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\KbU12.pdb
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\KbU12.genruntimeconfig.cache
+E:\tomi\KbU12App\KbU12\obj\Debug\net8.0-windows\ref\KbU12.dll

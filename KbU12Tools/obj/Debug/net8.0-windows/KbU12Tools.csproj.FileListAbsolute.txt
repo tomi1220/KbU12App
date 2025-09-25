@@ -1,0 +1,16 @@
+E:\tomi\KbU12App\KbU12Tools\bin\Debug\net8.0-windows\KbU12Tools.deps.json
+E:\tomi\KbU12App\KbU12Tools\bin\Debug\net8.0-windows\KbU12Tools.dll
+E:\tomi\KbU12App\KbU12Tools\bin\Debug\net8.0-windows\KbU12Tools.pdb
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.DebugInfoForm.resources
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.csproj.GenerateResource.cache
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.GeneratedMSBuildEditorConfig.editorconfig
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.AssemblyInfoInputs.cache
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.AssemblyInfo.cs
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.csproj.CoreCompileInputs.cache
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.dll
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\refint\KbU12Tools.dll
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.pdb
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\ref\KbU12Tools.dll
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.Properties.Resources.resources
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.TournamentNameDialog.resources
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.SettingForm.resources

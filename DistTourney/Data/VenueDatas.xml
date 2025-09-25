@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VenueDatas>
+  <VenueDatasList>
+    <VenueData>
+      <Name>姶良市蒲生体育館</Name>
+      <NumberOfCourts>3</NumberOfCourts>
+    </VenueData>
+    <VenueData>
+      <Name>ビーラインスポーツパーク姶良</Name>
+      <NumberOfCourts>3</NumberOfCourts>
+    </VenueData>
+    <VenueData>
+      <Name>吉田文化体育センター</Name>
+      <NumberOfCourts>3</NumberOfCourts>
+    </VenueData>
+    <VenueData>
+      <Name>サンアリーナせんだい</Name>
+      <NumberOfCourts>4</NumberOfCourts>
+    </VenueData>
+    <VenueData>
+      <Name>いちき串木野市総合体育館</Name>
+      <NumberOfCourts>3</NumberOfCourts>
+    </VenueData>
+  </VenueDatasList>
+</VenueDatas>

@@ -1,0 +1,9 @@
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.DebugInfoForm.resources
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.Properties.Resources.resources
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.SettingForm.resources
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\KbU12Tools.TournamentNameDialog.resources
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.csproj.GenerateResource.cache
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.GeneratedMSBuildEditorConfig.editorconfig
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.AssemblyInfoInputs.cache
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.AssemblyInfo.cs
+E:\tomi\KbU12App\KbU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.csproj.CoreCompileInputs.cache
