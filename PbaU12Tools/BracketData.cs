@@ -64,7 +64,6 @@
         #endregion
 
         #region プロパティ
-        public int InDatTournamentDataID { get; set; }
         /// <summary>
         /// カテゴリー
         /// </summary>

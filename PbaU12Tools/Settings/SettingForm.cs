@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace PbaU12Tools.Settings
 {
@@ -39,7 +40,6 @@ namespace PbaU12Tools.Settings
 
             this.Icon = CommonResources.SettingsIcon;
 
-            listViewTournamentNames.ListViewItemSorter = new VenueListViewItemComparer();
             imageListTournamentNames.Images.Add(CommonResources.BracketDodgerblue);
             buttonAddTournamentName.Image = CommonResources.Add;
             buttonEditTournamentName.Image = CommonResources.Edit;
@@ -78,7 +78,10 @@ namespace PbaU12Tools.Settings
 
                 if (File.Exists(filePath))
                 {
-                    tournamentNameDatas = TournamentNameDatas.Deserialize();
+                    using var sr = new StreamReader(filePath);
+                    string xmlText = sr.ReadToEnd();
+
+                    tournamentNameDatas = TournamentNameDatas.Deserialize(xmlText);
 
                     if (tournamentNameDatas != null)
                     {
@@ -148,24 +151,9 @@ namespace PbaU12Tools.Settings
                 }
             }
 
-            try
-            {
-                KbU12XmlSerializer xmlSerializer = new(typeof(TournamentNameDatas));
-                string xmlText = xmlSerializer.Serialize(tournamentNameDatas);
+            string xmlText = TournamentNameDatas.Serialize(tournamentNameDatas)!;
 
-                return xmlText;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    this,
-                    ex.Message,
-                    "大会名データのシリアライズに失敗しました。",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
-                return null;
-            }
+            return xmlText;
         }
 
         private void saveTournamentNameDatas()
@@ -263,21 +251,7 @@ namespace PbaU12Tools.Settings
                     using var sr = new StreamReader(filePath);
                     string xmlText = sr.ReadToEnd();
 
-                    KbU12XmlSerializer xmlSerializer = new(typeof(VenueDatas));
-                    venueDatas = (VenueDatas)xmlSerializer.Deserialize(xmlText)!;
-                    if (venueDatas == null)
-                    {
-                        if (xmlSerializer.ExceptionData != null)
-                        {
-                            MessageBox.Show(
-                                this,
-                                "会場データの逆シリアル化に失敗しました。" + Environment.NewLine +
-                                Environment.NewLine + xmlSerializer.ExceptionData.Message,
-                                this.Text,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                        }
-                    }
+                    venueDatas = VenueDatas.Deserialize(xmlText)!;
                 }
 
                 return venueDatas;
@@ -383,24 +357,9 @@ namespace PbaU12Tools.Settings
                 }
             }
 
-            try
-            {
-                KbU12XmlSerializer xmlSerializer = new(typeof(VenueDatas));
-                string xmlText = xmlSerializer.Serialize(venueDatas);
+            string xmlText = VenueDatas.Serialize(venueDatas)!;
 
-                return xmlText;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    this,
-                    ex.Message,
-                    "会場データのシリアライズに失敗しました。",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
-                return null;
-            }
+            return xmlText;
         }
 
         private void openSettingsTourneyNameDialog(

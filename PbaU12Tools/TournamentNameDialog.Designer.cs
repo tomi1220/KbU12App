@@ -106,6 +106,7 @@
             // buttonOK
             // 
             buttonOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonOK.DialogResult = DialogResult.OK;
             buttonOK.Location = new Point(340, 85);
             buttonOK.Name = "buttonOK";
             buttonOK.Size = new Size(75, 23);
@@ -117,6 +118,7 @@
             // buttonCancel
             // 
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.DialogResult = DialogResult.Cancel;
             buttonCancel.Location = new Point(421, 85);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(75, 23);
@@ -127,8 +129,10 @@
             // 
             // TournamentNameDialog
             // 
+            AcceptButton = buttonOK;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = buttonCancel;
             ClientSize = new Size(508, 120);
             Controls.Add(buttonCancel);
             Controls.Add(buttonOK);

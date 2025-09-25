@@ -1,5 +1,8 @@
 using PbaU12Tools;
 using PbaU12Tools.Settings;
+using PbaU12Tools.TournamentData;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace DistTourney
 {
@@ -20,7 +23,12 @@ namespace DistTourney
 #endif
         private readonly string _executablePath;
 
+        private string _tournamentName = string.Empty;
+
         private string? _tournamentDataFilePath = null;
+
+        private TournamentData? _tournamentDataOrg;
+        private TournamentData? _tournamentData;
         #endregion
 
         #region コンストラクタ
@@ -29,19 +37,10 @@ namespace DistTourney
             InitializeComponent();
 
             this.Icon = CommonResources.BracketIcon;
-            checkBoxBoys.Image = CommonResources.BoysTeam;
-            checkBoxGirls.Image = CommonResources.GirlsTeam;
-
-            buttonAddVenue.Image = CommonResources.Add;
-
-            buttonAddVenue.Image = CommonResources.Add;
-            buttonEditVenue.Image = CommonResources.Edit;
-            buttonDeleteVenue.Image = CommonResources.Delete;
 
             listViewVenue.ListViewItemSorter = new VenueListViewItemComparer();
 
             _executablePath = Path.GetDirectoryName(Application.ExecutablePath) ?? string.Empty;
-            //_baseFolder = CommonValues.GetBaseFolder();
 
 #if DEBUG
             _debugForm = new DebugInfoForm();
@@ -54,41 +53,157 @@ namespace DistTourney
         /// 新規作成
         /// </summary>
         /// <returns></returns>
-        private bool NewTournament()
+        private bool newTournamentData()
         {
-            string? tournamentName = null;
             using var dlg = new TournamentNameDialog();
-            dlg.AllowBlankTournamentName = true;
+            //dlg.AllowBlankTournamentName = true;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                tournamentName = dlg.TournamentName;
+                _tournamentName = dlg.TournamentName;
+
+                return true;
             }
 
-            if (string.IsNullOrEmpty(tournamentName))
+            return false;
+        }
+
+        private bool openTournamentData()
+        {
+            using OpenFileDialog ofd = new();
+            ofd.Filter = CommonValues.TournamentDataFileFilter;
+            ofd.Title = "大会情報ファイルを指定してください。";
+            ofd.Filter = CommonValues.TournamentDataFileFilter;
+            ofd.InitialDirectory = CommonTools.TournamentDatasFolderPath;
+            //ofd.FileName = tournamentName;
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                tournamentName =
-                    DateTime.Today.ToString(
-                        "yyyy-MM-dd_") + CommonValues.TournamentDataFileName;
+                _tournamentDataFilePath = ofd.FileName;
+
+                _tournamentDataOrg = TournamentData.Deserialize(ofd.FileName);
+
+                setTournamentDataInformation();
+
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void setTournamentDataInformation()
+        {
+            /*
+            // 進行状況
+            if (tournamentData.Status == TournamentDataStatuses.None)
+            {
+                toolStripTextBox1.Text = string.Empty;
+            }
+            else
+            {
+                toolStripTextBox1.Text =
+                    CommonValues.TournamentDataStatusesStrings[(int)tournamentData.Status];
+            }
+            // 大会名
+            if (!string.IsNullOrEmpty(tournamentData.TournamentName))
+            {
+                textBoxTournamentName.Text = tournamentData.TournamentName;
+            }
+            // トーナメント表データ
+            if (tournamentData.BrackectDataDic != null)
+            {
+                // 男子
+                if (tournamentData.BrackectDataDic.TryGetValue(
+                    Category.Boys, out BracketData? boysBracketData))
+                {
+                    if (boysBracketData.NumberOfTeams > 0)
+                    {
+                        checkBoxBoys.Checked = true;
+                        numericUpDownNumberOfTeamsBoys.Value = boysBracketData.NumberOfTeams;
+                    }
+                }
+                // 女子
+                if (tournamentData.BrackectDataDic.TryGetValue(
+                    Category.Girls, out BracketData? girlsBracketData))
+                {
+                    if (numericUpDownNumberOfTeamsGirls.Value > 0)
+                    {
+                        checkBoxGirls.Checked = true;
+                        numericUpDownNumberOfTeamsGirls.Value = girlsBracketData.NumberOfTeams;
+                    }
+                }
+            }
+            // オープン参加表示枠
+            checkBoxOpen.Checked = tournamentData.OpenDisplayFrame;
+            // 会場データ
+            */
+        }
+
+        private TournamentData createTournamentData()
+        {
+            TournamentData tournamentData = new();
+
+            return tournamentData;
+        }
+
+        private bool saveTournamentData()
+        {
+            TournamentData tournamentData = createTournamentData();
+            if (tournamentData == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(_tournamentDataFilePath))
+            {
+                return saveAsTournamentData();
+            }
+
+            try
+            {
+                string xmlText = TournamentData.Serialize(tournamentData)!;
+
+                using var sw = new StreamWriter(_tournamentDataFilePath);
+                sw.Write(xmlText);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        private bool saveAsTournamentData()
+        {
+            TournamentData tournamentData = createTournamentData();
+            if (tournamentData == null)
+            {
+                return false;   
+            }
+
             using SaveFileDialog sfd = new();
             sfd.Title = "新しい大会情報を保存するファイルを指定してください。";
-            sfd.Filter = "大会情報ファイル(*.xml)|*.xml|All files (*.*)|*.*";
+            sfd.Filter = CommonValues.TournamentDataFileFilter;
             sfd.InitialDirectory = CommonTools.TournamentDatasFolderPath;
-            sfd.FileName = tournamentName;
+            sfd.FileName = Path.GetFileName(_tournamentDataFilePath);
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 _tournamentDataFilePath = sfd.FileName;
 
-                textBoxTournamentName.Text = tournamentName;
+                try
+                {
+                    string xmlText = TournamentData.Serialize(tournamentData)!;
 
-                textBoxOutputFilePath.Text =
-                    Path.Combine(
-                        CommonTools.DocumentsFolderPath,
-                        Path.GetFileName(_tournamentDataFilePath));
+                    using var sw = new StreamWriter(_tournamentDataFilePath);
+                    sw.Write(xmlText);
 
-                panelAll.Enabled = true;
-
-                return true;
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
             }
 
             return false;
@@ -122,12 +237,17 @@ namespace DistTourney
 
         private string getTournamentName()
         {
-            string fileName = textBoxTournamentName.Text.Trim();
+            string fileName = labelTournamentName.Text;
             if (fileName.Length == 0)
             {
                 fileName = DateTime.Today.ToString("yyyy-MM-dd") + "_" + CommonValues.DEFAULT_FILE_NAME;
             }
             return fileName;
+        }
+
+        private bool isUpdate()
+        {
+            return true;
         }
         #endregion
 
@@ -148,68 +268,25 @@ namespace DistTourney
             TournamentData? tournamentData = loadTournamentData();
             if (tournamentData != null)
             {
-                textBoxTournamentName.Text = tournamentData.TournamentName;
-                if (tournamentData.BrackectDataDic.TryGetValue(Category.Boys, out BracketData? boysBracketData))
-                {
-                    if (boysBracketData.NumberOfTeams > 0)
-                    {
-                        checkBoxBoys.Checked = true;
-                        numericUpDownNumberOfTeamsBoys.Value = boysBracketData.NumberOfTeams;
-                    }
-                }
-                if (tournamentData.BrackectDataDic.TryGetValue(Category.Girls, out BracketData? girlsBracketData))
-                {
-                    if (girlsBracketData.NumberOfTeams > 0)
-                    {
-                        checkBoxGirls.Checked = true;
-                        numericUpDownNumberOfTeamsGirls.Value = girlsBracketData.NumberOfTeams;
-                    }
-                }
+                setTournamentDataInformation();
             }
-            else
-            {
-                checkBoxBoys.Checked = true;
-                numericUpDownNumberOfTeamsBoys.Value = 32;
-                checkBoxGirls.Checked = true;
-                numericUpDownNumberOfTeamsGirls.Value = 32;
-            }
-
-            textBoxOutputFilePath.Text = getTournamentName();
         }
 
         #region メニュー
         private void toolStripMenuItemNew_Click(object sender, EventArgs e)
         {
             // 新規作成
-            string? tournamentName = null;
-            using var dlg = new TournamentNameDialog();
-            dlg.AllowBlankTournamentName = true;
-            if (dlg.ShowDialog() == DialogResult.OK)
+            if(newTournamentData())
             {
-                tournamentName = dlg.TournamentName;
-            }
-
-            if (string.IsNullOrEmpty(tournamentName))
-            {
-                tournamentName =
-                    DateTime.Today.ToString(
-                        "yyyy-MM-dd_") + CommonValues.TournamentDataFileName;
-            }
-            using SaveFileDialog sfd = new();
-            sfd.Title = "新しい大会情報を保存するファイルを指定してください。";
-            sfd.Filter = "大会情報ファイル(*.xml)|*.xml|All files (*.*)|*.*";
-            sfd.InitialDirectory = CommonTools.TournamentDatasFolderPath;
-            sfd.FileName = tournamentName;
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                _tournamentDataFilePath = sfd.FileName;
-
-                textBoxTournamentName.Text = tournamentName;
+                labelTournamentName.Text = _tournamentName;
 
                 textBoxOutputFilePath.Text =
                     Path.Combine(
                         CommonTools.DocumentsFolderPath,
-                        Path.GetFileName(_tournamentDataFilePath));
+                        Path.GetFileNameWithoutExtension(_tournamentDataFilePath!)) +
+                        CommonValues.ExcelExt;
+                toolStripTextBox1.Text =
+                    CommonValues.TournamentDataStatusesStrings[(int)TournamentDataStatuses.RafflePreparation];
 
                 panelAll.Enabled = true;
             }
@@ -217,22 +294,43 @@ namespace DistTourney
 
         private void toolStripMenuItemOpen_Click(object sender, EventArgs e)
         {
-
+            openTournamentData();
         }
 
         private void toolStripMenuItemSave_Click(object sender, EventArgs e)
         {
-
+            // 保存
+            saveTournamentData();
         }
 
         private void toolStripMenuItemSaveAs_Click(object sender, EventArgs e)
         {
-
+            // 名前を付けて保存
+            saveAsTournamentData();
         }
 
         private void toolStripMenuItemExit_Click(object sender, EventArgs e)
         {
-
+            // 更新チェック
+            if (isUpdate())
+            {
+                DialogResult dialogResult =
+                    MessageBox.Show(
+                        this,
+                        "変更内容を反映しますか？",
+                        this.Text,
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Exclamation);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // 保存
+                }
+                else if (dialogResult == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+            Close();
         }
 
         private void toolStripMenuItemSettings_Click(object sender, EventArgs e)
@@ -243,13 +341,6 @@ namespace DistTourney
         }
 
         #endregion
-
-        #region ［大会名称］
-        private void buttonTournamentName_Click(object sender, EventArgs e)
-        {
-            // ［大会名称］
-        }
-        #endregion 
 
         #region ［会場情報］
         private void buttonAddVenue_Click(object sender, EventArgs e)

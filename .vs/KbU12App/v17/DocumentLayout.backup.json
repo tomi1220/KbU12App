@@ -7,8 +7,24 @@
       "RelativeMoniker": "D:0:0:{DB762199-A9D7-49CB-82B7-3DCBFF9F416E}|DistTourney\\DistTourney.csproj|solutionrelative:disttourney\\formdistmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\commonvalues.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\commonvalues.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DB762199-A9D7-49CB-82B7-3DCBFF9F416E}|DistTourney\\DistTourney.csproj|E:\\tomi\\KbU12App\\disttourney\\formdistmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DB762199-A9D7-49CB-82B7-3DCBFF9F416E}|DistTourney\\DistTourney.csproj|solutionrelative:disttourney\\formdistmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\commonenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\commonenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\tournamentnamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\tournamentnamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\commonresources.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\commonresources.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\commontools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,24 +35,8 @@
       "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\tournamentnamedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\tournamentnamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\tournamentnamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\settings\\settingform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\settings\\settingform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|E:\\tomi\\KbU12App\\pbau12tools\\tournamentnamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\tournamentnamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\commonvalues.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\commonvalues.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\commonresources.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|solutionrelative:pbau12tools\\commonresources.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DF8EF248-188E-4FC8-A610-3B3C0AC55E02}|PbaU12Tools\\PbaU12Tools.csproj|e:\\tomi\\kbu12app\\pbau12tools\\tournamentdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -66,15 +66,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CommonTools.cs",
-              "DocumentMoniker": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonTools.cs",
-              "RelativeDocumentMoniker": "PbaU12Tools\\CommonTools.cs",
-              "ToolTip": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonTools.cs",
-              "RelativeToolTip": "PbaU12Tools\\CommonTools.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAIAwwF0AAAAlAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "CommonEnum.cs",
+              "DocumentMoniker": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonEnum.cs",
+              "RelativeDocumentMoniker": "PbaU12Tools\\CommonEnum.cs",
+              "ToolTip": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonEnum.cs*",
+              "RelativeToolTip": "PbaU12Tools\\CommonEnum.cs*",
+              "ViewState": "AgIAACcAAAAAAAAAAAAmwD0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-24T08:08:36.299Z"
+              "WhenOpened": "2025-09-25T01:45:09.498Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -84,33 +85,10 @@
               "RelativeDocumentMoniker": "PbaU12Tools\\TournamentNameDialog.cs",
               "ToolTip": "E:\\tomi\\KbU12App\\PbaU12Tools\\TournamentNameDialog.cs",
               "RelativeToolTip": "PbaU12Tools\\TournamentNameDialog.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAAADEAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAACMAAAAAAAAAAAAcwCEAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-24T07:32:35.411Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "TournamentNameDialog.cs [\u30C7\u30B6\u30A4\u30F3]",
-              "DocumentMoniker": "E:\\tomi\\KbU12App\\PbaU12Tools\\TournamentNameDialog.cs",
-              "RelativeDocumentMoniker": "PbaU12Tools\\TournamentNameDialog.cs",
-              "ToolTip": "E:\\tomi\\KbU12App\\PbaU12Tools\\TournamentNameDialog.cs [\u30C7\u30B6\u30A4\u30F3]",
-              "RelativeToolTip": "PbaU12Tools\\TournamentNameDialog.cs [\u30C7\u30B6\u30A4\u30F3]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-24T07:32:22.608Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SettingForm.cs",
-              "DocumentMoniker": "E:\\tomi\\KbU12App\\PbaU12Tools\\Settings\\SettingForm.cs",
-              "RelativeDocumentMoniker": "PbaU12Tools\\Settings\\SettingForm.cs",
-              "ToolTip": "E:\\tomi\\KbU12App\\PbaU12Tools\\Settings\\SettingForm.cs",
-              "RelativeToolTip": "PbaU12Tools\\Settings\\SettingForm.cs",
-              "ViewState": "AgIAAAkCAAAAAAAAAAAgwBwCAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-24T07:10:33.975Z"
             },
             {
               "$type": "Document",
@@ -118,16 +96,16 @@
               "Title": "FormDistMain.cs",
               "DocumentMoniker": "E:\\tomi\\KbU12App\\DistTourney\\FormDistMain.cs",
               "RelativeDocumentMoniker": "DistTourney\\FormDistMain.cs",
-              "ToolTip": "E:\\tomi\\KbU12App\\DistTourney\\FormDistMain.cs",
-              "RelativeToolTip": "DistTourney\\FormDistMain.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFsAAAANAAAAAAAAAA==",
+              "ToolTip": "E:\\tomi\\KbU12App\\DistTourney\\FormDistMain.cs*",
+              "RelativeToolTip": "DistTourney\\FormDistMain.cs*",
+              "ViewState": "AgIAAKkAAAAAAAAAAAAAAMEAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-24T00:29:13.77Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 5,
               "Title": "CommonResources.cs",
               "DocumentMoniker": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonResources.cs",
               "RelativeDocumentMoniker": "PbaU12Tools\\CommonResources.cs",
@@ -135,22 +113,24 @@
               "RelativeToolTip": "PbaU12Tools\\CommonResources.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAcwBoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T07:11:44.766Z"
+              "WhenOpened": "2025-09-22T07:11:44.766Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "FormDistMain.cs [\u30C7\u30B6\u30A4\u30F3]",
               "DocumentMoniker": "E:\\tomi\\KbU12App\\DistTourney\\FormDistMain.cs",
               "RelativeDocumentMoniker": "DistTourney\\FormDistMain.cs",
-              "ToolTip": "E:\\tomi\\KbU12App\\DistTourney\\FormDistMain.cs [\u30C7\u30B6\u30A4\u30F3]",
-              "RelativeToolTip": "DistTourney\\FormDistMain.cs [\u30C7\u30B6\u30A4\u30F3]",
+              "ToolTip": "E:\\tomi\\KbU12App\\DistTourney\\FormDistMain.cs [\u30C7\u30B6\u30A4\u30F3]*",
+              "RelativeToolTip": "DistTourney\\FormDistMain.cs [\u30C7\u30B6\u30A4\u30F3]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T01:28:16.834Z"
+              "WhenOpened": "2025-09-19T01:28:16.834Z",
+              "EditorCaption": " [\u30C7\u30B6\u30A4\u30F3]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "TournamentNameData.cs",
               "DocumentMoniker": "E:\\tomi\\KbU12App\\PbaU12Tools\\TournamentNameData.cs",
               "RelativeDocumentMoniker": "PbaU12Tools\\TournamentNameData.cs",
@@ -162,15 +142,40 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "CommonValues.cs",
               "DocumentMoniker": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonValues.cs",
               "RelativeDocumentMoniker": "PbaU12Tools\\CommonValues.cs",
-              "ToolTip": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonValues.cs",
-              "RelativeToolTip": "PbaU12Tools\\CommonValues.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "ToolTip": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonValues.cs*",
+              "RelativeToolTip": "PbaU12Tools\\CommonValues.cs*",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAwwBoAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T02:41:06.618Z"
+              "WhenOpened": "2025-09-19T02:41:06.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SettingForm.cs",
+              "DocumentMoniker": "E:\\tomi\\KbU12App\\PbaU12Tools\\Settings\\SettingForm.cs",
+              "RelativeDocumentMoniker": "PbaU12Tools\\Settings\\SettingForm.cs",
+              "ToolTip": "E:\\tomi\\KbU12App\\PbaU12Tools\\Settings\\SettingForm.cs",
+              "RelativeToolTip": "PbaU12Tools\\Settings\\SettingForm.cs",
+              "ViewState": "AgIAAAkCAAAAAAAAAAAgwBwCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T07:10:33.975Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CommonTools.cs",
+              "DocumentMoniker": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonTools.cs",
+              "RelativeDocumentMoniker": "PbaU12Tools\\CommonTools.cs",
+              "ToolTip": "E:\\tomi\\KbU12App\\PbaU12Tools\\CommonTools.cs",
+              "RelativeToolTip": "PbaU12Tools\\CommonTools.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAIAwwF0AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T08:08:36.299Z"
             },
             {
               "$type": "Document",

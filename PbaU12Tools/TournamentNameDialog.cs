@@ -31,7 +31,7 @@ namespace PbaU12Tools
         #endregion
 
         #region プロパティ
-        public bool AllowBlankTournamentName { get; set; }
+        public bool AllowBlankTournamentName { get; set; } = false;
         public TournamentNameDatas? TournamentNameDatas { private get; set; }
         public TournamentNameData? TournamentNameData { get; set; }
         public string TournamentName { get; set; } = string.Empty;
@@ -47,7 +47,18 @@ namespace PbaU12Tools
 
             if (TournamentNameDatas == null)
             {
-                TournamentNameDatas = TournamentNameDatas.Deserialize();
+                string filePath =
+                    Path.Combine(
+                        CommonTools.TournamentDatasFolderPath,
+                        CommonValues.TournamentNameDatasFileName);
+
+                if (File.Exists(filePath))
+                {
+                    using var sr = new StreamReader(filePath);
+                    string xmlText = sr.ReadToEnd();
+
+                    TournamentNameDatas = TournamentNameDatas.Deserialize(xmlText);
+                }
             }
 
             if (TournamentNameDatas != null)
@@ -128,7 +139,7 @@ namespace PbaU12Tools
             string tournamentName = string.Empty;
             TournamentNameData? tournamentNameData = null;
 
-            if (!string.IsNullOrWhiteSpace(comboBoxTournamentName.Text))
+            if (!string.IsNullOrWhiteSpace(comboBoxTournamentName.Text.Trim()))
             {
                 if (comboBoxTournamentName.SelectedItem is ItemData itemData)
                 {
@@ -140,7 +151,7 @@ namespace PbaU12Tools
                         }
                     }
                 }
-                tournamentName = comboBoxTournamentName.Text;
+                tournamentName = comboBoxTournamentName.Text.Trim();
 
                 if (checkBoxNumOfTournaments.Checked)
                 {
@@ -163,15 +174,12 @@ namespace PbaU12Tools
                 TournamentName = tournamentName;
                 this.TournamentNameData = tournamentNameData;
 
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
-
                 this.Close();
             }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
         }
 

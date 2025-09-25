@@ -38,6 +38,7 @@
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripMenuItemExit = new ToolStripMenuItem();
             toolStripMenuItemSettings = new ToolStripMenuItem();
+            toolStripTextBox1 = new ToolStripTextBox();
             panelAll = new Panel();
             panelVenue = new Panel();
             groupBoxVenue = new GroupBox();
@@ -48,48 +49,23 @@
             columnTargetDate = new ColumnHeader();
             columnVenue = new ColumnHeader();
             columnCourt = new ColumnHeader();
-            panelBottom = new Panel();
-            buttonBuild = new Button();
-            buttonBrowseFolder = new Button();
-            textBoxOutputFilePath = new TextBox();
             panelOptions = new Panel();
-            checkBoxOpen = new CheckBox();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            panelGirls = new Panel();
-            checkBoxGirls = new CheckBox();
-            groupBox1 = new GroupBox();
-            numericUpDownNumberOfTeamsGirls = new NumericUpDown();
-            label2 = new Label();
-            panelBoys = new Panel();
-            checkBoxBoys = new CheckBox();
-            groupBoxBoys = new GroupBox();
-            numericUpDownNumberOfTeamsBoys = new NumericUpDown();
-            label1 = new Label();
             panelName = new Panel();
-            textBoxTournamentName = new TextBox();
-            buttonTournamentName = new Button();
+            labelTournamentName = new Label();
+            トーナメント表出力OToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             panelAll.SuspendLayout();
             panelVenue.SuspendLayout();
             groupBoxVenue.SuspendLayout();
-            panelBottom.SuspendLayout();
-            panelOptions.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            panelGirls.SuspendLayout();
-            groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownNumberOfTeamsGirls).BeginInit();
-            panelBoys.SuspendLayout();
-            groupBoxBoys.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownNumberOfTeamsBoys).BeginInit();
             panelName.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { ファイルFToolStripMenuItem, toolStripMenuItemSettings });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { ファイルFToolStripMenuItem, toolStripMenuItemSettings, toolStripTextBox1, トーナメント表出力OToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(650, 24);
+            menuStrip1.Size = new Size(650, 27);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -97,7 +73,7 @@
             // 
             ファイルFToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemNew, toolStripMenuItemOpen, toolStripSeparator1, toolStripMenuItemSave, toolStripMenuItemSaveAs, toolStripSeparator2, toolStripMenuItemExit });
             ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
-            ファイルFToolStripMenuItem.Size = new Size(67, 20);
+            ファイルFToolStripMenuItem.Size = new Size(67, 23);
             ファイルFToolStripMenuItem.Text = "ファイル(F)";
             // 
             // toolStripMenuItemNew
@@ -148,31 +124,36 @@
             // toolStripMenuItemSettings
             // 
             toolStripMenuItemSettings.Name = "toolStripMenuItemSettings";
-            toolStripMenuItemSettings.Size = new Size(66, 20);
+            toolStripMenuItemSettings.Size = new Size(66, 23);
             toolStripMenuItemSettings.Text = "設定(&S)...";
             toolStripMenuItemSettings.Click += toolStripMenuItemSettings_Click;
+            // 
+            // toolStripTextBox1
+            // 
+            toolStripTextBox1.Alignment = ToolStripItemAlignment.Right;
+            toolStripTextBox1.Name = "toolStripTextBox1";
+            toolStripTextBox1.ReadOnly = true;
+            toolStripTextBox1.Size = new Size(100, 23);
             // 
             // panelAll
             // 
             panelAll.Controls.Add(panelVenue);
-            panelAll.Controls.Add(panelBottom);
             panelAll.Controls.Add(panelOptions);
-            panelAll.Controls.Add(tableLayoutPanel1);
             panelAll.Controls.Add(panelName);
             panelAll.Dock = DockStyle.Fill;
             panelAll.Enabled = false;
-            panelAll.Location = new Point(0, 24);
+            panelAll.Location = new Point(0, 27);
             panelAll.Name = "panelAll";
-            panelAll.Size = new Size(650, 446);
+            panelAll.Size = new Size(650, 443);
             panelAll.TabIndex = 1;
             // 
             // panelVenue
             // 
             panelVenue.Controls.Add(groupBoxVenue);
             panelVenue.Dock = DockStyle.Fill;
-            panelVenue.Location = new Point(0, 177);
+            panelVenue.Location = new Point(0, 95);
             panelVenue.Name = "panelVenue";
-            panelVenue.Size = new Size(650, 169);
+            panelVenue.Size = new Size(650, 348);
             panelVenue.TabIndex = 3;
             // 
             // groupBoxVenue
@@ -184,7 +165,7 @@
             groupBoxVenue.Dock = DockStyle.Fill;
             groupBoxVenue.Location = new Point(0, 0);
             groupBoxVenue.Name = "groupBoxVenue";
-            groupBoxVenue.Size = new Size(650, 169);
+            groupBoxVenue.Size = new Size(650, 348);
             groupBoxVenue.TabIndex = 5;
             groupBoxVenue.TabStop = false;
             groupBoxVenue.Text = "会場情報(&V):";
@@ -225,7 +206,7 @@
             listViewVenue.Columns.AddRange(new ColumnHeader[] { columnTargetDate, columnVenue, columnCourt });
             listViewVenue.Location = new Point(6, 22);
             listViewVenue.Name = "listViewVenue";
-            listViewVenue.Size = new Size(578, 141);
+            listViewVenue.Size = new Size(578, 320);
             listViewVenue.TabIndex = 0;
             listViewVenue.UseCompatibleStateImageBehavior = false;
             listViewVenue.View = View.Details;
@@ -245,205 +226,38 @@
             columnCourt.Text = "コート";
             columnCourt.Width = 200;
             // 
-            // panelBottom
-            // 
-            panelBottom.Controls.Add(buttonBuild);
-            panelBottom.Controls.Add(buttonBrowseFolder);
-            panelBottom.Controls.Add(textBoxOutputFilePath);
-            panelBottom.Dock = DockStyle.Bottom;
-            panelBottom.Location = new Point(0, 346);
-            panelBottom.Name = "panelBottom";
-            panelBottom.Size = new Size(650, 100);
-            panelBottom.TabIndex = 4;
-            // 
-            // buttonBuild
-            // 
-            buttonBuild.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            buttonBuild.Location = new Point(12, 65);
-            buttonBuild.Name = "buttonBuild";
-            buttonBuild.Size = new Size(626, 23);
-            buttonBuild.TabIndex = 2;
-            buttonBuild.Text = "トーナメント表作成";
-            buttonBuild.UseVisualStyleBackColor = true;
-            buttonBuild.Click += buttonBuild_Click;
-            // 
-            // buttonBrowseFolder
-            // 
-            buttonBrowseFolder.Location = new Point(9, 9);
-            buttonBrowseFolder.Name = "buttonBrowseFolder";
-            buttonBrowseFolder.Size = new Size(75, 27);
-            buttonBrowseFolder.TabIndex = 0;
-            buttonBrowseFolder.Text = "出力先(&F)";
-            buttonBrowseFolder.UseVisualStyleBackColor = true;
-            buttonBrowseFolder.Click += buttonBrowseFolder_Click;
-            // 
-            // textBoxOutputFilePath
-            // 
-            textBoxOutputFilePath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxOutputFilePath.Location = new Point(90, 12);
-            textBoxOutputFilePath.Name = "textBoxOutputFilePath";
-            textBoxOutputFilePath.Size = new Size(548, 23);
-            textBoxOutputFilePath.TabIndex = 1;
-            // 
             // panelOptions
             // 
-            panelOptions.Controls.Add(checkBoxOpen);
             panelOptions.Dock = DockStyle.Top;
-            panelOptions.Location = new Point(0, 125);
+            panelOptions.Location = new Point(0, 43);
             panelOptions.Name = "panelOptions";
             panelOptions.Size = new Size(650, 52);
             panelOptions.TabIndex = 2;
             // 
-            // checkBoxOpen
-            // 
-            checkBoxOpen.AutoSize = true;
-            checkBoxOpen.Checked = true;
-            checkBoxOpen.CheckState = CheckState.Checked;
-            checkBoxOpen.Location = new Point(12, 6);
-            checkBoxOpen.Name = "checkBoxOpen";
-            checkBoxOpen.Size = new Size(206, 19);
-            checkBoxOpen.TabIndex = 0;
-            checkBoxOpen.Text = "TO/オープン参加等表示枠を作る(&O)";
-            checkBoxOpen.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(panelGirls, 1, 0);
-            tableLayoutPanel1.Controls.Add(panelBoys, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Top;
-            tableLayoutPanel1.Location = new Point(0, 37);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(650, 88);
-            tableLayoutPanel1.TabIndex = 1;
-            // 
-            // panelGirls
-            // 
-            panelGirls.Controls.Add(checkBoxGirls);
-            panelGirls.Controls.Add(groupBox1);
-            panelGirls.Dock = DockStyle.Fill;
-            panelGirls.Location = new Point(328, 3);
-            panelGirls.Name = "panelGirls";
-            panelGirls.Size = new Size(319, 82);
-            panelGirls.TabIndex = 1;
-            // 
-            // checkBoxGirls
-            // 
-            checkBoxGirls.Location = new Point(12, 2);
-            checkBoxGirls.Name = "checkBoxGirls";
-            checkBoxGirls.Size = new Size(88, 27);
-            checkBoxGirls.TabIndex = 0;
-            checkBoxGirls.Text = "女子(&G)";
-            checkBoxGirls.TextImageRelation = TextImageRelation.ImageBeforeText;
-            checkBoxGirls.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(numericUpDownNumberOfTeamsGirls);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Location = new Point(3, 6);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(313, 73);
-            groupBox1.TabIndex = 1;
-            groupBox1.TabStop = false;
-            // 
-            // numericUpDownNumberOfTeamsGirls
-            // 
-            numericUpDownNumberOfTeamsGirls.Location = new Point(112, 24);
-            numericUpDownNumberOfTeamsGirls.Name = "numericUpDownNumberOfTeamsGirls";
-            numericUpDownNumberOfTeamsGirls.Size = new Size(46, 23);
-            numericUpDownNumberOfTeamsGirls.TabIndex = 1;
-            numericUpDownNumberOfTeamsGirls.TextAlign = HorizontalAlignment.Right;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 26);
-            label2.Name = "label2";
-            label2.Size = new Size(94, 15);
-            label2.TabIndex = 0;
-            label2.Text = "出場チーム数(&1):";
-            // 
-            // panelBoys
-            // 
-            panelBoys.Controls.Add(checkBoxBoys);
-            panelBoys.Controls.Add(groupBoxBoys);
-            panelBoys.Dock = DockStyle.Fill;
-            panelBoys.Location = new Point(3, 3);
-            panelBoys.Name = "panelBoys";
-            panelBoys.Size = new Size(319, 82);
-            panelBoys.TabIndex = 0;
-            // 
-            // checkBoxBoys
-            // 
-            checkBoxBoys.Location = new Point(12, 2);
-            checkBoxBoys.Name = "checkBoxBoys";
-            checkBoxBoys.Size = new Size(88, 27);
-            checkBoxBoys.TabIndex = 0;
-            checkBoxBoys.Text = "男子(&B)";
-            checkBoxBoys.TextImageRelation = TextImageRelation.ImageBeforeText;
-            checkBoxBoys.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxBoys
-            // 
-            groupBoxBoys.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBoxBoys.Controls.Add(numericUpDownNumberOfTeamsBoys);
-            groupBoxBoys.Controls.Add(label1);
-            groupBoxBoys.Location = new Point(3, 6);
-            groupBoxBoys.Name = "groupBoxBoys";
-            groupBoxBoys.Size = new Size(313, 73);
-            groupBoxBoys.TabIndex = 1;
-            groupBoxBoys.TabStop = false;
-            // 
-            // numericUpDownNumberOfTeamsBoys
-            // 
-            numericUpDownNumberOfTeamsBoys.Location = new Point(112, 24);
-            numericUpDownNumberOfTeamsBoys.Name = "numericUpDownNumberOfTeamsBoys";
-            numericUpDownNumberOfTeamsBoys.Size = new Size(46, 23);
-            numericUpDownNumberOfTeamsBoys.TabIndex = 1;
-            numericUpDownNumberOfTeamsBoys.TextAlign = HorizontalAlignment.Right;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 26);
-            label1.Name = "label1";
-            label1.Size = new Size(94, 15);
-            label1.TabIndex = 0;
-            label1.Text = "出場チーム数(&1):";
-            // 
             // panelName
             // 
-            panelName.Controls.Add(textBoxTournamentName);
-            panelName.Controls.Add(buttonTournamentName);
+            panelName.Controls.Add(labelTournamentName);
             panelName.Dock = DockStyle.Top;
             panelName.Location = new Point(0, 0);
             panelName.Name = "panelName";
-            panelName.Size = new Size(650, 37);
+            panelName.Size = new Size(650, 43);
             panelName.TabIndex = 0;
             // 
-            // textBoxTournamentName
+            // labelTournamentName
             // 
-            textBoxTournamentName.Location = new Point(123, 8);
-            textBoxTournamentName.Name = "textBoxTournamentName";
-            textBoxTournamentName.ReadOnly = true;
-            textBoxTournamentName.Size = new Size(515, 23);
-            textBoxTournamentName.TabIndex = 1;
+            labelTournamentName.Dock = DockStyle.Fill;
+            labelTournamentName.Font = new Font("Meiryo UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            labelTournamentName.Location = new Point(0, 0);
+            labelTournamentName.Name = "labelTournamentName";
+            labelTournamentName.Size = new Size(650, 43);
+            labelTournamentName.TabIndex = 2;
+            labelTournamentName.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // buttonTournamentName
+            // トーナメント表出力OToolStripMenuItem
             // 
-            buttonTournamentName.Location = new Point(12, 7);
-            buttonTournamentName.Name = "buttonTournamentName";
-            buttonTournamentName.Size = new Size(105, 23);
-            buttonTournamentName.TabIndex = 0;
-            buttonTournamentName.Text = "大会名称(&N)...";
-            buttonTournamentName.UseVisualStyleBackColor = true;
-            buttonTournamentName.Click += buttonTournamentName_Click;
+            トーナメント表出力OToolStripMenuItem.Name = "トーナメント表出力OToolStripMenuItem";
+            トーナメント表出力OToolStripMenuItem.Size = new Size(131, 23);
+            トーナメント表出力OToolStripMenuItem.Text = "トーナメント表出力(&O)...";
             // 
             // FormDistMain
             // 
@@ -461,21 +275,7 @@
             panelAll.ResumeLayout(false);
             panelVenue.ResumeLayout(false);
             groupBoxVenue.ResumeLayout(false);
-            panelBottom.ResumeLayout(false);
-            panelBottom.PerformLayout();
-            panelOptions.ResumeLayout(false);
-            panelOptions.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
-            panelGirls.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownNumberOfTeamsGirls).EndInit();
-            panelBoys.ResumeLayout(false);
-            groupBoxBoys.ResumeLayout(false);
-            groupBoxBoys.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownNumberOfTeamsBoys).EndInit();
             panelName.ResumeLayout(false);
-            panelName.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -494,21 +294,7 @@
         private ToolStripMenuItem toolStripMenuItemSettings;
         private Panel panelAll;
         private Panel panelName;
-        private TextBox textBoxTournamentName;
-        private Button buttonTournamentName;
-        private TableLayoutPanel tableLayoutPanel1;
-        private Panel panelGirls;
-        private CheckBox checkBoxGirls;
-        private GroupBox groupBox1;
-        private NumericUpDown numericUpDownNumberOfTeamsGirls;
-        private Label label2;
-        private Panel panelBoys;
-        private CheckBox checkBoxBoys;
-        private GroupBox groupBoxBoys;
-        private NumericUpDown numericUpDownNumberOfTeamsBoys;
-        private Label label1;
         private Panel panelOptions;
-        private CheckBox checkBoxOpen;
         private GroupBox groupBoxVenue;
         private Button buttonDeleteVenue;
         private Button buttonEditVenue;
@@ -517,10 +303,9 @@
         private ColumnHeader columnTargetDate;
         private ColumnHeader columnVenue;
         private ColumnHeader columnCourt;
-        private Panel panelBottom;
-        private Button buttonBuild;
-        private Button buttonBrowseFolder;
-        private TextBox textBoxOutputFilePath;
         private Panel panelVenue;
+        private ToolStripTextBox toolStripTextBox1;
+        private Label labelTournamentName;
+        private ToolStripMenuItem トーナメント表出力OToolStripMenuItem;
     }
 }

@@ -8,5 +8,8 @@
     <Compile Update="Settings\SettingsVenueDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="TournamentData\TournamentDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

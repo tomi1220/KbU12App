@@ -57,10 +57,13 @@
             columnCourts = new ColumnHeader();
             buttonClose = new Button();
             toolTip1 = new ToolTip(components);
+            tabPageOtherOption = new TabPage();
+            checkBox1 = new CheckBox();
             tabControl1.SuspendLayout();
             tabPageDataSaveFolders.SuspendLayout();
             tabPageTournamentNames.SuspendLayout();
             tabPageVenues.SuspendLayout();
+            tabPageOtherOption.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -69,6 +72,7 @@
             tabControl1.Controls.Add(tabPageDataSaveFolders);
             tabControl1.Controls.Add(tabPageTournamentNames);
             tabControl1.Controls.Add(tabPageVenues);
+            tabControl1.Controls.Add(tabPageOtherOption);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -319,6 +323,27 @@
             buttonClose.UseVisualStyleBackColor = true;
             buttonClose.Click += buttonClose_Click;
             // 
+            // tabPageOtherOption
+            // 
+            tabPageOtherOption.Controls.Add(checkBox1);
+            tabPageOtherOption.Location = new Point(4, 24);
+            tabPageOtherOption.Name = "tabPageOtherOption";
+            tabPageOtherOption.Padding = new Padding(3);
+            tabPageOtherOption.Size = new Size(530, 295);
+            tabPageOtherOption.TabIndex = 3;
+            tabPageOtherOption.Text = "その他";
+            tabPageOtherOption.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(15, 16);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(235, 19);
+            checkBox1.TabIndex = 0;
+            checkBox1.Text = "起動時に前回終了時の状態を復元する(&R)";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
             // SettingForm
             // 
             AcceptButton = buttonSaveTournamentNameData;
@@ -331,13 +356,15 @@
             Font = new Font("Meiryo UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
             Name = "SettingForm";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "SettingForm";
+            Text = "設定";
             Load += SettingForm_Load;
             tabControl1.ResumeLayout(false);
             tabPageDataSaveFolders.ResumeLayout(false);
             tabPageDataSaveFolders.PerformLayout();
             tabPageTournamentNames.ResumeLayout(false);
             tabPageVenues.ResumeLayout(false);
+            tabPageOtherOption.ResumeLayout(false);
+            tabPageOtherOption.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -371,5 +398,7 @@
         private Button buttonImportVenue;
         private ToolTip toolTip1;
         private ColumnHeader columnTournamentFixedNumOfTeams;
+        private TabPage tabPageOtherOption;
+        private CheckBox checkBox1;
     }
 }

@@ -16,7 +16,7 @@
     <Compile Update="DebugInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="ListViewEx.cs">
+    <Compile Update="ControlEx\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

@@ -45,4 +45,20 @@ namespace PbaU12Tools
         Oshima = 10
     }
 
+    public enum TournamentDataStatuses
+    {
+        None = -1,
+        /// <summary>抽選会準備中</summary>
+        RafflePreparation = 0,
+        /// <summary>試合順調整中</summary>
+        MatchOrderAdjustments = 1,
+        /// <summary>トーナメント表完成・配布</summary>
+        BracketCreationComplete = 2,
+        /// <summary>大会準備中</summary>
+        PreparingForTheTournament = 3,
+        /// <summary>大会開催中</summary>
+        DuringTheTournament = 4,
+        /// <summary>大会終了</summary>
+        EndOfTheTournament = 5
+    }
 }

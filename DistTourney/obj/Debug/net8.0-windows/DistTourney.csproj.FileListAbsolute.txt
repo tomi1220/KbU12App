@@ -20,3 +20,4 @@ E:\tomi\KbU12App\DistTourney\obj\Debug\net8.0-windows\DistTourney.genruntimeconf
 E:\tomi\KbU12App\DistTourney\obj\Debug\net8.0-windows\ref\DistTourney.dll
 E:\tomi\KbU12App\DistTourney\bin\Debug\net8.0-windows\Microsoft.WindowsAPICodePack.dll
 E:\tomi\KbU12App\DistTourney\bin\Debug\net8.0-windows\Microsoft.WindowsAPICodePack.Shell.dll
+E:\tomi\KbU12App\DistTourney\obj\Debug\net8.0-windows\DistTourney.sourcelink.json

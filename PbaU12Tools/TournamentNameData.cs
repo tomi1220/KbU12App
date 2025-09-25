@@ -41,43 +41,52 @@ namespace PbaU12Tools
     {
         public List<TournamentNameData>? TournamentNameDatasList { get; set; } = [];
 
-        public static TournamentNameDatas? Deserialize(
-            string? tournamentNameDatasFilePath = null)
+        public string? Serialize()
+        {
+            string xmlText = Serialize(this)!;
+
+            return xmlText;
+        }
+
+        public static string? Serialize(TournamentNameDatas tournamentNameDatas)
+        {
+            try
+            {
+                KbU12XmlSerializer xmlSerializer = new(typeof(TournamentNameDatas));
+                string xmlText = xmlSerializer.Serialize(tournamentNameDatas);
+
+                return xmlText;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "大会名データのシリアライズに失敗しました。",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return string.Empty;
+            }
+        }
+
+        public static TournamentNameDatas? Deserialize(string xmlText)
         {
             TournamentNameDatas? tournamentNameDatas = null;
 
             try
             {
-                string filePath;
-                if (string.IsNullOrEmpty(tournamentNameDatasFilePath))
+                KbU12XmlSerializer xmlSerializer = new(typeof(TournamentNameDatas));
+                tournamentNameDatas = (TournamentNameDatas)xmlSerializer.Deserialize(xmlText)!;
+                if (tournamentNameDatas == null)
                 {
-                    filePath =
-                        Path.Combine(
-                            CommonTools.DataFolderPath, CommonValues.TournamentNameDatasFileName);
-                }
-                else
-                {
-                    filePath = tournamentNameDatasFilePath;
-                }
-
-                if (File.Exists(filePath))
-                {
-                    using var sr = new StreamReader(filePath);
-                    string xmlText = sr.ReadToEnd();
-
-                    KbU12XmlSerializer xmlSerializer = new(typeof(TournamentNameDatas));
-                    tournamentNameDatas = (TournamentNameDatas)xmlSerializer.Deserialize(xmlText)!;
-                    if (tournamentNameDatas == null)
+                    if (xmlSerializer.ExceptionData != null)
                     {
-                        if (xmlSerializer.ExceptionData != null)
-                        {
-                            MessageBox.Show(
-                                "大会名データの逆シリアル化に失敗しました。" + Environment.NewLine +
-                                Environment.NewLine + xmlSerializer.ExceptionData.Message,
-                                "エラー",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                        }
+                        MessageBox.Show(
+                            "大会名データの逆シリアル化に失敗しました。" + Environment.NewLine +
+                            Environment.NewLine + xmlSerializer.ExceptionData.Message,
+                            "エラー",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                     }
                 }
 

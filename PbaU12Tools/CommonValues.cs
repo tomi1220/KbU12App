@@ -20,6 +20,20 @@ namespace PbaU12Tools
         public const string VenueItemDatasFileName = "VenueItemDatas.xml";
         public const string VenueDatasFileName = "VenueDatas.xml";
 
+        public const string TournamentDataFileFilter = "大会情報ファイル(*.xml)|*.xml|All files (*.*)|*.*";
+
+        public const string ExcelExt = ".xlsx";
+
+        public static readonly string[] TournamentDataStatusesStrings =
+        {
+            "抽選会準備中",
+            "試合順調整中",
+            "トーナメント表完成・配布",
+            "大会準備中",
+            "大会開催中",
+            "大会終了"
+        };
+
         public const string NewTournamentName = "新しい大会";
         public const string NewVenue = "新しい会場";
 

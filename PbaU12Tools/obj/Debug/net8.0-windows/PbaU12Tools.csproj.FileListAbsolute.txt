@@ -17,3 +17,4 @@ E:\tomi\KbU12App\PbaU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.csproj.Assembl
 E:\tomi\KbU12App\PbaU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.Settings.SettingForm.resources
 E:\tomi\KbU12App\PbaU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.Settings.SettingsTourneyNameDialog.resources
 E:\tomi\KbU12App\PbaU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.Settings.SettingsVenueDialog.resources
+E:\tomi\KbU12App\PbaU12Tools\obj\Debug\net8.0-windows\PbaU12Tools.sourcelink.json
