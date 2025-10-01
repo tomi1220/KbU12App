@@ -20,7 +20,7 @@ namespace PbaU12Tools.Bracket
 
         #region コンストラクタ
 
-        public BracketDataGenerator(Category category, int numOfTeams, int numOfSuperSeed)
+        public BracketDataGenerator(Categories category, int numOfTeams, int numOfSuperSeed)
         {
             BracketData.Category = category;
             BracketData.NumberOfTeams = numOfTeams;

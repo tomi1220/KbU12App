@@ -8,7 +8,7 @@ namespace PbaU12Tools
 {
     public class MatchData
     {
-        public Category Category { get; set; }
+        public Categories Categoriy { get; set; }
         public int Round { get; set; }
         public string Court { get; set; } = string.Empty;
         public int Order { get; set; }

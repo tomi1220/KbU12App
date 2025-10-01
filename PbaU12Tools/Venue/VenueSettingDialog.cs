@@ -121,7 +121,7 @@ namespace PbaU12Tools.Venue
                     else
                     {
                         string checkCourt = checkBox.Text.Replace("&", "");
-                        if (courtData.Contains(checkCourt))
+                        if (courtData!.Contains(checkCourt))
                         {
                             checkBox.Checked = true;
                             checkBox.Enabled = false;

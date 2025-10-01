@@ -303,7 +303,7 @@
             // 
             // numOfTeamsCtrlGirls
             // 
-            numOfTeamsCtrlGirls.Category = PbaU12Tools.Category.Girls;
+            numOfTeamsCtrlGirls.Category = PbaU12Tools.Categories.Girls;
             numOfTeamsCtrlGirls.CategoryValidity = false;
             numOfTeamsCtrlGirls.Dock = DockStyle.Fill;
             numOfTeamsCtrlGirls.FinalLeage = false;
@@ -320,7 +320,7 @@
             // 
             // numOfTeamsCtrlBoys
             // 
-            numOfTeamsCtrlBoys.Category = PbaU12Tools.Category.Boys;
+            numOfTeamsCtrlBoys.Category = PbaU12Tools.Categories.Boys;
             numOfTeamsCtrlBoys.CategoryValidity = false;
             numOfTeamsCtrlBoys.Dock = DockStyle.Fill;
             numOfTeamsCtrlBoys.FinalLeage = false;

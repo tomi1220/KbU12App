@@ -49,7 +49,7 @@ namespace PbaU12Tools
             //if (tournamentData.BrackectDataDic.TryGetValue(Category.Boys, out BracketData? boysData))
             if (tournamentData.BrackectDataBoys != null)
             {
-                labelWorkFramesBoys.Text = tournamentData.BrackectDataBoys.AllDataInfo.FullFrames.ToString();
+                labelWorkFramesBoys.Text = tournamentData.BrackectDataBoys.AllDataInfo!.FullFrames.ToString();
                 labelRoundBoys.Text = tournamentData.BrackectDataBoys.AllDataInfo.Round.ToString();
 
                 listBoxBoys.Items.Clear();
@@ -64,7 +64,7 @@ namespace PbaU12Tools
 
                 listViewSeedNumBoys.Items.Clear();
                 int index = 0;
-                foreach (int i in tournamentData.BrackectDataBoys.PureSeedArray)
+                foreach (int i in tournamentData.BrackectDataBoys.PureSeedArray!)
                 {
                     ListViewItem lvi = new((index + 1).ToString());
                     lvi.SubItems.Add(tournamentData.BrackectDataBoys.PureSeedArray[index].ToString());
@@ -94,7 +94,7 @@ namespace PbaU12Tools
             // 女子
             if (tournamentData.BrackectDataGirls != null)
             {
-                labelWorkFramesGirls.Text = tournamentData.BrackectDataGirls.AllDataInfo.FullFrames.ToString();
+                labelWorkFramesGirls.Text = tournamentData.BrackectDataGirls.AllDataInfo!.FullFrames.ToString();
                 labelRoundGirls.Text = tournamentData.BrackectDataGirls.AllDataInfo.Round.ToString();
 
                 listBoxGirls.Items.Clear();
@@ -109,7 +109,7 @@ namespace PbaU12Tools
 
                 listViewSeedNumGirls.Items.Clear();
                 int index = 0;
-                foreach (int i in tournamentData.BrackectDataGirls.PureSeedArray)
+                foreach (int i in tournamentData.BrackectDataGirls.PureSeedArray!)
                 {
                     ListViewItem lvi = new((index + 1).ToString());
                     lvi.SubItems.Add(tournamentData.BrackectDataGirls.PureSeedArray[index].ToString());

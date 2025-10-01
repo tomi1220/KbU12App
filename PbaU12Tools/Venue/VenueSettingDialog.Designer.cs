@@ -484,6 +484,8 @@
             Controls.Add(label1);
             Font = new Font("Meiryo UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
             Name = "VenueSettingDialog";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "会場の設定";
             Load += VenueSettingDialog_Load;
             groupBoxCourt.ResumeLayout(false);

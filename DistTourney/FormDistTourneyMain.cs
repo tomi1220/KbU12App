@@ -126,7 +126,7 @@ namespace DistTourney
                 if (tournamentData.BrackectDataBoys.NumberOfTeams > 0)
                 {
                     numOfTeamsCtrlBoys.CategoryValidity = true;
-                    numOfTeamsCtrlBoys.Category = Category.Boys;
+                    numOfTeamsCtrlBoys.Category = Categories.Boys;
                     numOfTeamsCtrlBoys.NumberOfTeams = tournamentData.BrackectDataBoys.NumberOfTeams;
                 }
             }
@@ -136,7 +136,7 @@ namespace DistTourney
                 if (tournamentData.BrackectDataGirls.NumberOfTeams > 0)
                 {
                     numOfTeamsCtrlGirls.CategoryValidity = true;
-                    numOfTeamsCtrlGirls.Category = Category.Girls;
+                    numOfTeamsCtrlGirls.Category = Categories.Girls;
                     numOfTeamsCtrlGirls.NumberOfTeams = tournamentData.BrackectDataGirls.NumberOfTeams;
                 }
             }
@@ -158,7 +158,7 @@ namespace DistTourney
             {
                 BracketDataGenerator bracketDataGenerator =
                     new BracketDataGenerator(
-                        Category.Boys,
+                        Categories.Boys,
                         numOfTeamsCtrlBoys.NumberOfTeams,
                         numOfTeamsCtrlBoys.NumberOfSuperSeeds);
                 bracketDataGenerator.Create();
@@ -170,7 +170,7 @@ namespace DistTourney
                 //tournamentData.BrackectDataBoys =
                 //    new()
                 //    {
-                //        Category = Category.Boys,
+                //        Category = Categories.Boys,
                 //        NumberOfTeams = numOfTeamsCtrlBoys.NumberOfTeams,
                 //        NumberOfSuperSeed = numOfTeamsCtrlBoys.NumberOfSuperSeeds,
                 //        FinalLeague = numOfTeamsCtrlBoys.FinalLeage
@@ -181,7 +181,7 @@ namespace DistTourney
             {
                 BracketDataGenerator bracketDataGenerator =
                     new BracketDataGenerator(
-                        Category.Girls,
+                        Categories.Girls,
                         numOfTeamsCtrlGirls.NumberOfTeams,
                         numOfTeamsCtrlGirls.NumberOfSuperSeeds);
                 bracketDataGenerator.Create();
@@ -192,7 +192,7 @@ namespace DistTourney
                 //tournamentData.BrackectDataGirls =
                 //    new()
                 //    {
-                //        Category = Category.Girls,
+                //        Category = Categories.Girls,
                 //        NumberOfTeams = numOfTeamsCtrlGirls.NumberOfTeams,
                 //        NumberOfSuperSeed = numOfTeamsCtrlGirls.NumberOfSuperSeeds,
                 //        FinalLeague = numOfTeamsCtrlBoys.FinalLeage
@@ -351,10 +351,12 @@ namespace DistTourney
             if (listViewItem == null)
             {
                 listViewItem = new ListViewItem();
+                listViewItem.UseItemStyleForSubItems = false;
                 listViewItem.Text = venueItemData.TargetDate.ToString("yyyy-MM-dd");
                 listViewItem.SubItems.Add(venueItemData.Name);
-                listViewItem.SubItems.Add(
-                    string.Join("ÅE", venueItemData.CourtList));
+                ListViewItem.ListViewSubItem subItem =
+                    listViewItem.SubItems.Add(string.Join("ÅE", venueItemData.CourtList));
+                subItem.BackColor = Color.FromArgb(venueItemData.BackColor);
                 listViewItem.Tag = venueItemData;
                 listViewVenue.Items.Add(listViewItem);
             }
@@ -363,6 +365,7 @@ namespace DistTourney
                 listViewItem.Text = venueItemData.TargetDate.ToString("yyyy-MM-dd");
                 listViewItem.SubItems[1].Text = venueItemData.Name;
                 listViewItem.SubItems[2].Text = string.Join("ÅE", venueItemData.CourtList);
+                listViewItem.SubItems[2].BackColor = Color.FromArgb(venueItemData.BackColor);
                 listViewItem.Tag = venueItemData;
             }
         }

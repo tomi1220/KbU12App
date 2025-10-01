@@ -42,7 +42,7 @@
         /// <summary>
         /// カテゴリー
         /// </summary>
-        public Category Category { get; set; }
+        public Categories Category { get; set; }
         /// <summary>
         /// 出場チーム数
         /// </summary>

@@ -47,6 +47,7 @@ namespace PbaU12Tools.Settings
             buttonDeleteTournamentName.Image = CommonResources.Delete;
             buttonSaveTournamentNameData.Image = CommonResources.Save;
 
+            imageListVenueListView.Images.Add(CommonResources.Home);
             buttonAddVenue.Image = CommonResources.Add;
             buttonEditVenue.Image = CommonResources.Edit;
             buttonDeleteVenue.Image = CommonResources.Delete;

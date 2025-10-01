@@ -32,11 +32,11 @@ namespace PbaU12Tools.ControlEx
         #endregion
 
         #region プロパティ
-        private Category _category = Category.Unknown;
+        private Categories _category = Categories.Unknown;
         /// <summary>
         /// カテゴリー
         /// </summary>
-        public Category Category
+        public Categories Category
         {
             get { return _category; }
             set
@@ -45,7 +45,7 @@ namespace PbaU12Tools.ControlEx
                 {
                     _category = value;
 
-                    if (_category == Category.Boys)
+                    if (_category == Categories.Boys)
                     {
                         checkBoxTeams.Text = CheckBoxBoysTeamsTextFormatString;
                         checkBoxTeams.Image = CommonResources.BoysTeam;
@@ -56,7 +56,7 @@ namespace PbaU12Tools.ControlEx
                         checkBoxFinalLeague.Text =
                             CheckBoxFinalLeagueTextFormatString + "3" + labelNumOfTeamsText2;
                     }
-                    else if (_category == Category.Girls)
+                    else if (_category == Categories.Girls)
                     {
                         checkBoxTeams.Text = CheckBoxGirlsTeamsTextFormatString;
                         checkBoxTeams.Image = CommonResources.GirlsTeam;

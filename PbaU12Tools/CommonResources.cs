@@ -63,5 +63,9 @@ namespace PbaU12Tools
         {
             get { return Properties.Resources.PngImport; }
         }
+        public static Image Home
+        {
+            get { return Properties.Resources.PngHome; }
+        }
     }
 }
