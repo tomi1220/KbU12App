@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using PbaU12Tools.TournamentName;
 using PbaU12Tools.Venue;
 
 namespace PbaU12Tools.Settings

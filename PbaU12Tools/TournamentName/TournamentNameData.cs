@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace PbaU12Tools
+namespace PbaU12Tools.TournamentName
 {
     public class TournamentNameData
     {

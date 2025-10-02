@@ -29,7 +29,7 @@
     <Compile Update="Settings\SettingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="TournamentNameDialog.cs">
+    <Compile Update="TournamentName\TournamentNameDialog.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
