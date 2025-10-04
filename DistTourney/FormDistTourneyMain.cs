@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
+using PbaU12Tools.Xml;
 
 namespace DistTourney
 {
@@ -22,8 +23,6 @@ namespace DistTourney
         #endregion
 
         #region フィールド
-        private readonly string _executablePath;
-
         private string _tournamentName = string.Empty;
 
         private string? _tournamentDataFilePath = null;
@@ -39,11 +38,7 @@ namespace DistTourney
 
             this.Icon = CommonResources.BracketIcon;
 
-            buttonAddVenue.Image = CommonResources.Add;
-            buttonEditVenue.Image = CommonResources.Edit;
-            buttonDeleteVenue.Image = CommonResources.Delete;
-
-            _executablePath = Path.GetDirectoryName(Application.ExecutablePath) ?? string.Empty;
+            toolStripMenuItemSettings.Image = CommonResources.Settings;
         }
         #endregion
 
@@ -121,24 +116,24 @@ namespace DistTourney
                 labelTournamentName.Text = tournamentData.TournamentName;
             }
             // トーナメント表データ
-            if (tournamentData.BrackectDataBoys != null)
+            if (tournamentData.BaseDataBoys != null)
             {
                 // 男子
-                if (tournamentData.BrackectDataBoys.NumberOfTeams > 0)
+                if (tournamentData.BaseDataBoys.NumberOfTeams > 0)
                 {
                     numOfTeamsCtrlBoys.CategoryValidity = true;
                     numOfTeamsCtrlBoys.Category = Categories.Boys;
-                    numOfTeamsCtrlBoys.NumberOfTeams = tournamentData.BrackectDataBoys.NumberOfTeams;
+                    numOfTeamsCtrlBoys.NumberOfTeams = tournamentData.BaseDataBoys.NumberOfTeams;
                 }
             }
-            if (tournamentData.BrackectDataGirls != null)
+            if (tournamentData.BaseDataGirls != null)
             {
                 // 女子
-                if (tournamentData.BrackectDataGirls.NumberOfTeams > 0)
+                if (tournamentData.BaseDataGirls.NumberOfTeams > 0)
                 {
                     numOfTeamsCtrlGirls.CategoryValidity = true;
                     numOfTeamsCtrlGirls.Category = Categories.Girls;
-                    numOfTeamsCtrlGirls.NumberOfTeams = tournamentData.BrackectDataGirls.NumberOfTeams;
+                    numOfTeamsCtrlGirls.NumberOfTeams = tournamentData.BaseDataGirls.NumberOfTeams;
                 }
             }
             if (tournamentData.VenueDatas != null)
@@ -157,18 +152,18 @@ namespace DistTourney
             tournamentData.TournamentName = _tournamentName;
             if (numOfTeamsCtrlBoys.CategoryValidity)
             {
-                BracketDataGenerator bracketDataGenerator =
-                    new BracketDataGenerator(
+                BracketGenerator bracketDataGenerator =
+                    new BracketGenerator(
                         Categories.Boys,
                         numOfTeamsCtrlBoys.NumberOfTeams,
                         numOfTeamsCtrlBoys.NumberOfSuperSeeds);
-                bracketDataGenerator.Create();
-                if (bracketDataGenerator.BracketData != null)
-                {
-                    tournamentData.BrackectDataBoys = bracketDataGenerator.BracketData;
-                }
+                bracketDataGenerator.CreateGenData();
+                //if (bracketDataGenerator.BracketData != null)
+                //{
+                //    tournamentData.BaseDataBoys = bracketDataGenerator.BracketData;
+                //}
 
-                //tournamentData.BrackectDataBoys =
+                //tournamentData.BaseDataBoys =
                 //    new()
                 //    {
                 //        Category = Categories.Boys,
@@ -180,17 +175,17 @@ namespace DistTourney
             }
             if (numOfTeamsCtrlGirls.CategoryValidity)
             {
-                BracketDataGenerator bracketDataGenerator =
-                    new BracketDataGenerator(
+                BracketGenerator bracketDataGenerator =
+                    new BracketGenerator(
                         Categories.Girls,
                         numOfTeamsCtrlGirls.NumberOfTeams,
                         numOfTeamsCtrlGirls.NumberOfSuperSeeds);
-                bracketDataGenerator.Create();
-                if (bracketDataGenerator.BracketData != null)
-                {
-                    tournamentData.BrackectDataGirls = bracketDataGenerator.BracketData;
-                }
-                //tournamentData.BrackectDataGirls =
+                bracketDataGenerator.CreateGenData();
+                //if (bracketDataGenerator.BracketData != null)
+                //{
+                //    tournamentData.BaseDataGirls = bracketDataGenerator.BracketData;
+                //}
+                //tournamentData.BaseDataGirls =
                 //    new()
                 //    {
                 //        Category = Categories.Girls,
@@ -567,20 +562,20 @@ namespace DistTourney
         private void toolStripMenuItemBracketOutput_Click(object sender, EventArgs e)
         {
             // ［トーナメント表作成］
-            TournamentData tournamentData = createTournamentData();
-            if (tournamentData.Status == TournamentDataStatuses.None)
-            {
-                MessageBox.Show(
-                    this,
-                    "トーナメント表を作成する準備が出来ていません。",
-                    this.Text,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return;
-            }
+            //TournamentData tournamentData = createTournamentData();
+            //if (tournamentData.Status == TournamentDataStatuses.None)
+            //{
+            //    MessageBox.Show(
+            //        this,
+            //        "トーナメント表を作成する準備が出来ていません。",
+            //        this.Text,
+            //        MessageBoxButtons.OK,
+            //        MessageBoxIcon.Error);
+            //    return;
+            //}
 
             using BracketOutputDialog dialog = new BracketOutputDialog();
-            dialog.TourneyData = tournamentData;
+            //dialog.TourneyData = tournamentData;
             dialog.ShowDialog(this);
         }
         #endregion

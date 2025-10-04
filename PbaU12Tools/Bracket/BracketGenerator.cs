@@ -3,7 +3,7 @@ using PbaU12Tools.Venue;
 
 namespace PbaU12Tools.Bracket
 {
-    public class BracketDataGenerator
+    public partial class BracketGenerator
     {
         #region Enum
         #endregion
@@ -20,63 +20,63 @@ namespace PbaU12Tools.Bracket
 
         #region コンストラクタ
 
-        public BracketDataGenerator(Categories category, int numOfTeams, int numOfSuperSeed)
+        public BracketGenerator(Categories category, int numOfTeams, int numOfSuperSeed)
         {
-            BracketData.Category = category;
-            BracketData.NumberOfTeams = numOfTeams;
-            BracketData.NumberOfSuperSeed = numOfSuperSeed;
+            Category = category;
+            NumberOfTeams = numOfTeams;
+            NumberOfSuperSeed = numOfSuperSeed;
 
-            BracketData.PureSeedArray = new int[BracketData.NumberOfTeams];
+            PureSeedArray = new int[NumberOfTeams];
         }
         #endregion
 
         #region プロパティ
         public TournamentData.TournamentData? _tournamentData { get; set; }
-        public BracketData BracketData { get; set; } = new();
+        //public BracketGenerator BracketData { get; set; } = new();
         #endregion
 
         #region メソッド
-        public void Create()
+        public void CreateGenData()
         {
             // 全体を一つのパートに見立てて作業用の枠を作りシード番号を埋める
-            BracketData.AllDataInfo!.NumOfTeams = BracketData.NumberOfTeams;
-            fillSeedNumber(BracketData.AllDataInfo, BracketData.NumberOfTeams);
+            AllDataInfo!.NumOfTeams = NumberOfTeams;
+            fillSeedNumber(AllDataInfo, NumberOfTeams);
 
-            if (BracketData.NumberOfSuperSeed != 0)
+            if (NumberOfSuperSeed != 0)
             {
-                int addRound = round(BracketData.NumberOfSuperSeed, out _);
-                BracketData.AllDataInfo.Round += addRound - 1;
+                int addRound = round(NumberOfSuperSeed, out _);
+                AllDataInfo.Round += addRound - 1;
             }
 
             // 不要な枠を除いたシード番号の配列を作る
-            BracketData.PureSeedArray = new int[BracketData.NumberOfTeams];
+            PureSeedArray = new int[NumberOfTeams];
             int tIdx = 0;
-            for (int i = 0; i < BracketData.AllDataInfo.FullFrames / 2; i++)
+            for (int i = 0; i < AllDataInfo.FullFrames / 2; i++)
             {
-               if (BracketData.AllDataInfo.FirstRoundData[i].Slots[0] != 0)
+               if (AllDataInfo.FirstRoundData[i].Slots[0] != 0)
                 {
-                    BracketData.PureSeedArray[tIdx++] = BracketData.AllDataInfo.FirstRoundData[i].Slots[0];
+                    PureSeedArray[tIdx++] = AllDataInfo.FirstRoundData[i].Slots[0];
                 }
-                if (BracketData.AllDataInfo.FirstRoundData[i].Slots[1] != 0)
+                if (AllDataInfo.FirstRoundData[i].Slots[1] != 0)
                 {
-                    BracketData.PureSeedArray[tIdx++] = BracketData.AllDataInfo.FirstRoundData[i].Slots[1];
+                    PureSeedArray[tIdx++] = AllDataInfo.FirstRoundData[i].Slots[1];
                 }
             }
 
-            if (BracketData.NumberOfSuperSeed == 0)
+            if (NumberOfSuperSeed == 0)
             {
-                BracketData.PartInfos.Add(BracketData.AllDataInfo);
+                PartInfos.Add(AllDataInfo);
             }
             else
             {
                 // スーパーシード毎にパート分けしチーム数を決める
-                int[] numOfTeamsPerPart = new int[BracketData.NumberOfSuperSeed];
+                int[] numOfTeamsPerPart = new int[NumberOfSuperSeed];
                 int partIdx = 0;
                 int teams = 1;
-                for (int i = 1; i < BracketData.NumberOfTeams; i++)
+                for (int i = 1; i < NumberOfTeams; i++)
                 {
                     teams++;
-                    if (BracketData.PureSeedArray[i] <= BracketData.NumberOfSuperSeed * 2)
+                    if (PureSeedArray[i] <= NumberOfSuperSeed * 2)
                     {
                         numOfTeamsPerPart[partIdx++] = teams;
                         teams = 1;
@@ -84,17 +84,17 @@ namespace PbaU12Tools.Bracket
                     }
                 }
                 // スーパーシードのパート毎に、シード番号を埋める
-                BracketData.PartInfos = [];
-                for (int i = 0; i < BracketData.NumberOfSuperSeed; i++)
+                PartInfos = [];
+                for (int i = 0; i < NumberOfSuperSeed; i++)
                 {
-                    BracketData.PartInfo partDataInfo = new()
+                    PartInfo partDataInfo = new()
                     {
                         PartNumber = i + 1,
                         NumOfTeams = numOfTeamsPerPart[i]
                     };
                     fillSeedNumber(partDataInfo!, partDataInfo.NumOfTeams - 1);
 
-                    BracketData.PartInfos.Add(partDataInfo);
+                    PartInfos.Add(partDataInfo);
                 }
             }
         }
@@ -301,9 +301,9 @@ namespace PbaU12Tools.Bracket
         /// 作業用の枠を確保し、シード番号を埋める
         /// </summary>
         /// <param name="partInfo">パート毎の情報</param>
-        private void fillSeedNumber(BracketData.PartInfo partInfo, int numOfTeams)
+        private void fillSeedNumber(PartInfo partInfo, int numOfTeams)
         {
-            partInfo.Round = BracketDataGenerator.round(numOfTeams, out int numOfElement);
+            partInfo.Round = BracketGenerator.round(numOfTeams, out int numOfElement);
             partInfo.NumberOfElement = numOfElement;
 
             int round = 0;
@@ -312,7 +312,7 @@ namespace PbaU12Tools.Bracket
                 partInfo.FullFrames = (int)Math.Pow(2, round++);
             }
 
-            if (BracketData.NumberOfSuperSeed == 0)
+            if (NumberOfSuperSeed == 0)
             {
                 partInfo.Node = getElementDetail(numOfTeams, partInfo.NumberOfElement, false);
             }
@@ -343,20 +343,24 @@ namespace PbaU12Tools.Bracket
                 }
             }
             // 不要な枠を示す値（0）を設定する
-            //partInfo.FirstRoundData = new int[partInfo.FullFrames / 2, 2];
             for (int i = 0; i < partInfo.FullFrames / 2; i++)
             {
-                BracketData.RoundData roundData = new();
+                BracketData.RoundData roundData =
+                    new()
+                    {
+                        Match = new()
+                        {
+                            Round = 1
+                        }
+                    };
                 for (int j = 0; j < 2; j++)
                 {
                     if (tTemp[i, j] <= numOfTeams)
                     {
-                        //partInfo.FirstRoundData[i, j] = tTemp[i, j];
                         roundData.Slots[j] = tTemp[i, j];
                     }
                     else
                     {
-                        //partInfo.FirstRoundData[i, j] = 0;
                         roundData.Slots[j] = 0;
                     }
                 }

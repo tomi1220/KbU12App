@@ -8,7 +8,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 
-namespace PbaU12Tools
+namespace PbaU12Tools.Xml
 {
     public class KbU12XmlSerializer
     {
@@ -32,17 +32,17 @@ namespace PbaU12Tools
         /// <summary>
         /// 逆シリアル化するクラス
         /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute]
+        [XmlIgnore]
         public Encoding Encoding { get; set; } = Encoding.UTF8;
         /// <summary>
         /// 逆シリアル化するクラス
         /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute]
+        [XmlIgnore]
         public Type ClassType { get; set; } = typeof(object);
         /// <summary>
         /// 例外情報
         /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute]
+        [XmlIgnore]
         public Exception? ExceptionData { get; set; }
         #endregion
 
@@ -64,7 +64,7 @@ namespace PbaU12Tools
                 XmlSerializer xmlSerializer = new(ClassType);
 
                 XmlSerializerNamespaces ns = new();
-                ns.Add(String.Empty, String.Empty);
+                ns.Add(string.Empty, string.Empty);
 
                 stream = new MemoryStream();
                 xmlSerializer.Serialize(stream, targetObj, ns);

@@ -44,38 +44,32 @@
             toolStripTextBox1 = new ToolStripTextBox();
             toolStripMenuItemBracketOutput = new ToolStripMenuItem();
             panelAll = new Panel();
-            tabControlMain = new TabControl();
-            tabPageTournamentBaseData = new TabPage();
-            panelTournamentBaseData = new Panel();
-            panelVenue = new Panel();
-            groupBoxVenue = new GroupBox();
-            buttonDeleteVenue = new Button();
-            buttonEditVenue = new Button();
-            buttonAddVenue = new Button();
-            listViewVenue = new ListView();
-            columnTargetDate = new ColumnHeader();
-            columnVenue = new ColumnHeader();
-            columnCourt = new ColumnHeader();
-            tableLayoutPanelTournamentBaseData = new TableLayoutPanel();
-            numOfTeamsCtrlGirls = new PbaU12Tools.ControlEx.NumOfTeamsCtrl();
-            numOfTeamsCtrlBoys = new PbaU12Tools.ControlEx.NumOfTeamsCtrl();
-            tabPageBracketData = new TabPage();
-            tabPageScore = new TabPage();
             panelName = new Panel();
             labelTournamentName = new Label();
             panel1 = new Panel();
             buttonTournamentName = new Button();
             toolTip1 = new ToolTip(components);
+            tableLayoutPanelMain = new TableLayoutPanel();
+            tableLayoutPanelBaseData = new TableLayoutPanel();
+            tableLayoutPanelGen = new TableLayoutPanel();
+            panelBaseData = new Panel();
+            buttonBasedata = new Button();
+            richTextBoxBaseDataContents = new RichTextBox();
+            panelLottery = new Panel();
+            buttonLottery = new Button();
+            labelDrop = new Label();
+            tableLayoutPanelScore = new TableLayoutPanel();
+            buttonScore = new Button();
             menuStrip1.SuspendLayout();
             panelAll.SuspendLayout();
-            tabControlMain.SuspendLayout();
-            tabPageTournamentBaseData.SuspendLayout();
-            panelTournamentBaseData.SuspendLayout();
-            panelVenue.SuspendLayout();
-            groupBoxVenue.SuspendLayout();
-            tableLayoutPanelTournamentBaseData.SuspendLayout();
             panelName.SuspendLayout();
             panel1.SuspendLayout();
+            tableLayoutPanelMain.SuspendLayout();
+            tableLayoutPanelBaseData.SuspendLayout();
+            tableLayoutPanelGen.SuspendLayout();
+            panelBaseData.SuspendLayout();
+            panelLottery.SuspendLayout();
+            tableLayoutPanelScore.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -175,7 +169,7 @@
             // 
             // panelAll
             // 
-            panelAll.Controls.Add(tabControlMain);
+            panelAll.Controls.Add(tableLayoutPanelMain);
             panelAll.Controls.Add(panelName);
             panelAll.Dock = DockStyle.Fill;
             panelAll.Enabled = false;
@@ -183,192 +177,6 @@
             panelAll.Name = "panelAll";
             panelAll.Size = new Size(617, 383);
             panelAll.TabIndex = 1;
-            // 
-            // tabControlMain
-            // 
-            tabControlMain.Controls.Add(tabPageTournamentBaseData);
-            tabControlMain.Controls.Add(tabPageBracketData);
-            tabControlMain.Controls.Add(tabPageScore);
-            tabControlMain.Dock = DockStyle.Fill;
-            tabControlMain.Location = new Point(0, 55);
-            tabControlMain.Name = "tabControlMain";
-            tabControlMain.SelectedIndex = 0;
-            tabControlMain.Size = new Size(617, 328);
-            tabControlMain.TabIndex = 1;
-            // 
-            // tabPageTournamentBaseData
-            // 
-            tabPageTournamentBaseData.Controls.Add(panelTournamentBaseData);
-            tabPageTournamentBaseData.Location = new Point(4, 28);
-            tabPageTournamentBaseData.Name = "tabPageTournamentBaseData";
-            tabPageTournamentBaseData.Padding = new Padding(3);
-            tabPageTournamentBaseData.Size = new Size(609, 296);
-            tabPageTournamentBaseData.TabIndex = 0;
-            tabPageTournamentBaseData.Text = "大会基本情報";
-            tabPageTournamentBaseData.UseVisualStyleBackColor = true;
-            // 
-            // panelTournamentBaseData
-            // 
-            panelTournamentBaseData.Controls.Add(panelVenue);
-            panelTournamentBaseData.Controls.Add(tableLayoutPanelTournamentBaseData);
-            panelTournamentBaseData.Dock = DockStyle.Fill;
-            panelTournamentBaseData.Location = new Point(3, 3);
-            panelTournamentBaseData.Name = "panelTournamentBaseData";
-            panelTournamentBaseData.Size = new Size(603, 290);
-            panelTournamentBaseData.TabIndex = 0;
-            // 
-            // panelVenue
-            // 
-            panelVenue.Controls.Add(groupBoxVenue);
-            panelVenue.Dock = DockStyle.Fill;
-            panelVenue.Location = new Point(0, 138);
-            panelVenue.Name = "panelVenue";
-            panelVenue.Size = new Size(603, 152);
-            panelVenue.TabIndex = 5;
-            // 
-            // groupBoxVenue
-            // 
-            groupBoxVenue.Controls.Add(buttonDeleteVenue);
-            groupBoxVenue.Controls.Add(buttonEditVenue);
-            groupBoxVenue.Controls.Add(buttonAddVenue);
-            groupBoxVenue.Controls.Add(listViewVenue);
-            groupBoxVenue.Dock = DockStyle.Fill;
-            groupBoxVenue.Location = new Point(0, 0);
-            groupBoxVenue.Name = "groupBoxVenue";
-            groupBoxVenue.Size = new Size(603, 152);
-            groupBoxVenue.TabIndex = 5;
-            groupBoxVenue.TabStop = false;
-            groupBoxVenue.Text = "会場情報(&V):";
-            // 
-            // buttonDeleteVenue
-            // 
-            buttonDeleteVenue.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonDeleteVenue.Location = new Point(539, 88);
-            buttonDeleteVenue.Name = "buttonDeleteVenue";
-            buttonDeleteVenue.Size = new Size(49, 27);
-            buttonDeleteVenue.TabIndex = 3;
-            toolTip1.SetToolTip(buttonDeleteVenue, "日程・会場の削除");
-            buttonDeleteVenue.UseVisualStyleBackColor = true;
-            buttonDeleteVenue.Click += buttonDeleteVenue_Click;
-            // 
-            // buttonEditVenue
-            // 
-            buttonEditVenue.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonEditVenue.Location = new Point(539, 55);
-            buttonEditVenue.Name = "buttonEditVenue";
-            buttonEditVenue.Size = new Size(49, 27);
-            buttonEditVenue.TabIndex = 2;
-            toolTip1.SetToolTip(buttonEditVenue, "日程・会場の編集");
-            buttonEditVenue.UseVisualStyleBackColor = true;
-            buttonEditVenue.Click += buttonEditVenue_Click;
-            // 
-            // buttonAddVenue
-            // 
-            buttonAddVenue.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonAddVenue.Location = new Point(539, 22);
-            buttonAddVenue.Name = "buttonAddVenue";
-            buttonAddVenue.Size = new Size(49, 27);
-            buttonAddVenue.TabIndex = 1;
-            toolTip1.SetToolTip(buttonAddVenue, "日程・会場の追加");
-            buttonAddVenue.UseVisualStyleBackColor = true;
-            buttonAddVenue.Click += buttonAddVenue_Click;
-            // 
-            // listViewVenue
-            // 
-            listViewVenue.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            listViewVenue.Columns.AddRange(new ColumnHeader[] { columnTargetDate, columnVenue, columnCourt });
-            listViewVenue.Location = new Point(11, 22);
-            listViewVenue.Name = "listViewVenue";
-            listViewVenue.Size = new Size(515, 121);
-            listViewVenue.TabIndex = 0;
-            listViewVenue.UseCompatibleStateImageBehavior = false;
-            listViewVenue.View = View.Details;
-            listViewVenue.DoubleClick += listViewVenue_DoubleClick;
-            // 
-            // columnTargetDate
-            // 
-            columnTargetDate.Text = "対象日";
-            columnTargetDate.Width = 100;
-            // 
-            // columnVenue
-            // 
-            columnVenue.Text = "会場";
-            columnVenue.Width = 250;
-            // 
-            // columnCourt
-            // 
-            columnCourt.Text = "コート";
-            columnCourt.Width = 150;
-            // 
-            // tableLayoutPanelTournamentBaseData
-            // 
-            tableLayoutPanelTournamentBaseData.ColumnCount = 2;
-            tableLayoutPanelTournamentBaseData.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelTournamentBaseData.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelTournamentBaseData.Controls.Add(numOfTeamsCtrlGirls, 1, 0);
-            tableLayoutPanelTournamentBaseData.Controls.Add(numOfTeamsCtrlBoys, 0, 0);
-            tableLayoutPanelTournamentBaseData.Dock = DockStyle.Top;
-            tableLayoutPanelTournamentBaseData.Location = new Point(0, 0);
-            tableLayoutPanelTournamentBaseData.Name = "tableLayoutPanelTournamentBaseData";
-            tableLayoutPanelTournamentBaseData.RowCount = 1;
-            tableLayoutPanelTournamentBaseData.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelTournamentBaseData.Size = new Size(603, 138);
-            tableLayoutPanelTournamentBaseData.TabIndex = 3;
-            // 
-            // numOfTeamsCtrlGirls
-            // 
-            numOfTeamsCtrlGirls.Category = PbaU12Tools.Categories.Girls;
-            numOfTeamsCtrlGirls.CategoryValidity = false;
-            numOfTeamsCtrlGirls.Dock = DockStyle.Fill;
-            numOfTeamsCtrlGirls.FinalLeage = false;
-            numOfTeamsCtrlGirls.Location = new Point(304, 4);
-            numOfTeamsCtrlGirls.Margin = new Padding(3, 4, 3, 4);
-            numOfTeamsCtrlGirls.MinimumSize = new Size(270, 127);
-            numOfTeamsCtrlGirls.Name = "numOfTeamsCtrlGirls";
-            numOfTeamsCtrlGirls.NumberOfSuperSeeds = 0;
-            numOfTeamsCtrlGirls.NumberOfTeams = 0;
-            numOfTeamsCtrlGirls.Padding = new Padding(6, 0, 6, 6);
-            numOfTeamsCtrlGirls.Size = new Size(296, 130);
-            numOfTeamsCtrlGirls.TabIndex = 1;
-            numOfTeamsCtrlGirls.UseFinalLeage = false;
-            numOfTeamsCtrlGirls.UseSuperSeeds = false;
-            // 
-            // numOfTeamsCtrlBoys
-            // 
-            numOfTeamsCtrlBoys.Category = PbaU12Tools.Categories.Boys;
-            numOfTeamsCtrlBoys.CategoryValidity = false;
-            numOfTeamsCtrlBoys.Dock = DockStyle.Fill;
-            numOfTeamsCtrlBoys.FinalLeage = false;
-            numOfTeamsCtrlBoys.Location = new Point(3, 4);
-            numOfTeamsCtrlBoys.Margin = new Padding(3, 4, 3, 4);
-            numOfTeamsCtrlBoys.MinimumSize = new Size(270, 127);
-            numOfTeamsCtrlBoys.Name = "numOfTeamsCtrlBoys";
-            numOfTeamsCtrlBoys.NumberOfSuperSeeds = 0;
-            numOfTeamsCtrlBoys.NumberOfTeams = 0;
-            numOfTeamsCtrlBoys.Padding = new Padding(6, 0, 6, 6);
-            numOfTeamsCtrlBoys.Size = new Size(295, 130);
-            numOfTeamsCtrlBoys.TabIndex = 0;
-            numOfTeamsCtrlBoys.UseFinalLeage = false;
-            numOfTeamsCtrlBoys.UseSuperSeeds = false;
-            // 
-            // tabPageBracketData
-            // 
-            tabPageBracketData.Location = new Point(4, 29);
-            tabPageBracketData.Name = "tabPageBracketData";
-            tabPageBracketData.Padding = new Padding(3);
-            tabPageBracketData.Size = new Size(609, 295);
-            tabPageBracketData.TabIndex = 1;
-            tabPageBracketData.Text = "組合せ情報";
-            tabPageBracketData.UseVisualStyleBackColor = true;
-            // 
-            // tabPageScore
-            // 
-            tabPageScore.Location = new Point(4, 29);
-            tabPageScore.Name = "tabPageScore";
-            tabPageScore.Size = new Size(609, 295);
-            tabPageScore.TabIndex = 2;
-            tabPageScore.Text = "スコア管理";
-            tabPageScore.UseVisualStyleBackColor = true;
             // 
             // panelName
             // 
@@ -413,6 +221,141 @@
             buttonTournamentName.UseVisualStyleBackColor = true;
             buttonTournamentName.Click += buttonTournamentName_Click;
             // 
+            // tableLayoutPanelMain
+            // 
+            tableLayoutPanelMain.ColumnCount = 1;
+            tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanelMain.Controls.Add(tableLayoutPanelBaseData, 0, 0);
+            tableLayoutPanelMain.Controls.Add(tableLayoutPanelGen, 0, 1);
+            tableLayoutPanelMain.Controls.Add(tableLayoutPanelScore, 0, 2);
+            tableLayoutPanelMain.Dock = DockStyle.Fill;
+            tableLayoutPanelMain.Location = new Point(0, 55);
+            tableLayoutPanelMain.Name = "tableLayoutPanelMain";
+            tableLayoutPanelMain.RowCount = 3;
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
+            tableLayoutPanelMain.Size = new Size(617, 328);
+            tableLayoutPanelMain.TabIndex = 1;
+            // 
+            // tableLayoutPanelBaseData
+            // 
+            tableLayoutPanelBaseData.ColumnCount = 2;
+            tableLayoutPanelBaseData.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelBaseData.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
+            tableLayoutPanelBaseData.Controls.Add(panelBaseData, 0, 0);
+            tableLayoutPanelBaseData.Controls.Add(richTextBoxBaseDataContents, 1, 0);
+            tableLayoutPanelBaseData.Dock = DockStyle.Fill;
+            tableLayoutPanelBaseData.Location = new Point(3, 3);
+            tableLayoutPanelBaseData.Name = "tableLayoutPanelBaseData";
+            tableLayoutPanelBaseData.RowCount = 1;
+            tableLayoutPanelBaseData.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelBaseData.Size = new Size(611, 108);
+            tableLayoutPanelBaseData.TabIndex = 0;
+            // 
+            // tableLayoutPanelGen
+            // 
+            tableLayoutPanelGen.ColumnCount = 2;
+            tableLayoutPanelGen.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelGen.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
+            tableLayoutPanelGen.Controls.Add(panelLottery, 0, 0);
+            tableLayoutPanelGen.Controls.Add(labelDrop, 1, 0);
+            tableLayoutPanelGen.Dock = DockStyle.Fill;
+            tableLayoutPanelGen.Location = new Point(3, 117);
+            tableLayoutPanelGen.Name = "tableLayoutPanelGen";
+            tableLayoutPanelGen.RowCount = 1;
+            tableLayoutPanelGen.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelGen.Size = new Size(611, 108);
+            tableLayoutPanelGen.TabIndex = 1;
+            // 
+            // panelBaseData
+            // 
+            panelBaseData.Controls.Add(buttonBasedata);
+            panelBaseData.Dock = DockStyle.Fill;
+            panelBaseData.Location = new Point(3, 3);
+            panelBaseData.Name = "panelBaseData";
+            panelBaseData.Size = new Size(146, 102);
+            panelBaseData.TabIndex = 0;
+            // 
+            // buttonBasedata
+            // 
+            buttonBasedata.AutoSize = true;
+            buttonBasedata.Dock = DockStyle.Fill;
+            buttonBasedata.Font = new Font("Meiryo UI", 9F);
+            buttonBasedata.Location = new Point(0, 0);
+            buttonBasedata.Name = "buttonBasedata";
+            buttonBasedata.Size = new Size(146, 102);
+            buttonBasedata.TabIndex = 2;
+            buttonBasedata.Text = "基本情報(&B)...";
+            buttonBasedata.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxBaseDataContents
+            // 
+            richTextBoxBaseDataContents.BackColor = SystemColors.Window;
+            richTextBoxBaseDataContents.BorderStyle = BorderStyle.None;
+            richTextBoxBaseDataContents.Dock = DockStyle.Fill;
+            richTextBoxBaseDataContents.Location = new Point(155, 3);
+            richTextBoxBaseDataContents.Name = "richTextBoxBaseDataContents";
+            richTextBoxBaseDataContents.ReadOnly = true;
+            richTextBoxBaseDataContents.Size = new Size(453, 102);
+            richTextBoxBaseDataContents.TabIndex = 1;
+            richTextBoxBaseDataContents.Text = "";
+            // 
+            // panelLottery
+            // 
+            panelLottery.Controls.Add(buttonLottery);
+            panelLottery.Dock = DockStyle.Fill;
+            panelLottery.Location = new Point(3, 3);
+            panelLottery.Name = "panelLottery";
+            panelLottery.Size = new Size(146, 102);
+            panelLottery.TabIndex = 0;
+            // 
+            // buttonLottery
+            // 
+            buttonLottery.Dock = DockStyle.Fill;
+            buttonLottery.Location = new Point(0, 0);
+            buttonLottery.Name = "buttonLottery";
+            buttonLottery.Size = new Size(146, 102);
+            buttonLottery.TabIndex = 0;
+            buttonLottery.Text = "抽選結果(&L)...";
+            buttonLottery.UseVisualStyleBackColor = true;
+            // 
+            // labelDrop
+            // 
+            labelDrop.Dock = DockStyle.Fill;
+            labelDrop.ForeColor = Color.Gray;
+            labelDrop.Location = new Point(155, 0);
+            labelDrop.Name = "labelDrop";
+            labelDrop.Padding = new Padding(50, 0, 50, 0);
+            labelDrop.Size = new Size(453, 108);
+            labelDrop.TabIndex = 1;
+            labelDrop.Text = "ここに、会場・試合順の設定が完了した\r\nExcelファイルをドロップしてください";
+            labelDrop.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanelScore
+            // 
+            tableLayoutPanelScore.ColumnCount = 2;
+            tableLayoutPanelScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
+            tableLayoutPanelScore.Controls.Add(buttonScore, 0, 0);
+            tableLayoutPanelScore.Dock = DockStyle.Fill;
+            tableLayoutPanelScore.Location = new Point(3, 231);
+            tableLayoutPanelScore.Name = "tableLayoutPanelScore";
+            tableLayoutPanelScore.RowCount = 1;
+            tableLayoutPanelScore.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelScore.Size = new Size(611, 94);
+            tableLayoutPanelScore.TabIndex = 2;
+            // 
+            // buttonScore
+            // 
+            buttonScore.Dock = DockStyle.Fill;
+            buttonScore.Location = new Point(3, 3);
+            buttonScore.Name = "buttonScore";
+            buttonScore.Size = new Size(146, 88);
+            buttonScore.TabIndex = 0;
+            buttonScore.Text = "スコア入力(&S)...";
+            buttonScore.UseVisualStyleBackColor = true;
+            // 
             // FormDistTourneyMain
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
@@ -429,15 +372,16 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             panelAll.ResumeLayout(false);
-            tabControlMain.ResumeLayout(false);
-            tabPageTournamentBaseData.ResumeLayout(false);
-            panelTournamentBaseData.ResumeLayout(false);
-            panelVenue.ResumeLayout(false);
-            groupBoxVenue.ResumeLayout(false);
-            tableLayoutPanelTournamentBaseData.ResumeLayout(false);
             panelName.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            tableLayoutPanelMain.ResumeLayout(false);
+            tableLayoutPanelBaseData.ResumeLayout(false);
+            tableLayoutPanelGen.ResumeLayout(false);
+            panelBaseData.ResumeLayout(false);
+            panelBaseData.PerformLayout();
+            panelLottery.ResumeLayout(false);
+            tableLayoutPanelScore.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -459,27 +403,21 @@
         private ToolStripTextBox toolStripTextBox1;
         private Label labelTournamentName;
         private ToolStripMenuItem toolStripMenuItemBracketOutput;
-        private TabControl tabControlMain;
-        private TabPage tabPageTournamentBaseData;
-        private TabPage tabPageBracketData;
-        private TabPage tabPageScore;
-        private Panel panelTournamentBaseData;
         private Button buttonTournamentName;
         private Panel panel1;
-        private TableLayoutPanel tableLayoutPanelTournamentBaseData;
-        private PbaU12Tools.ControlEx.NumOfTeamsCtrl numOfTeamsCtrlGirls;
-        private PbaU12Tools.ControlEx.NumOfTeamsCtrl numOfTeamsCtrlBoys;
-        private Panel panelVenue;
-        private GroupBox groupBoxVenue;
-        private Button buttonDeleteVenue;
-        private Button buttonEditVenue;
-        private Button buttonAddVenue;
-        private ListView listViewVenue;
-        private ColumnHeader columnTargetDate;
-        private ColumnHeader columnVenue;
-        private ColumnHeader columnCourt;
         private ToolTip toolTip1;
         private ToolStripMenuItem toolStripMenuItemOpenInExplorer;
         private ToolStripSeparator toolStripSeparator3;
+        private TableLayoutPanel tableLayoutPanelMain;
+        private TableLayoutPanel tableLayoutPanelBaseData;
+        private TableLayoutPanel tableLayoutPanelGen;
+        private Panel panelBaseData;
+        private Button buttonBasedata;
+        private RichTextBox richTextBoxBaseDataContents;
+        private Panel panelLottery;
+        private Button buttonLottery;
+        private Label labelDrop;
+        private TableLayoutPanel tableLayoutPanelScore;
+        private Button buttonScore;
     }
 }

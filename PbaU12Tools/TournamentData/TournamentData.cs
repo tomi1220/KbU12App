@@ -6,12 +6,28 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using PbaU12Tools.Bracket;
 using PbaU12Tools.Venue;
+using PbaU12Tools.Xml;
 
 namespace PbaU12Tools.TournamentData
 {
     /// <summary>
     /// 大会情報
     /// </summary>
+    public class TournamentBaseData
+    {
+        /// カテゴリー
+        /// </summary>
+        public Categories Category { get; set; }
+        /// <summary>
+        /// 出場チーム数
+        /// </summary>
+        public int NumberOfTeams { get; set; }
+        /// <summary>
+        /// スーパーシードチーム数
+        /// </summary>
+        public int NumberOfSuperSeed { get; set; } = 0;
+    }
+
     public class TournamentData
     {
         #region プロパティ
@@ -25,6 +41,9 @@ namespace PbaU12Tools.TournamentData
         /// </summary>
         public string TournamentName { get; set; } = string.Empty;
 
+        public TournamentBaseData BaseDataBoys { get; set; } = new TournamentBaseData();
+        public TournamentBaseData BaseDataGirls { get; set; } = new TournamentBaseData();
+        //public TournamentBaseData BaseDataBoys { get; set; } = new TournamentBaseData();
         /// <summary>
         /// 地区名称の表示
         /// </summary>

@@ -44,7 +44,7 @@ namespace PbaU12Tools
             listBoxGirls.Items.Clear();
             listViewSeedNumGirls.Items.Clear();
             listViewSuperSeedGirls.Items.Clear();
-
+/*
             // 男子
             //if (tournamentData.BrackectDataDic.TryGetValue(Category.Boys, out BracketData? boysData))
             if (tournamentData.BrackectDataBoys != null)
@@ -135,6 +135,7 @@ namespace PbaU12Tools
                     listViewSuperSeedGirls.Items.Add(lvi);
                 }
             }
+*/
         }
         #endregion
 
