@@ -37,7 +37,10 @@ namespace PbaU12Tools.Venue
         #endregion
 
         #region ローカル・メソッド
-        private void CreateCourtDatas()
+        /// <summary>
+        /// 他の会場のコートデータを作成する
+        /// </summary>
+        private void CreateOtherVenueCourtDatas()
         {
             if (OtherVenueList != null)
             {
@@ -56,10 +59,12 @@ namespace PbaU12Tools.Venue
             }
         }
 
+        /// <summary>
+        /// 会場データをロードする
+        /// </summary>
+        /// <returns></returns>
         private VenueDatas? loadVenueDatas()
         {
-            comboBoxVenue.Items.Clear();
-
             try
             {
                 VenueDatas? venueDatas = VenueDatas.DeserializeVenueDatas();
@@ -79,6 +84,10 @@ namespace PbaU12Tools.Venue
             }
         }
 
+        /// <summary>
+        /// 会場ComboBoxに会場情報を設定する
+        /// </summary>
+        /// <param name="venueDatas"></param>
         private void SetVenueComboBox(VenueDatas? venueDatas)
         {
             if (venueDatas != null)
@@ -96,19 +105,12 @@ namespace PbaU12Tools.Venue
                             });
                     }
                     comboBoxVenue.Items.AddRange([.. itemDatas]);
-
-                    if (VenueData != null)
-                    {
-                        comboBoxVenue.SelectedText = VenueData.Name;
-                    }
                 }
             }
         }
 
-        private void SetCourtInfo()
+        private void SetCourtInfo(List<string>? courtData)
         {
-            _courtDatas.TryGetValue(dateTimePicker1.Value.Date, out List<string>? courtData);
-
             foreach (var o in groupBoxCourt.Controls)
             {
                 if (o is CheckBox checkBox)
@@ -159,19 +161,22 @@ namespace PbaU12Tools.Venue
 
         private void VenueSettingDialog_Load(object sender, EventArgs e)
         {
-            CreateCourtDatas();
+            VenueDatas? venueDatas = loadVenueDatas();
 
-            if (VenueData == null)
-            {
-                VenueDatas? venueDatas = loadVenueDatas();
+            SetVenueComboBox(venueDatas);
 
-                SetVenueComboBox(venueDatas);
+            CreateOtherVenueCourtDatas();
 
-                SetCourtInfo();
-            }
-            else if (VenueData != null)
+            if (VenueData != null)
             {
                 dateTimePicker1.Value = VenueData.TargetDate;
+
+                comboBoxVenue.SelectedText = VenueData.Name;
+
+                if (_courtDatas.TryGetValue(VenueData.TargetDate, out List<string>? courtData))
+                {
+                    SetCourtInfo(courtData);
+                }
 
                 foreach (var c in VenueData.CourtList)
                 {
@@ -256,8 +261,11 @@ namespace PbaU12Tools.Venue
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             // 対象日が変更された
-            //SetVenueComboBox();
-            SetCourtInfo();
+            if (_courtDatas.TryGetValue(
+                dateTimePicker1.Value.Date, out List<string>? courtData))
+            {
+                SetCourtInfo(courtData);
+            }
         }
 
         private void buttonBackColor_Click(object sender, EventArgs e)

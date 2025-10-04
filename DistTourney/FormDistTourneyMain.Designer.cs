@@ -37,6 +37,8 @@
             toolStripMenuItemSave = new ToolStripMenuItem();
             toolStripMenuItemSaveAs = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
+            toolStripMenuItemOpenInExplorer = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
             toolStripMenuItemExit = new ToolStripMenuItem();
             toolStripMenuItemSettings = new ToolStripMenuItem();
             toolStripTextBox1 = new ToolStripTextBox();
@@ -64,8 +66,6 @@
             panel1 = new Panel();
             buttonTournamentName = new Button();
             toolTip1 = new ToolTip(components);
-            toolStripMenuItemOpenInExplorer = new ToolStripMenuItem();
-            toolStripSeparator3 = new ToolStripSeparator();
             menuStrip1.SuspendLayout();
             panelAll.SuspendLayout();
             tabControlMain.SuspendLayout();
@@ -80,10 +80,11 @@
             // 
             // menuStrip1
             // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { ファイルFToolStripMenuItem, toolStripMenuItemSettings, toolStripTextBox1, toolStripMenuItemBracketOutput });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(617, 27);
+            menuStrip1.Size = new Size(617, 31);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -91,58 +92,70 @@
             // 
             ファイルFToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemNew, toolStripMenuItemOpen, toolStripSeparator1, toolStripMenuItemSave, toolStripMenuItemSaveAs, toolStripSeparator2, toolStripMenuItemOpenInExplorer, toolStripSeparator3, toolStripMenuItemExit });
             ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
-            ファイルFToolStripMenuItem.Size = new Size(67, 23);
+            ファイルFToolStripMenuItem.Size = new Size(82, 27);
             ファイルFToolStripMenuItem.Text = "ファイル(F)";
             // 
             // toolStripMenuItemNew
             // 
             toolStripMenuItemNew.Name = "toolStripMenuItemNew";
-            toolStripMenuItemNew.Size = new Size(204, 22);
+            toolStripMenuItemNew.Size = new Size(253, 26);
             toolStripMenuItemNew.Text = "新規作成(&N)...";
             toolStripMenuItemNew.Click += toolStripMenuItemNew_Click;
             // 
             // toolStripMenuItemOpen
             // 
             toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
-            toolStripMenuItemOpen.Size = new Size(204, 22);
+            toolStripMenuItemOpen.Size = new Size(253, 26);
             toolStripMenuItemOpen.Text = "開く(&O)...";
             toolStripMenuItemOpen.Click += toolStripMenuItemOpen_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(201, 6);
+            toolStripSeparator1.Size = new Size(250, 6);
             // 
             // toolStripMenuItemSave
             // 
             toolStripMenuItemSave.Name = "toolStripMenuItemSave";
-            toolStripMenuItemSave.Size = new Size(204, 22);
+            toolStripMenuItemSave.Size = new Size(253, 26);
             toolStripMenuItemSave.Text = "保存(&S)...";
             toolStripMenuItemSave.Click += toolStripMenuItemSave_Click;
             // 
             // toolStripMenuItemSaveAs
             // 
             toolStripMenuItemSaveAs.Name = "toolStripMenuItemSaveAs";
-            toolStripMenuItemSaveAs.Size = new Size(204, 22);
+            toolStripMenuItemSaveAs.Size = new Size(253, 26);
             toolStripMenuItemSaveAs.Text = "名前を付けて保存(&A)...";
             toolStripMenuItemSaveAs.Click += toolStripMenuItemSaveAs_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(201, 6);
+            toolStripSeparator2.Size = new Size(250, 6);
+            // 
+            // toolStripMenuItemOpenInExplorer
+            // 
+            toolStripMenuItemOpenInExplorer.Name = "toolStripMenuItemOpenInExplorer";
+            toolStripMenuItemOpenInExplorer.Size = new Size(253, 26);
+            toolStripMenuItemOpenInExplorer.Text = "保存先フォルダーを開く(&E)...";
+            toolStripMenuItemOpenInExplorer.Click += toolStripMenuItemOpenInExplorer_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(250, 6);
             // 
             // toolStripMenuItemExit
             // 
             toolStripMenuItemExit.Name = "toolStripMenuItemExit";
-            toolStripMenuItemExit.Size = new Size(204, 22);
+            toolStripMenuItemExit.Size = new Size(253, 26);
             toolStripMenuItemExit.Text = "終了(X)";
             toolStripMenuItemExit.Click += toolStripMenuItemExit_Click;
             // 
             // toolStripMenuItemSettings
             // 
             toolStripMenuItemSettings.Name = "toolStripMenuItemSettings";
-            toolStripMenuItemSettings.Size = new Size(66, 23);
+            toolStripMenuItemSettings.Size = new Size(80, 27);
             toolStripMenuItemSettings.Text = "設定(&S)...";
             toolStripMenuItemSettings.Click += toolStripMenuItemSettings_Click;
             // 
@@ -151,12 +164,12 @@
             toolStripTextBox1.Alignment = ToolStripItemAlignment.Right;
             toolStripTextBox1.Name = "toolStripTextBox1";
             toolStripTextBox1.ReadOnly = true;
-            toolStripTextBox1.Size = new Size(100, 23);
+            toolStripTextBox1.Size = new Size(100, 27);
             // 
             // toolStripMenuItemBracketOutput
             // 
             toolStripMenuItemBracketOutput.Name = "toolStripMenuItemBracketOutput";
-            toolStripMenuItemBracketOutput.Size = new Size(131, 23);
+            toolStripMenuItemBracketOutput.Size = new Size(161, 27);
             toolStripMenuItemBracketOutput.Text = "トーナメント表出力(&O)...";
             toolStripMenuItemBracketOutput.Click += toolStripMenuItemBracketOutput_Click;
             // 
@@ -166,9 +179,9 @@
             panelAll.Controls.Add(panelName);
             panelAll.Dock = DockStyle.Fill;
             panelAll.Enabled = false;
-            panelAll.Location = new Point(0, 27);
+            panelAll.Location = new Point(0, 31);
             panelAll.Name = "panelAll";
-            panelAll.Size = new Size(617, 387);
+            panelAll.Size = new Size(617, 383);
             panelAll.TabIndex = 1;
             // 
             // tabControlMain
@@ -180,16 +193,16 @@
             tabControlMain.Location = new Point(0, 55);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 0;
-            tabControlMain.Size = new Size(617, 332);
+            tabControlMain.Size = new Size(617, 328);
             tabControlMain.TabIndex = 1;
             // 
             // tabPageTournamentBaseData
             // 
             tabPageTournamentBaseData.Controls.Add(panelTournamentBaseData);
-            tabPageTournamentBaseData.Location = new Point(4, 24);
+            tabPageTournamentBaseData.Location = new Point(4, 28);
             tabPageTournamentBaseData.Name = "tabPageTournamentBaseData";
             tabPageTournamentBaseData.Padding = new Padding(3);
-            tabPageTournamentBaseData.Size = new Size(609, 304);
+            tabPageTournamentBaseData.Size = new Size(609, 296);
             tabPageTournamentBaseData.TabIndex = 0;
             tabPageTournamentBaseData.Text = "大会基本情報";
             tabPageTournamentBaseData.UseVisualStyleBackColor = true;
@@ -201,7 +214,7 @@
             panelTournamentBaseData.Dock = DockStyle.Fill;
             panelTournamentBaseData.Location = new Point(3, 3);
             panelTournamentBaseData.Name = "panelTournamentBaseData";
-            panelTournamentBaseData.Size = new Size(603, 298);
+            panelTournamentBaseData.Size = new Size(603, 290);
             panelTournamentBaseData.TabIndex = 0;
             // 
             // panelVenue
@@ -210,7 +223,7 @@
             panelVenue.Dock = DockStyle.Fill;
             panelVenue.Location = new Point(0, 138);
             panelVenue.Name = "panelVenue";
-            panelVenue.Size = new Size(603, 160);
+            panelVenue.Size = new Size(603, 152);
             panelVenue.TabIndex = 5;
             // 
             // groupBoxVenue
@@ -222,7 +235,7 @@
             groupBoxVenue.Dock = DockStyle.Fill;
             groupBoxVenue.Location = new Point(0, 0);
             groupBoxVenue.Name = "groupBoxVenue";
-            groupBoxVenue.Size = new Size(603, 160);
+            groupBoxVenue.Size = new Size(603, 152);
             groupBoxVenue.TabIndex = 5;
             groupBoxVenue.TabStop = false;
             groupBoxVenue.Text = "会場情報(&V):";
@@ -266,10 +279,11 @@
             listViewVenue.Columns.AddRange(new ColumnHeader[] { columnTargetDate, columnVenue, columnCourt });
             listViewVenue.Location = new Point(11, 22);
             listViewVenue.Name = "listViewVenue";
-            listViewVenue.Size = new Size(515, 129);
+            listViewVenue.Size = new Size(515, 121);
             listViewVenue.TabIndex = 0;
             listViewVenue.UseCompatibleStateImageBehavior = false;
             listViewVenue.View = View.Details;
+            listViewVenue.DoubleClick += listViewVenue_DoubleClick;
             // 
             // columnTargetDate
             // 
@@ -307,13 +321,14 @@
             numOfTeamsCtrlGirls.CategoryValidity = false;
             numOfTeamsCtrlGirls.Dock = DockStyle.Fill;
             numOfTeamsCtrlGirls.FinalLeage = false;
-            numOfTeamsCtrlGirls.Location = new Point(304, 3);
+            numOfTeamsCtrlGirls.Location = new Point(304, 4);
+            numOfTeamsCtrlGirls.Margin = new Padding(3, 4, 3, 4);
             numOfTeamsCtrlGirls.MinimumSize = new Size(270, 127);
             numOfTeamsCtrlGirls.Name = "numOfTeamsCtrlGirls";
             numOfTeamsCtrlGirls.NumberOfSuperSeeds = 0;
             numOfTeamsCtrlGirls.NumberOfTeams = 0;
             numOfTeamsCtrlGirls.Padding = new Padding(6, 0, 6, 6);
-            numOfTeamsCtrlGirls.Size = new Size(296, 132);
+            numOfTeamsCtrlGirls.Size = new Size(296, 130);
             numOfTeamsCtrlGirls.TabIndex = 1;
             numOfTeamsCtrlGirls.UseFinalLeage = false;
             numOfTeamsCtrlGirls.UseSuperSeeds = false;
@@ -324,32 +339,33 @@
             numOfTeamsCtrlBoys.CategoryValidity = false;
             numOfTeamsCtrlBoys.Dock = DockStyle.Fill;
             numOfTeamsCtrlBoys.FinalLeage = false;
-            numOfTeamsCtrlBoys.Location = new Point(3, 3);
+            numOfTeamsCtrlBoys.Location = new Point(3, 4);
+            numOfTeamsCtrlBoys.Margin = new Padding(3, 4, 3, 4);
             numOfTeamsCtrlBoys.MinimumSize = new Size(270, 127);
             numOfTeamsCtrlBoys.Name = "numOfTeamsCtrlBoys";
             numOfTeamsCtrlBoys.NumberOfSuperSeeds = 0;
             numOfTeamsCtrlBoys.NumberOfTeams = 0;
             numOfTeamsCtrlBoys.Padding = new Padding(6, 0, 6, 6);
-            numOfTeamsCtrlBoys.Size = new Size(295, 132);
+            numOfTeamsCtrlBoys.Size = new Size(295, 130);
             numOfTeamsCtrlBoys.TabIndex = 0;
             numOfTeamsCtrlBoys.UseFinalLeage = false;
             numOfTeamsCtrlBoys.UseSuperSeeds = false;
             // 
             // tabPageBracketData
             // 
-            tabPageBracketData.Location = new Point(4, 24);
+            tabPageBracketData.Location = new Point(4, 29);
             tabPageBracketData.Name = "tabPageBracketData";
             tabPageBracketData.Padding = new Padding(3);
-            tabPageBracketData.Size = new Size(609, 304);
+            tabPageBracketData.Size = new Size(609, 295);
             tabPageBracketData.TabIndex = 1;
             tabPageBracketData.Text = "組合せ情報";
             tabPageBracketData.UseVisualStyleBackColor = true;
             // 
             // tabPageScore
             // 
-            tabPageScore.Location = new Point(4, 24);
+            tabPageScore.Location = new Point(4, 29);
             tabPageScore.Name = "tabPageScore";
-            tabPageScore.Size = new Size(609, 304);
+            tabPageScore.Size = new Size(609, 295);
             tabPageScore.TabIndex = 2;
             tabPageScore.Text = "スコア管理";
             tabPageScore.UseVisualStyleBackColor = true;
@@ -397,28 +413,16 @@
             buttonTournamentName.UseVisualStyleBackColor = true;
             buttonTournamentName.Click += buttonTournamentName_Click;
             // 
-            // toolStripMenuItemOpenInExplorer
+            // FormDistTourneyMain
             // 
-            toolStripMenuItemOpenInExplorer.Name = "toolStripMenuItemOpenInExplorer";
-            toolStripMenuItemOpenInExplorer.Size = new Size(204, 22);
-            toolStripMenuItemOpenInExplorer.Text = "保存先フォルダーを開く(&E)...";
-            toolStripMenuItemOpenInExplorer.Click += toolStripMenuItemOpenInExplorer_Click;
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(201, 6);
-            // 
-            // FormDistMain
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(617, 414);
             Controls.Add(panelAll);
             Controls.Add(menuStrip1);
             Font = new Font("Meiryo UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
             MinimumSize = new Size(570, 450);
-            Name = "FormDistMain";
+            Name = "FormDistTourneyMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DistTourney";
             Load += FormDistMain_Load;

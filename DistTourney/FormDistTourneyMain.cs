@@ -6,6 +6,7 @@ using PbaU12Tools.Venue;
 using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace DistTourney
 {
@@ -338,8 +339,15 @@ namespace DistTourney
         private void updateVenueItemData(ListViewItem? listViewItem)
         {
             using VenueSettingDialog dialog = new VenueSettingDialog();
-            List<VenueItemData> otherVenueDatas = GetOtherVenueDatas(null);
+            List<VenueItemData> otherVenueDatas = GetOtherVenueDatas(listViewItem);
             dialog.OtherVenueList = otherVenueDatas;
+            if (listViewItem != null)
+            {
+                if (listViewItem.Tag is VenueItemData venueItemData)
+                {
+                    dialog.VenueData = venueItemData;
+                }
+            }
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 updateListViewVenue(dialog.VenueData!, listViewItem);
@@ -521,11 +529,37 @@ namespace DistTourney
         private void buttonEditVenue_Click(object sender, EventArgs e)
         {
             // ［会場情報（編集）］
+            if (listViewVenue.SelectedItems.Count == 1)
+            {
+                updateVenueItemData(listViewVenue.SelectedItems[0]);
+            }
         }
 
         private void buttonDeleteVenue_Click(object sender, EventArgs e)
         {
             // ［会場情報（削除）］
+            if (listViewVenue.SelectedItems.Count > 0)
+            {
+                if (MessageBox.Show(
+                    this,
+                    $"選択されている {listViewVenue.SelectedItems.Count.ToString()}項目を削除します。",
+                    this.Text,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation) == DialogResult.No)
+                {
+                    return;
+                }
+
+                updateVenueItemData(listViewVenue.SelectedItems[0]);
+            }
+        }
+
+        private void listViewVenue_DoubleClick(object sender, EventArgs e)
+        {
+            if (listViewVenue.SelectedItems.Count == 1)
+            {
+                updateVenueItemData(listViewVenue.SelectedItems[0]);
+            }
         }
         #endregion 
 
@@ -542,7 +576,7 @@ namespace DistTourney
                     this.Text,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-                return ;
+                return;
             }
 
             using BracketOutputDialog dialog = new BracketOutputDialog();
