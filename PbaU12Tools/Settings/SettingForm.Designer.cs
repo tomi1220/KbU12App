@@ -59,24 +59,22 @@
             tabPageTeamRegistration = new TabPage();
             tabControlTeamRagistration = new TabControl();
             tabPageBoysTeamList = new TabPage();
-            dataGridViewBoysTeamList = new DataGridView();
-            ColumnJbaTeamID = new DataGridViewTextBoxColumn();
-            ColumnTeamName = new DataGridViewTextBoxColumn();
-            ColumnTeamNameKana = new DataGridViewTextBoxColumn();
-            ColumnTeamNameShort = new DataGridViewTextBoxColumn();
-            ColumnJbaTeamRegistrationStatus = new DataGridViewTextBoxColumn();
             tabPageGirlsTeamList = new TabPage();
-            dataGridViewGirlsTeamList = new DataGridView();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
             imageListTeamRegistration = new ImageList(components);
             tabPageOtherOption = new TabPage();
             checkBox1 = new CheckBox();
             buttonClose = new Button();
             toolTip1 = new ToolTip(components);
+            buttonDeleteTeam = new Button();
+            buttonSaveTeams = new Button();
+            buttonEditTeam = new Button();
+            buttonAddTeam = new Button();
+            listView2 = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            listView3 = new ListView();
+            columnHeader3 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
             tabControl1.SuspendLayout();
             tabPageDataSaveFolders.SuspendLayout();
             tabPageTournamentNames.SuspendLayout();
@@ -84,9 +82,7 @@
             tabPageTeamRegistration.SuspendLayout();
             tabControlTeamRagistration.SuspendLayout();
             tabPageBoysTeamList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewBoysTeamList).BeginInit();
             tabPageGirlsTeamList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewGirlsTeamList).BeginInit();
             tabPageOtherOption.SuspendLayout();
             SuspendLayout();
             // 
@@ -346,6 +342,10 @@
             // 
             // tabPageTeamRegistration
             // 
+            tabPageTeamRegistration.Controls.Add(buttonDeleteTeam);
+            tabPageTeamRegistration.Controls.Add(buttonSaveTeams);
+            tabPageTeamRegistration.Controls.Add(buttonEditTeam);
+            tabPageTeamRegistration.Controls.Add(buttonAddTeam);
             tabPageTeamRegistration.Controls.Add(tabControlTeamRagistration);
             tabPageTeamRegistration.Location = new Point(4, 24);
             tabPageTeamRegistration.Name = "tabPageTeamRegistration";
@@ -361,61 +361,26 @@
             tabControlTeamRagistration.Controls.Add(tabPageBoysTeamList);
             tabControlTeamRagistration.Controls.Add(tabPageGirlsTeamList);
             tabControlTeamRagistration.ImageList = imageListTeamRegistration;
-            tabControlTeamRagistration.Location = new Point(6, 6);
+            tabControlTeamRagistration.Location = new Point(6, 14);
             tabControlTeamRagistration.Name = "tabControlTeamRagistration";
             tabControlTeamRagistration.SelectedIndex = 0;
-            tabControlTeamRagistration.Size = new Size(486, 339);
+            tabControlTeamRagistration.Size = new Size(486, 328);
             tabControlTeamRagistration.TabIndex = 1;
             // 
             // tabPageBoysTeamList
             // 
-            tabPageBoysTeamList.Controls.Add(dataGridViewBoysTeamList);
+            tabPageBoysTeamList.Controls.Add(listView3);
             tabPageBoysTeamList.Location = new Point(4, 4);
             tabPageBoysTeamList.Name = "tabPageBoysTeamList";
             tabPageBoysTeamList.Padding = new Padding(3);
-            tabPageBoysTeamList.Size = new Size(478, 311);
+            tabPageBoysTeamList.Size = new Size(478, 300);
             tabPageBoysTeamList.TabIndex = 0;
             tabPageBoysTeamList.Text = "男子チーム";
             tabPageBoysTeamList.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewBoysTeamList
-            // 
-            dataGridViewBoysTeamList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewBoysTeamList.Columns.AddRange(new DataGridViewColumn[] { ColumnJbaTeamID, ColumnTeamName, ColumnTeamNameKana, ColumnTeamNameShort, ColumnJbaTeamRegistrationStatus });
-            dataGridViewBoysTeamList.Dock = DockStyle.Fill;
-            dataGridViewBoysTeamList.Location = new Point(3, 3);
-            dataGridViewBoysTeamList.Name = "dataGridViewBoysTeamList";
-            dataGridViewBoysTeamList.Size = new Size(472, 305);
-            dataGridViewBoysTeamList.TabIndex = 0;
-            // 
-            // ColumnJbaTeamID
-            // 
-            ColumnJbaTeamID.HeaderText = "JBAチームID";
-            ColumnJbaTeamID.Name = "ColumnJbaTeamID";
-            // 
-            // ColumnTeamName
-            // 
-            ColumnTeamName.HeaderText = "チーム名";
-            ColumnTeamName.Name = "ColumnTeamName";
-            // 
-            // ColumnTeamNameKana
-            // 
-            ColumnTeamNameKana.HeaderText = "チーム名カナ";
-            ColumnTeamNameKana.Name = "ColumnTeamNameKana";
-            // 
-            // ColumnTeamNameShort
-            // 
-            ColumnTeamNameShort.HeaderText = "チーム名略称";
-            ColumnTeamNameShort.Name = "ColumnTeamNameShort";
-            // 
-            // ColumnJbaTeamRegistrationStatus
-            // 
-            ColumnJbaTeamRegistrationStatus.HeaderText = "JBAチーム登録状態";
-            ColumnJbaTeamRegistrationStatus.Name = "ColumnJbaTeamRegistrationStatus";
-            // 
             // tabPageGirlsTeamList
             // 
-            tabPageGirlsTeamList.Controls.Add(dataGridViewGirlsTeamList);
+            tabPageGirlsTeamList.Controls.Add(listView2);
             tabPageGirlsTeamList.Location = new Point(4, 4);
             tabPageGirlsTeamList.Name = "tabPageGirlsTeamList";
             tabPageGirlsTeamList.Padding = new Padding(3);
@@ -423,41 +388,6 @@
             tabPageGirlsTeamList.TabIndex = 1;
             tabPageGirlsTeamList.Text = "女子チーム";
             tabPageGirlsTeamList.UseVisualStyleBackColor = true;
-            // 
-            // dataGridViewGirlsTeamList
-            // 
-            dataGridViewGirlsTeamList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewGirlsTeamList.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5 });
-            dataGridViewGirlsTeamList.Dock = DockStyle.Fill;
-            dataGridViewGirlsTeamList.Location = new Point(3, 3);
-            dataGridViewGirlsTeamList.Name = "dataGridViewGirlsTeamList";
-            dataGridViewGirlsTeamList.Size = new Size(472, 305);
-            dataGridViewGirlsTeamList.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.HeaderText = "JBAチームID";
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.HeaderText = "チーム名";
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            dataGridViewTextBoxColumn3.HeaderText = "チーム名カナ";
-            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            dataGridViewTextBoxColumn4.HeaderText = "チーム名略称";
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            dataGridViewTextBoxColumn5.HeaderText = "JBAチーム登録状態";
-            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
             // imageListTeamRegistration
             // 
@@ -497,6 +427,84 @@
             buttonClose.UseVisualStyleBackColor = true;
             buttonClose.Click += buttonClose_Click;
             // 
+            // buttonDeleteTeam
+            // 
+            buttonDeleteTeam.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonDeleteTeam.Location = new Point(502, 83);
+            buttonDeleteTeam.Name = "buttonDeleteTeam";
+            buttonDeleteTeam.Size = new Size(49, 27);
+            buttonDeleteTeam.TabIndex = 13;
+            buttonDeleteTeam.UseVisualStyleBackColor = true;
+            // 
+            // buttonSaveTeams
+            // 
+            buttonSaveTeams.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonSaveTeams.Location = new Point(502, 313);
+            buttonSaveTeams.Name = "buttonSaveTeams";
+            buttonSaveTeams.Size = new Size(49, 23);
+            buttonSaveTeams.TabIndex = 10;
+            buttonSaveTeams.UseVisualStyleBackColor = true;
+            // 
+            // buttonEditTeam
+            // 
+            buttonEditTeam.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonEditTeam.Location = new Point(502, 50);
+            buttonEditTeam.Name = "buttonEditTeam";
+            buttonEditTeam.Size = new Size(49, 27);
+            buttonEditTeam.TabIndex = 12;
+            buttonEditTeam.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddTeam
+            // 
+            buttonAddTeam.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonAddTeam.Location = new Point(502, 17);
+            buttonAddTeam.Name = "buttonAddTeam";
+            buttonAddTeam.Size = new Size(49, 27);
+            buttonAddTeam.TabIndex = 11;
+            buttonAddTeam.UseVisualStyleBackColor = true;
+            // 
+            // listView2
+            // 
+            listView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            listView2.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
+            listView2.Location = new Point(4, -4);
+            listView2.Name = "listView2";
+            listView2.Size = new Size(471, 319);
+            listView2.SmallImageList = imageListVenueListView;
+            listView2.TabIndex = 2;
+            listView2.UseCompatibleStateImageBehavior = false;
+            listView2.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "会場";
+            columnHeader1.Width = 100;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "コート数";
+            // 
+            // listView3
+            // 
+            listView3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            listView3.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4 });
+            listView3.Location = new Point(4, 0);
+            listView3.Name = "listView3";
+            listView3.Size = new Size(471, 304);
+            listView3.SmallImageList = imageListVenueListView;
+            listView3.TabIndex = 2;
+            listView3.UseCompatibleStateImageBehavior = false;
+            listView3.View = View.Details;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "会場";
+            columnHeader3.Width = 100;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "コート数";
+            // 
             // SettingForm
             // 
             AcceptButton = buttonSaveTournamentNameData;
@@ -519,9 +527,7 @@
             tabPageTeamRegistration.ResumeLayout(false);
             tabControlTeamRagistration.ResumeLayout(false);
             tabPageBoysTeamList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridViewBoysTeamList).EndInit();
             tabPageGirlsTeamList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridViewGirlsTeamList).EndInit();
             tabPageOtherOption.ResumeLayout(false);
             tabPageOtherOption.PerformLayout();
             ResumeLayout(false);
@@ -560,22 +566,20 @@
         private TabPage tabPageOtherOption;
         private CheckBox checkBox1;
         private TabPage tabPageTeamRegistration;
-        private DataGridView dataGridViewBoysTeamList;
-        private DataGridViewTextBoxColumn ColumnJbaTeamID;
-        private DataGridViewTextBoxColumn ColumnTeamName;
-        private DataGridViewTextBoxColumn ColumnTeamNameKana;
-        private DataGridViewTextBoxColumn ColumnTeamNameShort;
-        private DataGridViewTextBoxColumn ColumnJbaTeamRegistrationStatus;
         private TabControl tabControlTeamRagistration;
         private TabPage tabPageBoysTeamList;
         private TabPage tabPageGirlsTeamList;
-        private DataGridView dataGridViewGirlsTeamList;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private ImageList imageListTeamRegistration;
         private ImageList imageListVenueListView;
+        private Button buttonDeleteTeam;
+        private Button buttonSaveTeams;
+        private Button buttonEditTeam;
+        private Button buttonAddTeam;
+        private ListView listView3;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private ListView listView2;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
     }
 }

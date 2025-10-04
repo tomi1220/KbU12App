@@ -60,6 +60,10 @@ namespace PbaU12Tools.Settings
             imageListTeamRegistration.Images.Add(CommonResources.GirlsTeam);
             tabPageBoysTeamList.ImageIndex = 0;
             tabPageGirlsTeamList.ImageIndex = 1;
+            buttonAddTeam.Image = CommonResources.Add;
+            buttonEditTeam.Image = CommonResources.Edit;
+            buttonDeleteTeam.Image = CommonResources.Delete;
+            buttonSaveTeams.Image = CommonResources.Save;
 
             // 保存先ページを削除（後で拡張する予定なので、とりあえずデザインは残す）
             tabControl1.TabPages.Remove(tabPageDataSaveFolders);
