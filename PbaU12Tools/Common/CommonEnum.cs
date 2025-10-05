@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 
 namespace PbaU12Tools
 {
+    public enum JbaTeamRegistrationStatuses
+    {
+        /// <summary>不明</summary>
+        Unknown = 0,
+        /// <summary>登録完了</summary>
+        Complete = 1,
+        /// <summary>未登録</summary>
+        Unregistered = 2
+    }
+
     /// <summary>
     /// カテゴリー
     /// </summary>

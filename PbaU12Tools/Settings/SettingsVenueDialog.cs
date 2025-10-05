@@ -40,7 +40,7 @@ namespace PbaU12Tools.Settings
             {
                 MessageBox.Show(
                     this,
-                    "会場名が設定してください。",
+                    "会場名を設定してください。",
                     this.Text,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -65,7 +65,6 @@ namespace PbaU12Tools.Settings
 
             if (VenueData == null)
             {
-                VenueData = new VenueData();
                 VenueData = new VenueData();
             }
             VenueData.Name = textBoxVenueName.Text.Trim();

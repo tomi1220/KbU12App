@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PbaU12Tools
 {
-    public class CommonValues
+    public static class CommonValues
     {
         public const string BaseTopFolder = "PbaU12";
         public const string BinFolder = "Bin";
@@ -54,5 +54,8 @@ namespace PbaU12Tools
         public const string DATE_FORMAT_WITH_WEEKDAY = "yyyy/MM/dd(ddd)";
 
         public const string DEFAULT_FILE_NAME = "noname";
+
+        public static readonly Color BoysColor = Color.FromArgb(0, 112, 192);
+        public static readonly Color GirlsColor = Color.Crimson;
     }
 }
