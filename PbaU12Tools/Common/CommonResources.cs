@@ -17,6 +17,14 @@ namespace PbaU12Tools
         {
             get { return Properties.Resources.IconSettings; }
         }
+        public static Icon HomeIcon
+        {
+            get { return Properties.Resources.IconHome; }
+        }
+        public static Icon MixedTeamIcon
+        {
+            get { return Properties.Resources.IconMixedTeam; }
+        }
 
         // Pngイメージ
         public static Image BoysTeam
@@ -30,6 +38,14 @@ namespace PbaU12Tools
         public static Image UnknownTeam
         {
             get { return Properties.Resources.PngUnknownTeam; }
+        }
+        public static Image UnknownTeamXXX
+        {
+            get { return Properties.Resources.PngUnknownTeamXXX; }
+        }
+        public static Image MixedTeam
+        {
+            get { return Properties.Resources.PngMixedTeam; }
         }
         public static Image Add
         {

@@ -21,19 +21,12 @@ namespace PbaU12Tools.TournamentData
         #endregion
 
         #region フィールド
-        //private readonly string _executablePath;
-
-        //private string _tournamentName = string.Empty;
-
-        //private string? _tournamentDataFilePath = null;
-
-        //private TournamentData? _tournamentDataOrg;
-        //private TournamentData? _tournamentData;
+        private TournamentData? _tournamentDataOrg;
         #endregion
 
         #region コンストラクタ
 
-        public TournamentDataBaseDialog()
+        public TournamentDataBaseDialog(TournamentData tournamentData)
         {
             InitializeComponent();
 
@@ -42,51 +35,53 @@ namespace PbaU12Tools.TournamentData
             buttonAddVenue.Image = CommonResources.Add;
             buttonEditVenue.Image = CommonResources.Edit;
             buttonDeleteVenue.Image = CommonResources.Delete;
+
+            _tournamentDataOrg = tournamentData.Clone();
         }
         #endregion
 
         #region プロパティ
-        public TournamentData? TournamentData { get; set; } = null;
+        public TournamentData? NewTournamentData { get; set; } = null;
         #endregion
 
         #region ローカル・メソッド
-        private void setTournamentDataInformation(TournamentData? tournamentData)
+        private void setTournamentDataInformation()
         {
-            Trace.Assert(tournamentData != null);
-            if (tournamentData == null)
+            Trace.Assert(_tournamentDataOrg != null);
+            if (_tournamentDataOrg == null)
             {
                 return;
             }
 
             // 大会名
-            if (!string.IsNullOrEmpty(tournamentData.TournamentName))
+            if (!string.IsNullOrEmpty(_tournamentDataOrg.TournamentName))
             {
-                this.Text += $"［{tournamentData.TournamentName}］";
+                this.Text += $"［{_tournamentDataOrg.TournamentName}］";
             }
             // トーナメント表データ
-            if (tournamentData.BrackectDataBoys != null)
+            if (_tournamentDataOrg.BaseDataBoys != null)
             {
                 // 男子
-                if (tournamentData.BaseDataBoys.NumberOfTeams > 0)
+                if (_tournamentDataOrg.BaseDataBoys.NumberOfTeams > 0)
                 {
                     numOfTeamsCtrlBoys.CategoryValidity = true;
                     numOfTeamsCtrlBoys.Category = Categories.Boys;
-                    numOfTeamsCtrlBoys.NumberOfTeams = tournamentData.BaseDataBoys.NumberOfTeams;
+                    numOfTeamsCtrlBoys.NumberOfTeams = _tournamentDataOrg.BaseDataBoys.NumberOfTeams;
                 }
             }
-            if (tournamentData.BrackectDataGirls != null)
+            if (_tournamentDataOrg.BaseDataGirls != null)
             {
                 // 女子
-                if (tournamentData.BaseDataGirls.NumberOfTeams > 0)
+                if (_tournamentDataOrg.BaseDataGirls.NumberOfTeams > 0)
                 {
                     numOfTeamsCtrlGirls.CategoryValidity = true;
                     numOfTeamsCtrlGirls.Category = Categories.Girls;
-                    numOfTeamsCtrlGirls.NumberOfTeams = tournamentData.BaseDataGirls.NumberOfTeams;
+                    numOfTeamsCtrlGirls.NumberOfTeams = _tournamentDataOrg.BaseDataGirls.NumberOfTeams;
                 }
             }
-            if (tournamentData.VenueDatas != null)
+            if (_tournamentDataOrg.VenueDatas != null)
             {
-                foreach (var item in tournamentData.VenueDatas)
+                foreach (var item in _tournamentDataOrg.VenueDatas.VenueItemDataList)
                 {
                     updateListViewVenue(item, null);
                 }
@@ -96,7 +91,7 @@ namespace PbaU12Tools.TournamentData
         private void updateVenueItemData(ListViewItem? listViewItem)
         {
             using VenueSettingDialog dialog = new VenueSettingDialog();
-            List<VenueItemData> otherVenueDatas = GetOtherVenueDatas(listViewItem);
+            List<VenueItemData> otherVenueDatas = getOtherVenueDatas(listViewItem);
             dialog.OtherVenueList = otherVenueDatas;
             if (listViewItem != null)
             {
@@ -135,7 +130,7 @@ namespace PbaU12Tools.TournamentData
             }
         }
 
-        private List<VenueItemData> GetOtherVenueDatas(ListViewItem? currentListViewItem)
+        private List<VenueItemData> getOtherVenueDatas(ListViewItem? currentListViewItem)
         {
             List<VenueItemData> otherVenueDatas = new List<VenueItemData>();
             foreach (ListViewItem lvi in listViewVenue.Items)
@@ -150,13 +145,53 @@ namespace PbaU12Tools.TournamentData
             }
             return otherVenueDatas;
         }
+
+        private TournamentData createTournamentData()
+        {
+            TournamentData tournamentData = new TournamentData();
+            if (numOfTeamsCtrlBoys.CategoryValidity)
+            {
+                tournamentData.BaseDataBoys =
+                    new()
+                    {
+                        Category = Categories.Boys,
+                        NumberOfTeams = numOfTeamsCtrlBoys.NumberOfTeams,
+                        NumberOfSuperSeed = numOfTeamsCtrlBoys.NumberOfSuperSeeds,
+                    };
+            }
+            if (numOfTeamsCtrlGirls.CategoryValidity)
+            {
+                tournamentData.BaseDataGirls =
+                    new()
+                    {
+                        Category = Categories.Girls,
+                        NumberOfTeams = numOfTeamsCtrlGirls.NumberOfTeams,
+                        NumberOfSuperSeed = numOfTeamsCtrlGirls.NumberOfSuperSeeds,
+                    };
+            }
+            foreach (ListViewItem item in listViewVenue.Items)
+            {
+                if (item.Tag is VenueItemData venueItemData)
+                {
+                    tournamentData.VenueDatas.VenueItemDataList.Add(venueItemData);
+                }
+            }
+
+            return tournamentData;
+        }
+
         #endregion
 
         #region イベント・ハンドラ
 
         private void TournamentDataBaseDialog_Load(object sender, EventArgs e)
         {
-            setTournamentDataInformation(TournamentData);
+            setTournamentDataInformation();
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            NewTournamentData = createTournamentData();
         }
 
         #region ［会場情報］

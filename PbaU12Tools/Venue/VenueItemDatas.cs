@@ -28,7 +28,38 @@ namespace PbaU12Tools.Venue
         /// コート リスト
         /// </summary>
         public List<string> CourtList { get; set; } = new List<string>();
+
+        public VenueItemData Clone()
+        {
+            VenueItemData newVenueItemData =
+                new VenueItemData()
+                {
+                    TargetDate = this.TargetDate,
+                    Name = this.Name,
+                    BackColor = this.BackColor,
+                };
+            newVenueItemData.CourtList.AddRange(this.CourtList);
+
+            return newVenueItemData;
+        }
     }
+
+    public class VenueItemDatas
+    {
+        public List<VenueItemData> VenueItemDataList { get; set; } = new List<VenueItemData>();
+
+        public VenueItemDatas Clone()
+        {
+            VenueItemDatas venueItemDatas = new VenueItemDatas();
+            foreach (var v in this.VenueItemDataList)
+            {
+                venueItemDatas.VenueItemDataList.Add(v.Clone());
+            }
+
+            return venueItemDatas;
+        }
+    }
+
 
     public class VenueListViewItemComparer : IComparer
     {

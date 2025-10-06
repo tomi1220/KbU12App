@@ -73,6 +73,26 @@ namespace PbaU12Tools.Properties {
         /// <summary>
         ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Icon IconHome {
+            get {
+                object obj = ResourceManager.GetObject("IconHome", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Icon IconMixedTeam {
+            get {
+                object obj = ResourceManager.GetObject("IconMixedTeam", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Icon IconSettings {
             get {
                 object obj = ResourceManager.GetObject("IconSettings", resourceCulture);
@@ -183,6 +203,16 @@ namespace PbaU12Tools.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap PngMixedTeam {
+            get {
+                object obj = ResourceManager.GetObject("PngMixedTeam", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap PngSave {
             get {
                 object obj = ResourceManager.GetObject("PngSave", resourceCulture);
@@ -206,6 +236,16 @@ namespace PbaU12Tools.Properties {
         internal static System.Drawing.Bitmap PngUnknownTeam {
             get {
                 object obj = ResourceManager.GetObject("PngUnknownTeam", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap PngUnknownTeamXXX {
+            get {
+                object obj = ResourceManager.GetObject("PngUnknownTeamXXX", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

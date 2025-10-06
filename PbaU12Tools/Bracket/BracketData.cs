@@ -1,4 +1,6 @@
-﻿namespace PbaU12Tools.Bracket
+﻿using PbaU12Tools.Match;
+
+namespace PbaU12Tools.Bracket
 {
     public class BracketData
     {

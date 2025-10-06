@@ -44,32 +44,34 @@
             toolStripTextBox1 = new ToolStripTextBox();
             toolStripMenuItemBracketOutput = new ToolStripMenuItem();
             panelAll = new Panel();
-            panelName = new Panel();
-            labelTournamentName = new Label();
-            panel1 = new Panel();
-            buttonTournamentName = new Button();
-            toolTip1 = new ToolTip(components);
             tableLayoutPanelMain = new TableLayoutPanel();
             tableLayoutPanelBaseData = new TableLayoutPanel();
-            tableLayoutPanelGen = new TableLayoutPanel();
             panelBaseData = new Panel();
             buttonBasedata = new Button();
-            richTextBoxBaseDataContents = new RichTextBox();
+            tournamentDataContents1 = new PbaU12Tools.TournamentData.TournamentDataContents();
+            tableLayoutPanelGen = new TableLayoutPanel();
             panelLottery = new Panel();
             buttonLottery = new Button();
             labelDrop = new Label();
             tableLayoutPanelScore = new TableLayoutPanel();
             buttonScore = new Button();
+            panelName = new Panel();
+            labelTournamentName = new Label();
+            panel1 = new Panel();
+            buttonTournamentName = new Button();
+            toolTip1 = new ToolTip(components);
+            panelDrop = new Panel();
             menuStrip1.SuspendLayout();
             panelAll.SuspendLayout();
-            panelName.SuspendLayout();
-            panel1.SuspendLayout();
             tableLayoutPanelMain.SuspendLayout();
             tableLayoutPanelBaseData.SuspendLayout();
-            tableLayoutPanelGen.SuspendLayout();
             panelBaseData.SuspendLayout();
+            tableLayoutPanelGen.SuspendLayout();
             panelLottery.SuspendLayout();
             tableLayoutPanelScore.SuspendLayout();
+            panelName.SuspendLayout();
+            panel1.SuspendLayout();
+            panelDrop.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -78,7 +80,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { ファイルFToolStripMenuItem, toolStripMenuItemSettings, toolStripTextBox1, toolStripMenuItemBracketOutput });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(617, 31);
+            menuStrip1.Size = new Size(617, 27);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -86,70 +88,70 @@
             // 
             ファイルFToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemNew, toolStripMenuItemOpen, toolStripSeparator1, toolStripMenuItemSave, toolStripMenuItemSaveAs, toolStripSeparator2, toolStripMenuItemOpenInExplorer, toolStripSeparator3, toolStripMenuItemExit });
             ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
-            ファイルFToolStripMenuItem.Size = new Size(82, 27);
+            ファイルFToolStripMenuItem.Size = new Size(67, 23);
             ファイルFToolStripMenuItem.Text = "ファイル(F)";
             // 
             // toolStripMenuItemNew
             // 
             toolStripMenuItemNew.Name = "toolStripMenuItemNew";
-            toolStripMenuItemNew.Size = new Size(253, 26);
+            toolStripMenuItemNew.Size = new Size(204, 22);
             toolStripMenuItemNew.Text = "新規作成(&N)...";
             toolStripMenuItemNew.Click += toolStripMenuItemNew_Click;
             // 
             // toolStripMenuItemOpen
             // 
             toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
-            toolStripMenuItemOpen.Size = new Size(253, 26);
+            toolStripMenuItemOpen.Size = new Size(204, 22);
             toolStripMenuItemOpen.Text = "開く(&O)...";
             toolStripMenuItemOpen.Click += toolStripMenuItemOpen_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(250, 6);
+            toolStripSeparator1.Size = new Size(201, 6);
             // 
             // toolStripMenuItemSave
             // 
             toolStripMenuItemSave.Name = "toolStripMenuItemSave";
-            toolStripMenuItemSave.Size = new Size(253, 26);
+            toolStripMenuItemSave.Size = new Size(204, 22);
             toolStripMenuItemSave.Text = "保存(&S)...";
             toolStripMenuItemSave.Click += toolStripMenuItemSave_Click;
             // 
             // toolStripMenuItemSaveAs
             // 
             toolStripMenuItemSaveAs.Name = "toolStripMenuItemSaveAs";
-            toolStripMenuItemSaveAs.Size = new Size(253, 26);
+            toolStripMenuItemSaveAs.Size = new Size(204, 22);
             toolStripMenuItemSaveAs.Text = "名前を付けて保存(&A)...";
             toolStripMenuItemSaveAs.Click += toolStripMenuItemSaveAs_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(250, 6);
+            toolStripSeparator2.Size = new Size(201, 6);
             // 
             // toolStripMenuItemOpenInExplorer
             // 
             toolStripMenuItemOpenInExplorer.Name = "toolStripMenuItemOpenInExplorer";
-            toolStripMenuItemOpenInExplorer.Size = new Size(253, 26);
+            toolStripMenuItemOpenInExplorer.Size = new Size(204, 22);
             toolStripMenuItemOpenInExplorer.Text = "保存先フォルダーを開く(&E)...";
             toolStripMenuItemOpenInExplorer.Click += toolStripMenuItemOpenInExplorer_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(250, 6);
+            toolStripSeparator3.Size = new Size(201, 6);
             // 
             // toolStripMenuItemExit
             // 
             toolStripMenuItemExit.Name = "toolStripMenuItemExit";
-            toolStripMenuItemExit.Size = new Size(253, 26);
+            toolStripMenuItemExit.Size = new Size(204, 22);
             toolStripMenuItemExit.Text = "終了(X)";
             toolStripMenuItemExit.Click += toolStripMenuItemExit_Click;
             // 
             // toolStripMenuItemSettings
             // 
             toolStripMenuItemSettings.Name = "toolStripMenuItemSettings";
-            toolStripMenuItemSettings.Size = new Size(80, 27);
+            toolStripMenuItemSettings.Size = new Size(66, 23);
             toolStripMenuItemSettings.Text = "設定(&S)...";
             toolStripMenuItemSettings.Click += toolStripMenuItemSettings_Click;
             // 
@@ -158,12 +160,12 @@
             toolStripTextBox1.Alignment = ToolStripItemAlignment.Right;
             toolStripTextBox1.Name = "toolStripTextBox1";
             toolStripTextBox1.ReadOnly = true;
-            toolStripTextBox1.Size = new Size(100, 27);
+            toolStripTextBox1.Size = new Size(100, 23);
             // 
             // toolStripMenuItemBracketOutput
             // 
             toolStripMenuItemBracketOutput.Name = "toolStripMenuItemBracketOutput";
-            toolStripMenuItemBracketOutput.Size = new Size(161, 27);
+            toolStripMenuItemBracketOutput.Size = new Size(131, 23);
             toolStripMenuItemBracketOutput.Text = "トーナメント表出力(&O)...";
             toolStripMenuItemBracketOutput.Click += toolStripMenuItemBracketOutput_Click;
             // 
@@ -173,10 +175,143 @@
             panelAll.Controls.Add(panelName);
             panelAll.Dock = DockStyle.Fill;
             panelAll.Enabled = false;
-            panelAll.Location = new Point(0, 31);
+            panelAll.Location = new Point(0, 27);
             panelAll.Name = "panelAll";
-            panelAll.Size = new Size(617, 383);
+            panelAll.Size = new Size(617, 493);
             panelAll.TabIndex = 1;
+            // 
+            // tableLayoutPanelMain
+            // 
+            tableLayoutPanelMain.ColumnCount = 1;
+            tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanelMain.Controls.Add(tableLayoutPanelBaseData, 0, 0);
+            tableLayoutPanelMain.Controls.Add(tableLayoutPanelGen, 0, 1);
+            tableLayoutPanelMain.Controls.Add(tableLayoutPanelScore, 0, 2);
+            tableLayoutPanelMain.Dock = DockStyle.Fill;
+            tableLayoutPanelMain.Location = new Point(0, 55);
+            tableLayoutPanelMain.Name = "tableLayoutPanelMain";
+            tableLayoutPanelMain.RowCount = 3;
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
+            tableLayoutPanelMain.Size = new Size(617, 438);
+            tableLayoutPanelMain.TabIndex = 1;
+            // 
+            // tableLayoutPanelBaseData
+            // 
+            tableLayoutPanelBaseData.ColumnCount = 2;
+            tableLayoutPanelBaseData.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelBaseData.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
+            tableLayoutPanelBaseData.Controls.Add(panelBaseData, 0, 0);
+            tableLayoutPanelBaseData.Controls.Add(tournamentDataContents1, 1, 0);
+            tableLayoutPanelBaseData.Dock = DockStyle.Fill;
+            tableLayoutPanelBaseData.Location = new Point(3, 3);
+            tableLayoutPanelBaseData.Name = "tableLayoutPanelBaseData";
+            tableLayoutPanelBaseData.RowCount = 1;
+            tableLayoutPanelBaseData.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelBaseData.Size = new Size(611, 147);
+            tableLayoutPanelBaseData.TabIndex = 0;
+            // 
+            // panelBaseData
+            // 
+            panelBaseData.Controls.Add(buttonBasedata);
+            panelBaseData.Dock = DockStyle.Fill;
+            panelBaseData.Location = new Point(3, 3);
+            panelBaseData.Name = "panelBaseData";
+            panelBaseData.Size = new Size(146, 141);
+            panelBaseData.TabIndex = 0;
+            // 
+            // buttonBasedata
+            // 
+            buttonBasedata.AutoSize = true;
+            buttonBasedata.Dock = DockStyle.Fill;
+            buttonBasedata.Font = new Font("Meiryo UI", 9F);
+            buttonBasedata.Location = new Point(0, 0);
+            buttonBasedata.Name = "buttonBasedata";
+            buttonBasedata.Size = new Size(146, 141);
+            buttonBasedata.TabIndex = 2;
+            buttonBasedata.Text = "基本情報(&B)...";
+            buttonBasedata.UseVisualStyleBackColor = true;
+            buttonBasedata.Click += buttonBasedata_Click;
+            // 
+            // tournamentDataContents1
+            // 
+            tournamentDataContents1.Dock = DockStyle.Fill;
+            tournamentDataContents1.Location = new Point(155, 3);
+            tournamentDataContents1.Name = "tournamentDataContents1";
+            tournamentDataContents1.Size = new Size(453, 141);
+            tournamentDataContents1.TabIndex = 1;
+            // 
+            // tableLayoutPanelGen
+            // 
+            tableLayoutPanelGen.ColumnCount = 2;
+            tableLayoutPanelGen.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelGen.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
+            tableLayoutPanelGen.Controls.Add(panelLottery, 0, 0);
+            tableLayoutPanelGen.Controls.Add(panelDrop, 1, 0);
+            tableLayoutPanelGen.Dock = DockStyle.Fill;
+            tableLayoutPanelGen.Location = new Point(3, 156);
+            tableLayoutPanelGen.Name = "tableLayoutPanelGen";
+            tableLayoutPanelGen.RowCount = 1;
+            tableLayoutPanelGen.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelGen.Size = new Size(611, 147);
+            tableLayoutPanelGen.TabIndex = 1;
+            // 
+            // panelLottery
+            // 
+            panelLottery.Controls.Add(buttonLottery);
+            panelLottery.Dock = DockStyle.Fill;
+            panelLottery.Location = new Point(3, 3);
+            panelLottery.Name = "panelLottery";
+            panelLottery.Size = new Size(146, 141);
+            panelLottery.TabIndex = 0;
+            // 
+            // buttonLottery
+            // 
+            buttonLottery.Dock = DockStyle.Fill;
+            buttonLottery.Location = new Point(0, 0);
+            buttonLottery.Name = "buttonLottery";
+            buttonLottery.Size = new Size(146, 141);
+            buttonLottery.TabIndex = 0;
+            buttonLottery.Text = "抽選結果(&L)...";
+            buttonLottery.UseVisualStyleBackColor = true;
+            // 
+            // labelDrop
+            // 
+            labelDrop.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelDrop.BackColor = Color.MistyRose;
+            labelDrop.ForeColor = Color.Gray;
+            labelDrop.Location = new Point(73, 23);
+            labelDrop.Name = "labelDrop";
+            labelDrop.Padding = new Padding(50, 0, 50, 0);
+            labelDrop.Size = new Size(306, 95);
+            labelDrop.TabIndex = 1;
+            labelDrop.Text = "ここに、会場・試合順の設定が完了した\r\nExcelファイルをドロップしてください";
+            labelDrop.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanelScore
+            // 
+            tableLayoutPanelScore.ColumnCount = 2;
+            tableLayoutPanelScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
+            tableLayoutPanelScore.Controls.Add(buttonScore, 0, 0);
+            tableLayoutPanelScore.Dock = DockStyle.Fill;
+            tableLayoutPanelScore.Location = new Point(3, 309);
+            tableLayoutPanelScore.Name = "tableLayoutPanelScore";
+            tableLayoutPanelScore.RowCount = 1;
+            tableLayoutPanelScore.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelScore.Size = new Size(611, 126);
+            tableLayoutPanelScore.TabIndex = 2;
+            // 
+            // buttonScore
+            // 
+            buttonScore.Dock = DockStyle.Fill;
+            buttonScore.Location = new Point(3, 3);
+            buttonScore.Name = "buttonScore";
+            buttonScore.Size = new Size(146, 120);
+            buttonScore.TabIndex = 0;
+            buttonScore.Text = "スコア入力(&S)...";
+            buttonScore.UseVisualStyleBackColor = true;
             // 
             // panelName
             // 
@@ -221,146 +356,20 @@
             buttonTournamentName.UseVisualStyleBackColor = true;
             buttonTournamentName.Click += buttonTournamentName_Click;
             // 
-            // tableLayoutPanelMain
+            // panelDrop
             // 
-            tableLayoutPanelMain.ColumnCount = 1;
-            tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.Controls.Add(tableLayoutPanelBaseData, 0, 0);
-            tableLayoutPanelMain.Controls.Add(tableLayoutPanelGen, 0, 1);
-            tableLayoutPanelMain.Controls.Add(tableLayoutPanelScore, 0, 2);
-            tableLayoutPanelMain.Dock = DockStyle.Fill;
-            tableLayoutPanelMain.Location = new Point(0, 55);
-            tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            tableLayoutPanelMain.RowCount = 3;
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
-            tableLayoutPanelMain.Size = new Size(617, 328);
-            tableLayoutPanelMain.TabIndex = 1;
-            // 
-            // tableLayoutPanelBaseData
-            // 
-            tableLayoutPanelBaseData.ColumnCount = 2;
-            tableLayoutPanelBaseData.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanelBaseData.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
-            tableLayoutPanelBaseData.Controls.Add(panelBaseData, 0, 0);
-            tableLayoutPanelBaseData.Controls.Add(richTextBoxBaseDataContents, 1, 0);
-            tableLayoutPanelBaseData.Dock = DockStyle.Fill;
-            tableLayoutPanelBaseData.Location = new Point(3, 3);
-            tableLayoutPanelBaseData.Name = "tableLayoutPanelBaseData";
-            tableLayoutPanelBaseData.RowCount = 1;
-            tableLayoutPanelBaseData.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelBaseData.Size = new Size(611, 108);
-            tableLayoutPanelBaseData.TabIndex = 0;
-            // 
-            // tableLayoutPanelGen
-            // 
-            tableLayoutPanelGen.ColumnCount = 2;
-            tableLayoutPanelGen.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanelGen.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
-            tableLayoutPanelGen.Controls.Add(panelLottery, 0, 0);
-            tableLayoutPanelGen.Controls.Add(labelDrop, 1, 0);
-            tableLayoutPanelGen.Dock = DockStyle.Fill;
-            tableLayoutPanelGen.Location = new Point(3, 117);
-            tableLayoutPanelGen.Name = "tableLayoutPanelGen";
-            tableLayoutPanelGen.RowCount = 1;
-            tableLayoutPanelGen.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelGen.Size = new Size(611, 108);
-            tableLayoutPanelGen.TabIndex = 1;
-            // 
-            // panelBaseData
-            // 
-            panelBaseData.Controls.Add(buttonBasedata);
-            panelBaseData.Dock = DockStyle.Fill;
-            panelBaseData.Location = new Point(3, 3);
-            panelBaseData.Name = "panelBaseData";
-            panelBaseData.Size = new Size(146, 102);
-            panelBaseData.TabIndex = 0;
-            // 
-            // buttonBasedata
-            // 
-            buttonBasedata.AutoSize = true;
-            buttonBasedata.Dock = DockStyle.Fill;
-            buttonBasedata.Font = new Font("Meiryo UI", 9F);
-            buttonBasedata.Location = new Point(0, 0);
-            buttonBasedata.Name = "buttonBasedata";
-            buttonBasedata.Size = new Size(146, 102);
-            buttonBasedata.TabIndex = 2;
-            buttonBasedata.Text = "基本情報(&B)...";
-            buttonBasedata.UseVisualStyleBackColor = true;
-            // 
-            // richTextBoxBaseDataContents
-            // 
-            richTextBoxBaseDataContents.BackColor = SystemColors.Window;
-            richTextBoxBaseDataContents.BorderStyle = BorderStyle.None;
-            richTextBoxBaseDataContents.Dock = DockStyle.Fill;
-            richTextBoxBaseDataContents.Location = new Point(155, 3);
-            richTextBoxBaseDataContents.Name = "richTextBoxBaseDataContents";
-            richTextBoxBaseDataContents.ReadOnly = true;
-            richTextBoxBaseDataContents.Size = new Size(453, 102);
-            richTextBoxBaseDataContents.TabIndex = 1;
-            richTextBoxBaseDataContents.Text = "";
-            // 
-            // panelLottery
-            // 
-            panelLottery.Controls.Add(buttonLottery);
-            panelLottery.Dock = DockStyle.Fill;
-            panelLottery.Location = new Point(3, 3);
-            panelLottery.Name = "panelLottery";
-            panelLottery.Size = new Size(146, 102);
-            panelLottery.TabIndex = 0;
-            // 
-            // buttonLottery
-            // 
-            buttonLottery.Dock = DockStyle.Fill;
-            buttonLottery.Location = new Point(0, 0);
-            buttonLottery.Name = "buttonLottery";
-            buttonLottery.Size = new Size(146, 102);
-            buttonLottery.TabIndex = 0;
-            buttonLottery.Text = "抽選結果(&L)...";
-            buttonLottery.UseVisualStyleBackColor = true;
-            // 
-            // labelDrop
-            // 
-            labelDrop.Dock = DockStyle.Fill;
-            labelDrop.ForeColor = Color.Gray;
-            labelDrop.Location = new Point(155, 0);
-            labelDrop.Name = "labelDrop";
-            labelDrop.Padding = new Padding(50, 0, 50, 0);
-            labelDrop.Size = new Size(453, 108);
-            labelDrop.TabIndex = 1;
-            labelDrop.Text = "ここに、会場・試合順の設定が完了した\r\nExcelファイルをドロップしてください";
-            labelDrop.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanelScore
-            // 
-            tableLayoutPanelScore.ColumnCount = 2;
-            tableLayoutPanelScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanelScore.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
-            tableLayoutPanelScore.Controls.Add(buttonScore, 0, 0);
-            tableLayoutPanelScore.Dock = DockStyle.Fill;
-            tableLayoutPanelScore.Location = new Point(3, 231);
-            tableLayoutPanelScore.Name = "tableLayoutPanelScore";
-            tableLayoutPanelScore.RowCount = 1;
-            tableLayoutPanelScore.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelScore.Size = new Size(611, 94);
-            tableLayoutPanelScore.TabIndex = 2;
-            // 
-            // buttonScore
-            // 
-            buttonScore.Dock = DockStyle.Fill;
-            buttonScore.Location = new Point(3, 3);
-            buttonScore.Name = "buttonScore";
-            buttonScore.Size = new Size(146, 88);
-            buttonScore.TabIndex = 0;
-            buttonScore.Text = "スコア入力(&S)...";
-            buttonScore.UseVisualStyleBackColor = true;
+            panelDrop.Controls.Add(labelDrop);
+            panelDrop.Dock = DockStyle.Fill;
+            panelDrop.Location = new Point(155, 3);
+            panelDrop.Name = "panelDrop";
+            panelDrop.Size = new Size(453, 141);
+            panelDrop.TabIndex = 1;
             // 
             // FormDistTourneyMain
             // 
-            AutoScaleDimensions = new SizeF(9F, 19F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(617, 414);
+            ClientSize = new Size(617, 520);
             Controls.Add(panelAll);
             Controls.Add(menuStrip1);
             Font = new Font("Meiryo UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
@@ -372,16 +381,17 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             panelAll.ResumeLayout(false);
+            tableLayoutPanelMain.ResumeLayout(false);
+            tableLayoutPanelBaseData.ResumeLayout(false);
+            panelBaseData.ResumeLayout(false);
+            panelBaseData.PerformLayout();
+            tableLayoutPanelGen.ResumeLayout(false);
+            panelLottery.ResumeLayout(false);
+            tableLayoutPanelScore.ResumeLayout(false);
             panelName.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            tableLayoutPanelMain.ResumeLayout(false);
-            tableLayoutPanelBaseData.ResumeLayout(false);
-            tableLayoutPanelGen.ResumeLayout(false);
-            panelBaseData.ResumeLayout(false);
-            panelBaseData.PerformLayout();
-            panelLottery.ResumeLayout(false);
-            tableLayoutPanelScore.ResumeLayout(false);
+            panelDrop.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -413,11 +423,12 @@
         private TableLayoutPanel tableLayoutPanelGen;
         private Panel panelBaseData;
         private Button buttonBasedata;
-        private RichTextBox richTextBoxBaseDataContents;
         private Panel panelLottery;
         private Button buttonLottery;
         private Label labelDrop;
         private TableLayoutPanel tableLayoutPanelScore;
         private Button buttonScore;
+        private PbaU12Tools.TournamentData.TournamentDataContents tournamentDataContents1;
+        private Panel panelDrop;
     }
 }

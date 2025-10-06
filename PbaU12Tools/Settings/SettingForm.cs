@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PbaU12Tools.Common;
+using PbaU12Tools.TournamentName;
+using PbaU12Tools.Venue;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,11 +9,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
+
+//using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using PbaU12Tools.TournamentName;
-using PbaU12Tools.Venue;
 
 namespace PbaU12Tools.Settings
 {
@@ -25,6 +29,10 @@ namespace PbaU12Tools.Settings
         #endregion
 
         #region 定数
+        private const int ColumnTeamNameKanaIndex = 1;
+        private const int ColumnTeamNameShortIndex = 2;
+        private const int ColumnDistrictIndex = 3;
+        private const int ColumnJbaStatusIndex = 4;
         #endregion
 
         #region クラス
@@ -58,6 +66,8 @@ namespace PbaU12Tools.Settings
 
             imageListTeamRegistration.Images.Add(CommonResources.BoysTeam);
             imageListTeamRegistration.Images.Add(CommonResources.GirlsTeam);
+            imageListTeamRegistration.Images.Add(CommonResources.UnknownTeamXXX);
+            imageListTeamRegistration.Images.Add(CommonResources.UnknownTeam);
             tabPageBoysTeamList.ImageIndex = 0;
             tabPageGirlsTeamList.ImageIndex = 1;
             buttonAddTeam.Image = CommonResources.Add;
@@ -332,54 +342,6 @@ namespace PbaU12Tools.Settings
             return xmlText;
         }
 
-        private void openSettingsTourneyNameDialog(
-            TournamentNameData? tournamentNameData,
-            ListViewItem? listViewItem)
-        {
-            using var settingsTourneyNameDialog = new SettingsTourneyNameDialog();
-            settingsTourneyNameDialog.TourneneyNameData = tournamentNameData;
-            if (settingsTourneyNameDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                if (listViewItem != null)
-                {
-                    updateListViewItemForTournamentName(
-                        settingsTourneyNameDialog.TourneneyNameData!, listViewItem);
-                }
-                else
-                {
-                    listViewItem =
-                        updateListViewItemForTournamentName(
-                            settingsTourneyNameDialog.TourneneyNameData!, null);
-                    listViewTournamentNames.Items.Add(listViewItem);
-                }
-                adjustTournamentNameColumnWidth();
-            }
-        }
-
-        private void openSettingsVenueDataDialog(
-            VenueData? venueData,
-            ListViewItem? listViewItem)
-        {
-            using var settingsVenueDialog = new SettingsVenueDialog();
-            settingsVenueDialog.VenueData = venueData;
-            if (settingsVenueDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                if (listViewItem != null)
-                {
-                    updateListViewItemForVenueData(
-                        settingsVenueDialog.VenueData!, listViewItem);
-                }
-                else
-                {
-                    listViewItem =
-                        updateListViewItemForVenueData(
-                            settingsVenueDialog.VenueData!, null);
-                    listViewVenueDatas.Items.Add(listViewItem);
-                }
-                adjustVenueDataColumnWidth();
-            }
-        }
-
         private void importVenueData()
         {
             using OpenFileDialog ofd = new();
@@ -462,6 +424,346 @@ namespace PbaU12Tools.Settings
             saveVenueDatas(SaveType.Export, sfd.FileName);
         }
 
+        private void loadTeamInfos()
+        {
+            try
+            {
+                TeamDatas? teamDatasBoys = TeamDatas.DeserializeTeamDatas(Categories.Boys);
+                if (teamDatasBoys == null)
+                {
+                    teamDatasBoys =
+                        new TeamDatas()
+                        {
+                            TeamDatasList = TeamData.CreateDefaultBoysTeamList()
+                        };
+                }
+                addAllTeamDatas(Categories.Boys, teamDatasBoys);
+                adjustTeamDataColumnWidth(Categories.Boys);
+
+                TeamDatas? teamDatasGirls = TeamDatas.DeserializeTeamDatas(Categories.Girls);
+                if (teamDatasGirls == null)
+                {
+                    teamDatasGirls =
+                        new TeamDatas()
+                        {
+                            TeamDatasList = TeamData.CreateDefaultGirlsTeamList()
+                        };
+                }
+                addAllTeamDatas(Categories.Girls, teamDatasGirls);
+                adjustTeamDataColumnWidth(Categories.Girls);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    this,
+                    ex.Message,
+                    "会場データがロードできませんでした",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void addAllTeamDatas(Categories category, TeamDatas? teamDatas)
+        {
+            ListView listView;
+
+            if (category == Categories.Girls)
+            {
+                listView = listViewTeamDataGirls;
+            }
+            else
+            {
+                listView = listViewTeamDataBoys;
+            }
+
+            listView.Items.Clear();
+
+            if (teamDatas != null)
+            {
+                if (teamDatas!.TeamDatasList != null)
+                {
+                    List<ListViewItem> listViewItems = [];
+                    foreach (var vd in teamDatas.TeamDatasList)
+                    {
+                        ListViewItem item = updateListViewItemForTeamData(vd, listView, null);
+                        listViewItems.Add(item);
+                    }
+                    listView.Items.AddRange([.. listViewItems]);
+                }
+            }
+        }
+
+        private void adjustTeamDataColumnWidth(Categories category)
+        {
+            if (category == Categories.Girls)
+            {
+                columnTeamNameGirls.Width = -2;
+                columnTeamNameKanaGirls.Width = 0;
+                columnTeamNameShortGirls.Width = -2;
+                columnDistrictGirls.Width = -2;
+                columnJbaStatusGirls.Width = -2;
+            }
+            else
+            {
+                columnTeamNameBoys.Width = -2;
+                columnTeamNameKanaBoys.Width = 0;
+                columnTeamNameShortGirls.Width = -2;
+                columnDistrictBoys.Width = -2;
+                columnJbaStatusBoys.Width = -2;
+            }
+        }
+
+        private static ListViewItem updateListViewItemForTeamData(
+            TeamData teamData,
+            ListView listView,
+            ListViewItem? item)
+        {
+            if (item == null)
+            {
+                item ??= new ListViewItem();
+                item.SubItems.Add(teamData.TeamNameKana ?? string.Empty);
+                item.SubItems.Add(teamData.ShortName ?? string.Empty);
+                if (DistrictsList.DicDistrict.TryGetValue(teamData.District, out string? district))
+                {
+                    item.SubItems.Add(district);
+                }
+                if (JbaTeamRegistrationStatusesList.DicJbaTeamRegistrationStatuses.TryGetValue(
+                    teamData.JbaStatus, out string? jbaStatus))
+                {
+                    item.SubItems.Add(jbaStatus);
+                }
+            }
+            else
+            {
+                item.SubItems[ColumnTeamNameKanaIndex].Text = teamData.TeamNameKana ?? string.Empty;
+                item.SubItems[ColumnTeamNameShortIndex].Text = teamData.ShortName ?? string.Empty;
+                if (DistrictsList.DicDistrict.TryGetValue(teamData.District, out string? district))
+                {
+                    item.SubItems[ColumnDistrictIndex].Text = district;
+                }
+                else
+                {
+                    item.SubItems[ColumnDistrictIndex].Text = string.Empty;
+                }
+                if (JbaTeamRegistrationStatusesList.DicJbaTeamRegistrationStatuses.TryGetValue(
+                    teamData.JbaStatus, out string? jbaStatus))
+                {
+                    item.SubItems[ColumnJbaStatusIndex].Text = jbaStatus;
+                }
+                else
+                {
+                    item.SubItems[ColumnJbaStatusIndex].Text = string.Empty;
+                }
+            }
+            item.Text = teamData.TeamName;
+            if (teamData.JbaStatus == JbaTeamRegistrationStatuses.Complete)
+            {
+                item.UseItemStyleForSubItems = true;
+                if (teamData.Category == Categories.Girls)
+                {
+                    item.ImageIndex = 1;
+                }
+                else
+                {
+                    item.ImageIndex = 0;
+                }
+            }
+            else
+            {
+                item.UseItemStyleForSubItems = false;
+                if (teamData.JbaStatus == JbaTeamRegistrationStatuses.Unknown)
+                {
+                    item.ImageIndex = 2;
+                    item.SubItems[ColumnJbaStatusIndex].ForeColor = Color.Gold;
+                }
+                else
+                {
+                    item.ImageIndex = 3;
+                    item.SubItems[ColumnJbaStatusIndex].ForeColor = Color.Red;
+                }
+            }
+            item.Tag = teamData;
+
+            return item;
+        }
+
+        private void saveTeamDatas(SaveType saveType)
+        {
+            string? xmlText = serializeTeamDatas();
+
+            if (xmlText == null)
+            {
+                return;
+            }
+
+            try
+            {
+                string filePathBoys =
+                    Path.Combine(
+                        CommonTools.DataFolderPath,
+                        CommonValues.TeamDatasFileName(Categories.Boys));
+
+                using var swBoys = new StreamWriter(filePathBoys);
+                swBoys.Write(xmlText);
+
+                string filePathGirls =
+                    Path.Combine(
+                        CommonTools.DataFolderPath,
+                        CommonValues.TeamDatasFileName(Categories.Girls));
+
+                using var swGirls = new StreamWriter(filePathGirls);
+                swGirls.Write(xmlText);
+
+                MessageBox.Show(
+                    this,
+                    "チームデータをセーブしました。",
+                    this.Text,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    this,
+                    "チームデータがセーブできませんでした" + Environment.NewLine +
+                    Environment.NewLine + ex.Message,
+                    this.Text,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private string? serializeTeamDatas()
+        {
+            TeamDatas? teamDatasBoys = new();
+
+            foreach (ListViewItem item in listViewTeamDataBoys.Items)
+            {
+                if (item.Tag is TeamData teamData)
+                {
+                    teamDatasBoys.TeamDatasList!.Add(teamData);
+                }
+            }
+
+            string xmlText = TeamDatas.Serialize(teamDatasBoys)!;
+
+            return xmlText;
+        }
+
+        private void openSettingsTourneyNameDialog(
+            TournamentNameData? tournamentNameData,
+            ListViewItem? listViewItem)
+        {
+            using var settingsTourneyNameDialog = new SettingsTourneyNameDialog();
+            settingsTourneyNameDialog.TourneneyNameData = tournamentNameData;
+            if (settingsTourneyNameDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                if (listViewItem != null)
+                {
+                    updateListViewItemForTournamentName(
+                        settingsTourneyNameDialog.TourneneyNameData!, listViewItem);
+                }
+                else
+                {
+                    listViewItem =
+                        updateListViewItemForTournamentName(
+                            settingsTourneyNameDialog.TourneneyNameData!, null);
+                    listViewTournamentNames.Items.Add(listViewItem);
+                }
+                adjustTournamentNameColumnWidth();
+            }
+        }
+
+        private void openSettingsVenueDataDialog(
+            VenueData? venueData,
+            ListViewItem? listViewItem)
+        {
+            using var settingsVenueDialog = new SettingsVenueDialog();
+            settingsVenueDialog.VenueData = venueData;
+            if (settingsVenueDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                if (listViewItem != null)
+                {
+                    updateListViewItemForVenueData(
+                        settingsVenueDialog.VenueData!, listViewItem);
+                }
+                else
+                {
+                    listViewItem =
+                        updateListViewItemForVenueData(
+                            settingsVenueDialog.VenueData!, null);
+                    listViewVenueDatas.Items.Add(listViewItem);
+                }
+                adjustVenueDataColumnWidth();
+            }
+        }
+
+        private void openSettingsTeamDataDialog(
+            Categories category,
+            TeamData? teamData,
+            ListView listView,
+            ListViewItem? listViewItem)
+        {
+            using var settingsTeamDialog = new SettingsTeamDialog();
+            settingsTeamDialog.Category = category;
+            settingsTeamDialog.TeamData = teamData;
+            if (settingsTeamDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                if (listViewItem != null)
+                {
+                    updateListViewItemForTeamData(
+                        settingsTeamDialog.TeamData!, listView, listViewItem);
+                }
+                else
+                {
+                    listViewItem =
+                        updateListViewItemForTeamData(
+                            settingsTeamDialog.TeamData!, listView, null);
+                    listView.Items.Add(listViewItem);
+                }
+                adjustTeamDataColumnWidth(category);
+            }
+        }
+
+        private void editTournamentName()
+        {
+            if (listViewTournamentNames.SelectedItems.Count == 1)
+            {
+                if (listViewTournamentNames.SelectedItems[0].Tag is
+                    TournamentNameData tournamentNameData)
+                {
+                    openSettingsTourneyNameDialog(
+                        tournamentNameData, listViewTournamentNames.SelectedItems[0]);
+                }
+            }
+        }
+
+        private void editVenue()
+        {
+            if (listViewVenueDatas.SelectedItems.Count == 1)
+            {
+                if (listViewVenueDatas.SelectedItems[0].Tag is
+                    VenueData venueData)
+                {
+                    openSettingsVenueDataDialog(
+                        venueData, listViewVenueDatas.SelectedItems[0]);
+                }
+            }
+        }
+
+        private void editTeamData(ListView listView, Categories category)
+        {
+            if (listView.SelectedItems.Count == 1)
+            {
+                if (listView.SelectedItems[0].Tag is
+                    TeamData teamData)
+                {
+                    openSettingsTeamDataDialog(
+                        category, teamData, listView, listView.SelectedItems[0]);
+                }
+            }
+        }
+
         #endregion
 
         #region イベント・ハンドラ
@@ -470,6 +772,8 @@ namespace PbaU12Tools.Settings
             loadTournamentNameDatas();
 
             loadVenueDatas();
+
+            loadTeamInfos();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -485,15 +789,7 @@ namespace PbaU12Tools.Settings
 
         private void buttonEditTournamentName_Click(object sender, EventArgs e)
         {
-            if (listViewTournamentNames.SelectedItems.Count == 1)
-            {
-                if (listViewTournamentNames.SelectedItems[0].Tag is
-                    TournamentNameData tournamentNameData)
-                {
-                    openSettingsTourneyNameDialog(
-                        tournamentNameData, listViewTournamentNames.SelectedItems[0]);
-                }
-            }
+            editTournamentName();
         }
 
         private void buttonDeleteTournamentName_Click(object sender, EventArgs e)
@@ -521,6 +817,11 @@ namespace PbaU12Tools.Settings
         {
             saveTournamentNameDatas();
         }
+
+        private void listViewTournamentNames_DoubleClick(object sender, EventArgs e)
+        {
+            editTournamentName();
+        }
         #endregion
 
         #region 会場ページ
@@ -531,15 +832,7 @@ namespace PbaU12Tools.Settings
 
         private void buttonEditVenue_Click(object sender, EventArgs e)
         {
-            if (listViewVenueDatas.SelectedItems.Count == 1)
-            {
-                if (listViewVenueDatas.SelectedItems[0].Tag is
-                    VenueData venueData)
-                {
-                    openSettingsVenueDataDialog(
-                        venueData, listViewVenueDatas.SelectedItems[0]);
-                }
-            }
+            editVenue();
         }
 
         private void buttonDeleteVenue_Click(object sender, EventArgs e)
@@ -571,14 +864,106 @@ namespace PbaU12Tools.Settings
         private void buttonImportVenue_Click(object sender, EventArgs e)
         {
             importVenueData();
-
         }
 
         private void buttonExportVenue_Click(object sender, EventArgs e)
         {
             exportVenueData();
         }
+
+        private void listViewVenueDatas_DoubleClick(object sender, EventArgs e)
+        {
+            editVenue();
+        }
         #endregion
+
+        #region チーム登録ページ
+        private void buttonAddTeam_Click(object sender, EventArgs e)
+        {
+            if (tabControlTeamRagistration.SelectedTab == tabPageBoysTeamList)
+            {
+                openSettingsTeamDataDialog(Categories.Boys, null, listViewTeamDataBoys, null);
+            }
+            else
+            {
+                openSettingsTeamDataDialog(Categories.Girls, null, listViewTeamDataGirls, null);
+            }
+        }
+
+        private void buttonEditTeam_Click(object sender, EventArgs e)
+        {
+            if (tabControlTeamRagistration.SelectedTab == tabPageBoysTeamList)
+            {
+                editTeamData(listViewTeamDataBoys, Categories.Boys);
+            }
+            else
+            {
+                editTeamData(listViewTeamDataGirls, Categories.Girls);
+            }
+        }
+
+        private void buttonDeleteTeam_Click(object sender, EventArgs e)
+        {
+            if (tabControlTeamRagistration.SelectedTab == tabPageBoysTeamList)
+            {
+                if (listViewTeamDataBoys.SelectedItems.Count > 0)
+                {
+                    if (MessageBox.Show(
+                        this,
+                        "選択されたチームを削除します。",
+                        this.Text,
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+                        listViewTeamDataBoys.BeginUpdate();
+                        foreach (ListViewItem item in listViewTeamDataBoys.SelectedItems)
+                        {
+                            listViewTeamDataBoys.Items.Remove(item);
+                        }
+                        listViewTeamDataBoys.EndUpdate();
+                    }
+                }
+            }
+            else
+            {
+                if (listViewTeamDataGirls.SelectedItems.Count > 0)
+                {
+                    if (MessageBox.Show(
+                        this,
+                        "選択されたチームを削除します。",
+                        this.Text,
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+                        listViewTeamDataGirls.BeginUpdate();
+                        foreach (ListViewItem item in listViewTeamDataGirls.SelectedItems)
+                        {
+                            listViewTeamDataGirls.Items.Remove(item);
+                        }
+                        listViewTeamDataGirls.EndUpdate();
+                    }
+                }
+            }
+        }
+
+        private void buttonSaveTeams_Click(object sender, EventArgs e)
+        {
+            saveTeamDatas(SaveType.Save);
+        }
+
+        private void listViewTeamData_DoubleClick(object sender, EventArgs e)
+        {
+            if (sender == listViewTeamDataBoys)
+            {
+                editTeamData(listViewTeamDataBoys, Categories.Boys);
+            }
+            else
+            {
+                editTeamData(listViewTeamDataGirls, Categories.Girls);
+            }
+        }
+        #endregion
+
         #endregion
     }
 }

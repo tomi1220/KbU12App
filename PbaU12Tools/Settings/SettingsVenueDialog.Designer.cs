@@ -113,7 +113,9 @@
             Controls.Add(textBoxVenueName);
             Controls.Add(label1);
             Font = new Font("Meiryo UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "SettingsVenueDialog";
+            ShowInTaskbar = false;
             Text = "［会場］のプロパティ";
             Load += SettingsVenueDialog_Load;
             ((System.ComponentModel.ISupportInitialize)numericUpDownNumberOfCourts).EndInit();

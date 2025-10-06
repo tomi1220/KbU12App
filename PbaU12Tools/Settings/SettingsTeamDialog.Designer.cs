@@ -1,6 +1,6 @@
 ﻿namespace PbaU12Tools.Settings
 {
-    partial class SettingsTeamsDialog
+    partial class SettingsTeamDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -232,7 +232,7 @@
             label10.TabIndex = 21;
             label10.Text = "※必須";
             // 
-            // SettingsTeamsDialog
+            // SettingsTeamDialog
             // 
             AcceptButton = buttonOK;
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -259,7 +259,10 @@
             Controls.Add(textBoxTeamID);
             Controls.Add(label1);
             Font = new Font("Meiryo UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            Name = "SettingsTeamsDialog";
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Name = "SettingsTeamDialog";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "［チーム］のプロパティ";
             Load += SettingsVenueDialog_Load;
             ResumeLayout(false);

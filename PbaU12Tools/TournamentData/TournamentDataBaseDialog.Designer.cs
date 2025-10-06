@@ -158,7 +158,7 @@
             // 
             // numOfTeamsCtrlGirls
             // 
-            numOfTeamsCtrlGirls.Category = Categories.Unknown;
+            numOfTeamsCtrlGirls.Category = Categories.Girls;
             numOfTeamsCtrlGirls.CategoryValidity = false;
             numOfTeamsCtrlGirls.Dock = DockStyle.Fill;
             numOfTeamsCtrlGirls.FinalLeage = false;
@@ -176,7 +176,7 @@
             // 
             // numOfTeamsCtrlBoys
             // 
-            numOfTeamsCtrlBoys.Category = Categories.Unknown;
+            numOfTeamsCtrlBoys.Category = Categories.Boys;
             numOfTeamsCtrlBoys.CategoryValidity = false;
             numOfTeamsCtrlBoys.Dock = DockStyle.Fill;
             numOfTeamsCtrlBoys.FinalLeage = false;
@@ -225,11 +225,12 @@
             buttonOK.TabIndex = 0;
             buttonOK.Text = "OK";
             buttonOK.UseVisualStyleBackColor = true;
+            buttonOK.Click += buttonOK_Click;
             // 
             // TournamentDataBaseDialog
             // 
             AcceptButton = buttonOK;
-            AutoScaleDimensions = new SizeF(9F, 19F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = buttonCancel;
             ClientSize = new Size(728, 428);

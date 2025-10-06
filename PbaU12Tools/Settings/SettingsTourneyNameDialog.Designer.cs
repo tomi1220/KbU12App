@@ -136,6 +136,7 @@
             Font = new Font("Meiryo UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "SettingsTourneyNameDialog";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "［大会］のプロパティ";
             Load += SettingsTourneyNameDialog_Load;

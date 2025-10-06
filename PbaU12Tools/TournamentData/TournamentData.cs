@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using PbaU12Tools.Bracket;
+using PbaU12Tools.Match;
 using PbaU12Tools.Venue;
 using PbaU12Tools.Xml;
 
@@ -26,6 +27,19 @@ namespace PbaU12Tools.TournamentData
         /// スーパーシードチーム数
         /// </summary>
         public int NumberOfSuperSeed { get; set; } = 0;
+
+        public TournamentBaseData Clone()
+        {
+            TournamentBaseData newTournamentBaseData =
+                new TournamentBaseData()
+                {
+                    Category = this.Category,
+                    NumberOfTeams = this.NumberOfTeams,
+                    NumberOfSuperSeed = this.NumberOfSuperSeed
+                };
+
+            return newTournamentBaseData;
+        }
     }
 
     public class TournamentData
@@ -41,29 +55,33 @@ namespace PbaU12Tools.TournamentData
         /// </summary>
         public string TournamentName { get; set; } = string.Empty;
 
-        public TournamentBaseData BaseDataBoys { get; set; } = new TournamentBaseData();
-        public TournamentBaseData BaseDataGirls { get; set; } = new TournamentBaseData();
-        //public TournamentBaseData BaseDataBoys { get; set; } = new TournamentBaseData();
         /// <summary>
-        /// 地区名称の表示
+        /// 男子基本情報
         /// </summary>
-        public bool District { get; set; }
+        public TournamentBaseData BaseDataBoys { get; set; } = new TournamentBaseData();
+        /// <summary>
+        /// 女子基本情報
+        /// </summary>
+        public TournamentBaseData BaseDataGirls { get; set; } = new TournamentBaseData();
+        /// <summary>
+        /// 会場データ
+        /// </summary>
+        public VenueItemDatas VenueDatas { get; set; } = new VenueItemDatas();
         /// <summary>
         /// BEST4で決勝リーグ
         /// </summary>
         public bool FinalLeague { get; set; }
         /// <summary>
+        /// 地区名称の表示
+        /// </summary>
+        public bool District { get; set; }
+        /// <summary>
         /// オープン参加表示枠
         /// </summary>
         public bool OpenDisplayFrame { get; set; }
         /// <summary>
-        /// 会場データ
-        /// </summary>
-        public List<VenueItemData> VenueDatas { get; set; } = [];
-        /// <summary>
         /// トーナメント表データ
         /// </summary>
-        //public Dictionary<Category, BracketData> BrackectDataDic { get; set; } = [];
         public BracketData? BrackectDataBoys { get; set; }
         public BracketData? BrackectDataGirls { get; set; }
         /// <summary>
@@ -73,6 +91,24 @@ namespace PbaU12Tools.TournamentData
         #endregion
 
         #region メソッド
+        public TournamentData Clone()
+        {
+            TournamentData newTournamentData =
+                new TournamentData()
+                {
+                    Status = this.Status,
+                    TournamentName = this.TournamentName,
+                    BaseDataBoys = this.BaseDataBoys.Clone(),
+                    BaseDataGirls = this.BaseDataGirls.Clone(),
+                    VenueDatas = this.VenueDatas.Clone(),
+                    FinalLeague = this.FinalLeague,
+                    District = this.District,
+                    OpenDisplayFrame = this.OpenDisplayFrame,
+                };
+
+            return newTournamentData;
+        }
+
         public string? Serialize()
         {
             string xmlText = Serialize(this)!;

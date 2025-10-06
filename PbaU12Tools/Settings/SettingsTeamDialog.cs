@@ -11,21 +11,23 @@ using System.Windows.Forms;
 
 namespace PbaU12Tools.Settings
 {
-    public partial class SettingsTeamsDialog : Form
+    public partial class SettingsTeamDialog : Form
     {
         #region コンストラクタ
-        public SettingsTeamsDialog()
+        public SettingsTeamDialog()
         {
             InitializeComponent();
+
+            this.Icon = CommonResources.MixedTeamIcon;
         }
         #endregion
 
         #region プロパティ
         public Categories Category { private get; set; }
-        public TeamInfo? TeamInfo { get; set; }
+        public TeamData? TeamData { get; set; }
         #endregion
 
-        #region イベント・ハンドラ
+        #region ローカル・メソッド
         private void setDistrictsComboBox()
         {
             foreach (var d in DistrictsList.DicDistrict)
@@ -61,21 +63,27 @@ namespace PbaU12Tools.Settings
             if (Category == Categories.Girls)
             {
                 labelCategory.BackColor = CommonValues.GirlsColor;
+                labelCategory.Text = "女子";
             }
             else
             {
                 labelCategory.BackColor = CommonValues.BoysColor;
+                labelCategory.Text = "男子";
             }
 
-            if (TeamInfo != null)
+            if (TeamData != null)
             {
-                textBoxTeamID.Text = TeamInfo.JbaTeamID.Replace("T", "");
-                textBoxTeamName.Text = TeamInfo.TeamName;
-                textBoxTeamNameKana.Text = TeamInfo.ShortNameKana;
-                textBoxShortName.Text = TeamInfo.ShortName;
-                if (DistrictsList.DicDistrict.TryGetValue(TeamInfo.District, out string? district))
+                textBoxTeamID.Text = TeamData.JbaTeamID.Replace("T", "");
+                textBoxTeamName.Text = TeamData.TeamName;
+                textBoxTeamNameKana.Text = TeamData.ShortNameKana;
+                textBoxShortName.Text = TeamData.ShortName;
+                if (DistrictsList.DicDistrict.TryGetValue(TeamData.District, out string? district))
                 {
                     comboBoxDistrict.Text = district;
+                }
+                if (JbaTeamRegistrationStatusesList.DicJbaTeamRegistrationStatuses.TryGetValue(TeamData.JbaStatus, out string? jbaStatus))
+                {
+                    comboBoxJbaTeamRegistrationStatuses.Text = jbaStatus;
                 }
             }
         }
@@ -145,21 +153,21 @@ namespace PbaU12Tools.Settings
                 return;
             }
 
-            if (TeamInfo == null)
+            if (TeamData == null)
             {
-                TeamInfo = new TeamInfo();
+                TeamData = new TeamData();
             }
-            TeamInfo.JbaTeamID = jbaTeamID;
-            TeamInfo.TeamName = textBoxTeamName.Text.Trim();
-            TeamInfo.TeamNameKana = textBoxTeamNameKana.Text.Trim();
-            TeamInfo.ShortName = textBoxShortName.Text.Trim();
+            TeamData.JbaTeamID = jbaTeamID;
+            TeamData.TeamName = textBoxTeamName.Text.Trim();
+            TeamData.TeamNameKana = textBoxTeamNameKana.Text.Trim();
+            TeamData.ShortName = textBoxShortName.Text.Trim();
             if (comboBoxDistrict.SelectedItem is ItemData itemDataDistrict)
             {
-                TeamInfo.District =  (Districts)itemDataDistrict.Tag!;
+                TeamData.District =  (Districts)itemDataDistrict.Tag!;
             }
             if (comboBoxJbaTeamRegistrationStatuses.SelectedItem is ItemData itemDataJbaStatus)
             {
-                TeamInfo.JbaStatus = (JbaTeamRegistrationStatuses)itemDataJbaStatus.Tag!;
+                TeamData.JbaStatus = (JbaTeamRegistrationStatuses)itemDataJbaStatus.Tag!;
             }
 
             this.Close();

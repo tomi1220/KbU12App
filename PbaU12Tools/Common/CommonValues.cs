@@ -15,10 +15,14 @@ namespace PbaU12Tools
         public const string TournamentDatasFolder = "TournamentDatas";
         public const string ExcelWorksheetFolder = "ExcelWorksheet";
 
+        public const string RecentlyUsedData = "RecentlyUsedData";
+        public const string RecentlyUsedFileName = "RecentlyUsedFileName";
+
         public const string TournamentDataFileName = "TournamentData.xml";
         public const string TournamentNameDatasFileName = "TournamentNameDatas.xml";
         public const string VenueItemDatasFileName = "VenueItemDatas.xml";
         public const string VenueDatasFileName = "VenueDatas.xml";
+        public const string TeamDatasFileNameFormat = "TeamDatas{0}.xml";
 
         public const string TournamentDataFileFilter = "大会情報ファイル(*.xml)|*.xml|All files (*.*)|*.*";
         public const string BracketExcelFileFilter = "トーナメント表 Excelファイル(*.xlsx)|*.xlsx|All files (*.*)|*.*";
@@ -57,5 +61,10 @@ namespace PbaU12Tools
 
         public static readonly Color BoysColor = Color.FromArgb(0, 112, 192);
         public static readonly Color GirlsColor = Color.Crimson;
+
+        public static string TeamDatasFileName(Categories category)
+        {
+            return string.Format(TeamDatasFileNameFormat, category.ToString());
+        }
     }
 }

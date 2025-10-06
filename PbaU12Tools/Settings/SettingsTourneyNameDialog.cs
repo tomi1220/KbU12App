@@ -17,6 +17,8 @@ namespace PbaU12Tools.Settings
         public SettingsTourneyNameDialog()
         {
             InitializeComponent();
+
+            this.Icon = CommonResources.BracketIcon;
         }
         #endregion
 

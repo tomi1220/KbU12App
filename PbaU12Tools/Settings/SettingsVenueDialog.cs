@@ -17,6 +17,9 @@ namespace PbaU12Tools.Settings
         public SettingsVenueDialog()
         {
             InitializeComponent();
+
+            this.Icon = CommonResources.HomeIcon;
+
         }
         #endregion
 

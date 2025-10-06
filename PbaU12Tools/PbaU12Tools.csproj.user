@@ -8,6 +8,9 @@
     <Compile Update="ControlEx\NumOfTeamsCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Lottery\LotteryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Settings\SettingsTourneyNameDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -16,6 +19,9 @@
     </Compile>
     <Compile Update="TournamentData\TournamentDataBaseDialog.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TournamentData\TournamentDataContents.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="TournamentData\TournamentDataForm.cs">
       <SubType>Form</SubType>
