@@ -424,7 +424,7 @@ namespace PbaU12Tools.Settings
             saveVenueDatas(SaveType.Export, sfd.FileName);
         }
 
-        private void loadTeamInfos()
+        private void loadTeamDatas()
         {
             try
             {
@@ -457,7 +457,7 @@ namespace PbaU12Tools.Settings
                 MessageBox.Show(
                     this,
                     ex.Message,
-                    "会場データがロードできませんでした",
+                    "チームデータがロードできませんでした",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
@@ -773,7 +773,7 @@ namespace PbaU12Tools.Settings
 
             loadVenueDatas();
 
-            loadTeamInfos();
+            loadTeamDatas();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
