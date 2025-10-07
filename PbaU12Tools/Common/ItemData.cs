@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PbaU12Tools.Common
+namespace PbaU12Tools
 {
     public class ItemData
     {

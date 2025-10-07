@@ -1,8 +1,10 @@
 ﻿using PbaU12Tools.Bracket;
+using PbaU12Tools.Xml;
+using System.Runtime.CompilerServices;
 
 namespace PbaU12Tools.Bracket
 {
-    public partial class BracketGenerator
+    public partial class BracketGenData
     {
         #region クラス
         /// <summary>
@@ -64,6 +66,111 @@ namespace PbaU12Tools.Bracket
 
         public int[]? PureSeedArray { get; set; }
 
+        #endregion
+
+        #region メソッド
+        //public BracketGenData Clone()
+        //{
+        //    BracketGenData newBracketGenData =
+        //        new BracketGenData()
+        //        {
+        //            Status = this.Status,
+        //            TournamentName = this.TournamentName,
+        //            BaseDataBoys = this.BaseDataBoys.Clone(),
+        //            BaseDataGirls = this.BaseDataGirls.Clone(),
+        //            VenueDatas = this.VenueDatas.Clone(),
+        //            FinalLeague = this.FinalLeague,
+        //            District = this.District,
+        //            OpenDisplayFrame = this.OpenDisplayFrame,
+        //        };
+
+        //    return newBracketGenData;
+        //}
+
+        public string? Serialize()
+        {
+            string xmlText = Serialize(this)!;
+
+            return xmlText;
+        }
+
+        public static string? Serialize(BracketGenData bracketGenData)
+        {
+            try
+            {
+                KbU12XmlSerializer xmlSerializer = new(typeof(BracketGenData));
+                string xmlText = xmlSerializer.Serialize(bracketGenData);
+
+                return xmlText;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "大会情報データのシリアル化に失敗しました。" + Environment.NewLine +
+                    Environment.NewLine + ex.Message,
+                    "エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return string.Empty;
+            }
+        }
+
+        public static BracketGenData? Deserialize(
+            Categories category,
+            string? bracketGenDataFilePath = null)
+        {
+            BracketGenData? BracketGenData = null;
+
+            try
+            {
+                string filePath;
+                if (string.IsNullOrEmpty(bracketGenDataFilePath))
+                {
+                    filePath =
+                        Path.Combine(
+                            CommonTools.TournamentDatasFolderPath, CommonValues.BracketGenDataFileName(category));
+                }
+                else
+                {
+                    filePath = bracketGenDataFilePath;
+                }
+
+                if (File.Exists(filePath))
+                {
+                    using var sr = new StreamReader(filePath);
+                    string xmlText = sr.ReadToEnd();
+
+                    KbU12XmlSerializer xmlSerializer = new(typeof(BracketGenData));
+                    BracketGenData = (BracketGenData)xmlSerializer.Deserialize(xmlText)!;
+                    if (BracketGenData == null)
+                    {
+                        if (xmlSerializer.ExceptionData != null)
+                        {
+                            MessageBox.Show(
+                                "大会情報データの逆シリアル化に失敗しました。" + Environment.NewLine +
+                                Environment.NewLine + xmlSerializer.ExceptionData.Message,
+                                "エラー",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
+                    }
+                }
+
+                return BracketGenData;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "大会情報データの逆シリアル化に失敗しました。" + Environment.NewLine +
+                    Environment.NewLine + ex.Message,
+                    "エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return BracketGenData;
+            }
+        }
         #endregion
     }
 }

@@ -52,6 +52,7 @@
             tableLayoutPanelGen = new TableLayoutPanel();
             panelLottery = new Panel();
             buttonLottery = new Button();
+            panelDrop = new Panel();
             labelDrop = new Label();
             tableLayoutPanelScore = new TableLayoutPanel();
             buttonScore = new Button();
@@ -60,7 +61,6 @@
             panel1 = new Panel();
             buttonTournamentName = new Button();
             toolTip1 = new ToolTip(components);
-            panelDrop = new Panel();
             menuStrip1.SuspendLayout();
             panelAll.SuspendLayout();
             tableLayoutPanelMain.SuspendLayout();
@@ -68,10 +68,10 @@
             panelBaseData.SuspendLayout();
             tableLayoutPanelGen.SuspendLayout();
             panelLottery.SuspendLayout();
+            panelDrop.SuspendLayout();
             tableLayoutPanelScore.SuspendLayout();
             panelName.SuspendLayout();
             panel1.SuspendLayout();
-            panelDrop.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -275,11 +275,21 @@
             buttonLottery.TabIndex = 0;
             buttonLottery.Text = "抽選結果(&L)...";
             buttonLottery.UseVisualStyleBackColor = true;
+            buttonLottery.Click += buttonLottery_Click;
+            // 
+            // panelDrop
+            // 
+            panelDrop.Controls.Add(labelDrop);
+            panelDrop.Dock = DockStyle.Fill;
+            panelDrop.Location = new Point(155, 3);
+            panelDrop.Name = "panelDrop";
+            panelDrop.Size = new Size(453, 141);
+            panelDrop.TabIndex = 1;
             // 
             // labelDrop
             // 
             labelDrop.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            labelDrop.BackColor = Color.MistyRose;
+            labelDrop.BackColor = Color.PaleGreen;
             labelDrop.ForeColor = Color.Gray;
             labelDrop.Location = new Point(73, 23);
             labelDrop.Name = "labelDrop";
@@ -356,15 +366,6 @@
             buttonTournamentName.UseVisualStyleBackColor = true;
             buttonTournamentName.Click += buttonTournamentName_Click;
             // 
-            // panelDrop
-            // 
-            panelDrop.Controls.Add(labelDrop);
-            panelDrop.Dock = DockStyle.Fill;
-            panelDrop.Location = new Point(155, 3);
-            panelDrop.Name = "panelDrop";
-            panelDrop.Size = new Size(453, 141);
-            panelDrop.TabIndex = 1;
-            // 
             // FormDistTourneyMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -387,11 +388,11 @@
             panelBaseData.PerformLayout();
             tableLayoutPanelGen.ResumeLayout(false);
             panelLottery.ResumeLayout(false);
+            panelDrop.ResumeLayout(false);
             tableLayoutPanelScore.ResumeLayout(false);
             panelName.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panelDrop.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }

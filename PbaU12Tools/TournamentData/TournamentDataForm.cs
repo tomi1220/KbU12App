@@ -59,7 +59,7 @@ namespace PbaU12Tools.TournamentData
             }
             // トーナメント表データ
             // 男子
-            if (PreTournamentData.BrackectDataBoys != null)
+            //if (PreTournamentData.BrackectDataBoys != null)
             {
             }
             // 女子

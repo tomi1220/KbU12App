@@ -5,78 +5,53 @@ namespace PbaU12Tools.Bracket
 {
     public partial class BracketGenerator
     {
-        #region Enum
-        #endregion
-
-        #region 定数
-        #endregion
-
-        #region フィールド
-        /// <summary>
-        /// 不要な枠を除いたシード番号の配列
-        /// </summary>
-        //private PartInfo _allDataInfo = new();
-        #endregion
-
-        #region コンストラクタ
-
-        public BracketGenerator(Categories category, int numOfTeams, int numOfSuperSeed)
-        {
-            Category = category;
-            NumberOfTeams = numOfTeams;
-            NumberOfSuperSeed = numOfSuperSeed;
-
-            PureSeedArray = new int[NumberOfTeams];
-        }
-        #endregion
-
-        #region プロパティ
-        public TournamentData.TournamentData? _tournamentData { get; set; }
-        //public BracketGenerator BracketData { get; set; } = new();
-        #endregion
-
         #region メソッド
-        public void CreateGenData()
+        public static BracketGenData CreateGenData(TournamentBaseData baseData)
         {
-            // 全体を一つのパートに見立てて作業用の枠を作りシード番号を埋める
-            AllDataInfo!.NumOfTeams = NumberOfTeams;
-            fillSeedNumber(AllDataInfo, NumberOfTeams);
+            BracketGenData bracketGenData = new BracketGenData();
+            bracketGenData.Category = baseData.Category;
+            bracketGenData.NumberOfTeams = baseData.NumberOfTeams;
+            bracketGenData.NumberOfSuperSeed = baseData.NumberOfSuperSeed;
 
-            if (NumberOfSuperSeed != 0)
+            // 全体を一つのパートに見立てて作業用の枠を作りシード番号を埋める
+            bracketGenData.AllDataInfo!.NumOfTeams = bracketGenData.NumberOfTeams;
+            fillSeedNumber(bracketGenData, bracketGenData.AllDataInfo, bracketGenData.NumberOfTeams);
+
+            if (bracketGenData.NumberOfSuperSeed != 0)
             {
-                int addRound = round(NumberOfSuperSeed, out _);
-                AllDataInfo.Round += addRound - 1;
+                int addRound = round(bracketGenData.NumberOfSuperSeed, out _);
+                bracketGenData.AllDataInfo.Round += addRound - 1;
             }
 
             // 不要な枠を除いたシード番号の配列を作る
-            PureSeedArray = new int[NumberOfTeams];
+            bracketGenData.PureSeedArray = new int[bracketGenData.NumberOfTeams];
             int tIdx = 0;
-            for (int i = 0; i < AllDataInfo.FullFrames / 2; i++)
+            for (int i = 0; i < bracketGenData.AllDataInfo.FullFrames / 2; i++)
             {
-               if (AllDataInfo.FirstRoundData[i].Slots[0] != 0)
+               if (bracketGenData.AllDataInfo.FirstRoundData[i].Slots[0] != 0)
                 {
-                    PureSeedArray[tIdx++] = AllDataInfo.FirstRoundData[i].Slots[0];
+                    bracketGenData.PureSeedArray[tIdx++] = bracketGenData.AllDataInfo.FirstRoundData[i].Slots[0];
                 }
-                if (AllDataInfo.FirstRoundData[i].Slots[1] != 0)
+                if (bracketGenData.AllDataInfo.FirstRoundData[i].Slots[1] != 0)
                 {
-                    PureSeedArray[tIdx++] = AllDataInfo.FirstRoundData[i].Slots[1];
+                    bracketGenData.PureSeedArray[tIdx++] = bracketGenData.AllDataInfo.FirstRoundData[i].Slots[1];
                 }
             }
 
-            if (NumberOfSuperSeed == 0)
+            if (bracketGenData.NumberOfSuperSeed == 0)
             {
-                PartInfos.Add(AllDataInfo);
+                bracketGenData.PartInfos.Add(bracketGenData.AllDataInfo);
             }
             else
             {
                 // スーパーシード毎にパート分けしチーム数を決める
-                int[] numOfTeamsPerPart = new int[NumberOfSuperSeed];
+                int[] numOfTeamsPerPart = new int[bracketGenData.NumberOfSuperSeed];
                 int partIdx = 0;
                 int teams = 1;
-                for (int i = 1; i < NumberOfTeams; i++)
+                for (int i = 1; i < bracketGenData.NumberOfTeams; i++)
                 {
                     teams++;
-                    if (PureSeedArray[i] <= NumberOfSuperSeed * 2)
+                    if (bracketGenData.PureSeedArray[i] <= bracketGenData.NumberOfSuperSeed * 2)
                     {
                         numOfTeamsPerPart[partIdx++] = teams;
                         teams = 1;
@@ -84,19 +59,21 @@ namespace PbaU12Tools.Bracket
                     }
                 }
                 // スーパーシードのパート毎に、シード番号を埋める
-                PartInfos = [];
-                for (int i = 0; i < NumberOfSuperSeed; i++)
+                bracketGenData.PartInfos = [];
+                for (int i = 0; i < bracketGenData.NumberOfSuperSeed; i++)
                 {
-                    PartInfo partDataInfo = new()
+                    BracketGenData.PartInfo partDataInfo = new()
                     {
                         PartNumber = i + 1,
                         NumOfTeams = numOfTeamsPerPart[i]
                     };
-                    fillSeedNumber(partDataInfo!, partDataInfo.NumOfTeams - 1);
+                    fillSeedNumber(bracketGenData, partDataInfo!, partDataInfo.NumOfTeams - 1);
 
-                    PartInfos.Add(partDataInfo);
+                    bracketGenData.PartInfos.Add(partDataInfo);
                 }
             }
+
+            return bracketGenData;
         }
         #endregion
 
@@ -301,7 +278,8 @@ namespace PbaU12Tools.Bracket
         /// 作業用の枠を確保し、シード番号を埋める
         /// </summary>
         /// <param name="partInfo">パート毎の情報</param>
-        private void fillSeedNumber(PartInfo partInfo, int numOfTeams)
+        private static void fillSeedNumber(
+            BracketGenData bracketGenData, BracketGenData.PartInfo partInfo, int numOfTeams)
         {
             partInfo.Round = BracketGenerator.round(numOfTeams, out int numOfElement);
             partInfo.NumberOfElement = numOfElement;
@@ -312,7 +290,7 @@ namespace PbaU12Tools.Bracket
                 partInfo.FullFrames = (int)Math.Pow(2, round++);
             }
 
-            if (NumberOfSuperSeed == 0)
+            if (bracketGenData.NumberOfSuperSeed == 0)
             {
                 partInfo.Node = getElementDetail(numOfTeams, partInfo.NumberOfElement, false);
             }

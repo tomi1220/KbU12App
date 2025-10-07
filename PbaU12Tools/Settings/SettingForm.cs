@@ -587,32 +587,43 @@ namespace PbaU12Tools.Settings
             return item;
         }
 
-        private void saveTeamDatas(SaveType saveType)
+        private void saveTeamDatas()
         {
-            string? xmlText = serializeTeamDatas();
-
-            if (xmlText == null)
-            {
-                return;
-            }
-
             try
             {
-                string filePathBoys =
-                    Path.Combine(
-                        CommonTools.DataFolderPath,
-                        CommonValues.TeamDatasFileName(Categories.Boys));
+                {
+                    string? xmlTextBoys = serializeTeamDatas(listViewTeamDataBoys);
 
-                using var swBoys = new StreamWriter(filePathBoys);
-                swBoys.Write(xmlText);
+                    if (xmlTextBoys == null)
+                    {
+                        return;
+                    }
 
-                string filePathGirls =
-                    Path.Combine(
-                        CommonTools.DataFolderPath,
-                        CommonValues.TeamDatasFileName(Categories.Girls));
+                    string filePathBoys =
+                        Path.Combine(
+                            CommonTools.DataFolderPath,
+                            CommonValues.TeamDatasFileName(Categories.Boys));
 
-                using var swGirls = new StreamWriter(filePathGirls);
-                swGirls.Write(xmlText);
+                    using var swBoys = new StreamWriter(filePathBoys);
+                    swBoys.Write(xmlTextBoys);
+
+                }
+                {
+                    string? xmlTextGirls = serializeTeamDatas(listViewTeamDataGirls);
+
+                    if (xmlTextGirls == null)
+                    {
+                        return;
+                    }
+
+                    string filePathGirls =
+                        Path.Combine(
+                            CommonTools.DataFolderPath,
+                            CommonValues.TeamDatasFileName(Categories.Girls));
+
+                    using var swGirls = new StreamWriter(filePathGirls);
+                    swGirls.Write(xmlTextGirls);
+                }
 
                 MessageBox.Show(
                     this,
@@ -633,19 +644,19 @@ namespace PbaU12Tools.Settings
             }
         }
 
-        private string? serializeTeamDatas()
+        private string? serializeTeamDatas(ListView listView)
         {
-            TeamDatas? teamDatasBoys = new();
+            TeamDatas? teamDatas = new();
 
-            foreach (ListViewItem item in listViewTeamDataBoys.Items)
+            foreach (ListViewItem item in listView.Items)
             {
                 if (item.Tag is TeamData teamData)
                 {
-                    teamDatasBoys.TeamDatasList!.Add(teamData);
+                    teamDatas.TeamDatasList!.Add(teamData);
                 }
             }
 
-            string xmlText = TeamDatas.Serialize(teamDatasBoys)!;
+            string xmlText = TeamDatas.Serialize(teamDatas)!;
 
             return xmlText;
         }
@@ -948,7 +959,7 @@ namespace PbaU12Tools.Settings
 
         private void buttonSaveTeams_Click(object sender, EventArgs e)
         {
-            saveTeamDatas(SaveType.Save);
+            saveTeamDatas();
         }
 
         private void listViewTeamData_DoubleClick(object sender, EventArgs e)

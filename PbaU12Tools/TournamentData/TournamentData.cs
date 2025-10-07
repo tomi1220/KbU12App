@@ -79,15 +79,15 @@ namespace PbaU12Tools.TournamentData
         /// オープン参加表示枠
         /// </summary>
         public bool OpenDisplayFrame { get; set; }
-        /// <summary>
-        /// トーナメント表データ
-        /// </summary>
-        public BracketData? BrackectDataBoys { get; set; }
-        public BracketData? BrackectDataGirls { get; set; }
-        /// <summary>
-        /// 対戦データ
-        /// </summary>
-        public List<MatchData>? MatchDatas { get; set; }
+        ///// <summary>
+        ///// トーナメント表データ
+        ///// </summary>
+        //public BracketData? BrackectDataBoys { get; set; }
+        //public BracketData? BrackectDataGirls { get; set; }
+        ///// <summary>
+        ///// 対戦データ
+        ///// </summary>
+        //public List<MatchData>? MatchDatas { get; set; }
         #endregion
 
         #region メソッド

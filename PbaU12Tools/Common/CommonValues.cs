@@ -23,6 +23,7 @@ namespace PbaU12Tools
         public const string VenueItemDatasFileName = "VenueItemDatas.xml";
         public const string VenueDatasFileName = "VenueDatas.xml";
         public const string TeamDatasFileNameFormat = "TeamDatas{0}.xml";
+        public const string BracketGenDataFileNameFormat = "BracketGenData{0}.xml";
 
         public const string TournamentDataFileFilter = "大会情報ファイル(*.xml)|*.xml|All files (*.*)|*.*";
         public const string BracketExcelFileFilter = "トーナメント表 Excelファイル(*.xlsx)|*.xlsx|All files (*.*)|*.*";
@@ -62,9 +63,17 @@ namespace PbaU12Tools
         public static readonly Color BoysColor = Color.FromArgb(0, 112, 192);
         public static readonly Color GirlsColor = Color.Crimson;
 
+        public static readonly Color BoysBackColor = Color.FromArgb(218, 238, 243);
+        public static readonly Color GirlsBackColor = Color.FromArgb(255, 182, 193);
+
         public static string TeamDatasFileName(Categories category)
         {
             return string.Format(TeamDatasFileNameFormat, category.ToString());
+        }
+
+        public static string BracketGenDataFileName(Categories category)
+        {
+            return string.Format(BracketGenDataFileNameFormat, category.ToString());
         }
     }
 }

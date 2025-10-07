@@ -29,5 +29,11 @@ namespace PbaU12Tools.WinAPI
 
         [DllImport("ole32.dll", CharSet = CharSet.Unicode, ExactSpelling = true)]
         public static extern void CoTaskMemFree(IntPtr pv);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        public const int WM_VSCROLL = 277; // Vertical scroll
+        public const int SB_LINEUP = 0; // Scrolls one line up
+        public const int SB_LINEDOWN = 1; // Scrolls one line down
     }
 }

@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
 using PbaU12Tools.Xml;
+using PbaU12Tools.Lottery;
 
 namespace DistTourney
 {
@@ -126,6 +127,8 @@ namespace DistTourney
                 return false;
             }
 
+            updateTournamentData();
+
             if (string.IsNullOrEmpty(_tournamentDataFilePath))
             {
                 return saveAsTournamentData();
@@ -172,6 +175,7 @@ namespace DistTourney
             {
                 return false;
             }
+            updateTournamentData();
 
             using SaveFileDialog sfd = new();
             sfd.Title = "新しい大会情報を保存するファイルを指定してください。";
@@ -191,7 +195,7 @@ namespace DistTourney
 
                 try
                 {
-                   string xmlText = _tournamentData.Serialize()!;
+                    string xmlText = _tournamentData.Serialize()!;
 
                     using var sw = new StreamWriter(_tournamentDataFilePath);
                     sw.Write(xmlText);
@@ -254,6 +258,55 @@ namespace DistTourney
             return true;
         }
 
+        private void saveBracketGenData(BracketGenData bracketGenData)
+        {
+            try
+            {
+                {
+                    string? xmlTextBoys = bracketGenData.Serialize();
+
+                    if (xmlTextBoys == null)
+                    {
+                        return;
+                    }
+
+                    string filePathBoys =
+                        Path.Combine(
+                            CommonTools.TournamentFolderPath(_tournamentName),
+                            CommonValues.BracketGenDataFileName(bracketGenData.Category));
+
+                    using var swBoys = new StreamWriter(filePathBoys);
+                    swBoys.Write(xmlTextBoys);
+
+                }
+
+                MessageBox.Show(
+                    this,
+                    "トーナメント表作成データをセーブしました。",
+                    this.Text,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    this,
+                    "トーナメント表作成データがセーブできませんでした" + Environment.NewLine +
+                    Environment.NewLine + ex.Message,
+                    this.Text,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void updateTournamentData()
+        {
+            if (_tournamentData == null)
+            {
+                _tournamentData = new TournamentData();
+            }
+            _tournamentData.TournamentName = _tournamentName;
+        }
         #endregion
 
         #region イベント・ハンドラ
@@ -386,8 +439,32 @@ namespace DistTourney
                 _tournamentData!.VenueDatas = dialog.NewTournamentData!.VenueDatas.Clone();
 
                 tournamentDataContents1.SetTournamentDataContents(dialog.NewTournamentData);
+
+                if (_tournamentData!.BaseDataBoys.NumberOfTeams > 0 ||
+                    _tournamentData!.BaseDataBoys.NumberOfTeams > 0)
+                {
+                    if (MessageBox.Show(
+                        this,
+                        "トーナメント表作成用のデータを作成します。" + Environment.NewLine +
+                        Environment.NewLine +
+                        $"男子チーム数 = {_tournamentData!.BaseDataBoys.NumberOfTeams.ToString()}" + Environment.NewLine +
+                        $"女子チーム数 = {_tournamentData!.BaseDataGirls.NumberOfTeams.ToString()}" + Environment.NewLine,
+                        this.Text,
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        BracketGenData bracketGenDataBoys =
+                            BracketGenerator.CreateGenData(_tournamentData!.BaseDataBoys);
+                        saveBracketGenData(bracketGenDataBoys);
+
+                        BracketGenData bracketGenDataGirls =
+                            BracketGenerator.CreateGenData(_tournamentData!.BaseDataGirls);
+                        saveBracketGenData(bracketGenDataGirls);
+                    }
+                }
             }
         }
+
         #endregion
 
         #region ［トーナメント表作成］
@@ -407,10 +484,29 @@ namespace DistTourney
             //}
 
             using BracketOutputDialog dialog = new BracketOutputDialog();
-            //dialog.TourneyData = tournamentData;
+            dialog.TourneyData = _tournamentData;
+            string filePathBoys =
+                Path.Combine(
+                    CommonTools.TournamentFolderPath(_tournamentName),
+                    CommonValues.BracketGenDataFileName(Categories.Boys));
+            dialog.BracketGenDataBoys = BracketGenData.Deserialize(Categories.Boys, filePathBoys);
+            string filePathGirls =
+                Path.Combine(
+                    CommonTools.TournamentFolderPath(_tournamentName),
+                    CommonValues.BracketGenDataFileName(Categories.Girls));
+            dialog.BracketGenDataGirls = BracketGenData.Deserialize(Categories.Girls, filePathGirls);
             dialog.ShowDialog(this);
         }
         #endregion
+
+        #region 抽選結果
+        private void buttonLottery_Click(object sender, EventArgs e)
+        {
+            LotteryForm lotteryForm = new LotteryForm(_tournamentData!);
+            lotteryForm.Show(this);
+        }
+        #endregion
+
         #endregion
     }
 }
