@@ -32,8 +32,8 @@ namespace PbaU12Tools
         #region メソッド
         public void FillDebugInfo(
             PbaU12Tools.TournamentData.TournamentData tournamentData,
-            BracketGenData bracketGenDataBoys,
-            BracketGenData bracketGenDataGirls)
+            BracketGenData? bracketGenDataBoys,
+            BracketGenData? bracketGenDataGirls)
         {
             if (tournamentData == null)
             {

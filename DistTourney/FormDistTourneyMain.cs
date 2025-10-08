@@ -82,6 +82,7 @@ namespace DistTourney
                 _tournamentDataOrg = TournamentData.Deserialize(ofd.FileName);
                 if (_tournamentDataOrg != null)
                 {
+                    _tournamentData = _tournamentDataOrg;
                     _tournamentName = _tournamentDataOrg.TournamentName;
 
                     return true;
@@ -502,7 +503,19 @@ namespace DistTourney
         #region ’Š‘IŒ‹‰Ê
         private void buttonLottery_Click(object sender, EventArgs e)
         {
-            LotteryForm lotteryForm = new LotteryForm(_tournamentData!);
+            LotteryForm lotteryForm = new LotteryForm();
+            lotteryForm.TournamentData = _tournamentData;
+
+            string filePathBoys =
+                Path.Combine(
+                    CommonTools.TournamentFolderPath(_tournamentName),
+                    CommonValues.BracketGenDataFileName(Categories.Boys));
+            lotteryForm.BracketGenDataBoys = BracketGenData.Deserialize(Categories.Boys, filePathBoys);
+            string filePathGirls =
+                Path.Combine(
+                    CommonTools.TournamentFolderPath(_tournamentName),
+                    CommonValues.BracketGenDataFileName(Categories.Girls));
+            lotteryForm.BracketGenDataGirls = BracketGenData.Deserialize(Categories.Girls, filePathGirls);
             lotteryForm.Show(this);
         }
         #endregion

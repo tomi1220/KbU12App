@@ -1,20 +1,20 @@
-﻿using PbaU12Tools.TournamentData;
-using PbaU12Tools.Bracket;
+﻿using PbaU12Tools.Bracket;
+using PbaU12Tools.TournamentData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Diagnostics;
 
-namespace PbaU12Tools.Lottery
+namespace PbaU12Tools.ControlEx
 {
-    public partial class LotteryForm : Form
+    public partial class LotteryResultCtrl : UserControl
     {
         #region Enum
         private enum InputMode
@@ -22,9 +22,6 @@ namespace PbaU12Tools.Lottery
             DragDrop,
             DirectInput
         }
-        #endregion
-
-        #region 定数
         #endregion
 
         #region ローカル・クラス
@@ -40,30 +37,15 @@ namespace PbaU12Tools.Lottery
         }
         #endregion
 
-        #region フィールド
-        #endregion
-
         #region コンストラクタ
-        public LotteryForm()
+        public LotteryResultCtrl()
         {
             InitializeComponent();
 
-            imageList1.Images.Add(CommonResources.BoysTeam);
-            imageList1.Images.Add(CommonResources.GirlsTeam);
-            tabPageBoys.ImageIndex = 0;
-            tabPageGirls.ImageIndex = 1;
-            tabPageBoys.BackColor = CommonValues.BoysBackColor;
-            tabPageGirls.BackColor = CommonValues.GirlsBackColor;
-
-            panelDirectInputBoys.Dock = DockStyle.Fill;
-            panelDnDTeamBoys.Dock = DockStyle.Fill;
-            panelDirectInputBoys.Visible = false;
-            panelDnDTeamBoys.Visible = true;
-
-            //panelDirectInputGirls.Dock = DockStyle.Fill;
-            //panelDnDTeamGirls.Dock = DockStyle.Fill;
-            //panelDirectInputGirls.Visible = false;
-            //panelDnDTeamGirls.Visible = true;
+            panelDirectInput.Dock = DockStyle.Fill;
+            panelDnDTeam.Dock = DockStyle.Fill;
+            panelDirectInput.Visible = false;
+            panelDnDTeam.Visible = true;
 
             InitializeControls();
         }
@@ -71,23 +53,48 @@ namespace PbaU12Tools.Lottery
 
         #region プロパティ
         public TournamentData.TournamentData? TournamentData { private get; set; } = null;
-        public BracketGenData? BracketGenDataBoys { get; set; } = null;
-        public BracketGenData? BracketGenDataGirls { get; set; } = null;
+        public TournamentBaseData? TournamentBaseData { private get; set; } = null;
+        private Categories _category = Categories.Unknown;
+        public Categories Category
+        {
+            get { return _category; }
+            set
+            {
+                if (value != _category)
+                {
+                    _category = value;
+                }
+            }
+        }
+        private TeamDatas? _teamDatas = null;
+        public TeamDatas? TeamDatas
+        {
+            set
+            {
+                if (value != _teamDatas)
+                {
+                    _teamDatas = value;
+                    addAllTeamDatas(listViewDnDTeams, _teamDatas!);
+                }
+            }
+        }
+        private BracketGenData? _bracketGenData = null;
+        public BracketGenData? BracketGenData
+        {
+            set
+            {
+                if (value != _bracketGenData)
+                {
+                    _bracketGenData = value;
+                    preparingListViewForLottery(_bracketGenData);
+                }
+            }
+        }
         #endregion
 
         #region ローカル・メソッド
         private void InitializeControls()
         {
-            listViewDiTeamsBoys.Tag = Categories.Boys;
-            listViewDndLotteryNumberBoys.Tag = Categories.Boys;
-            listViewDnDTeamsBoys.Tag = Categories.Boys;
-
-            lotteryResultCtrlGirls.Category = Categories.Girls;
-
-            //listViewDiTeamsGirls.Tag = Categories.Girls;
-            //listViewDndLotteryNumberGirls.Tag = Categories.Girls;
-            //listViewDnDTeamsGirls.Tag = Categories.Girls;
-
             comboBoxInputMode.Items.Add(
                 new ItemData() { Text = "Drag & Drop", Tag = InputMode.DragDrop });
             comboBoxInputMode.Items.Add(
@@ -97,13 +104,14 @@ namespace PbaU12Tools.Lottery
             comboBoxInputMode.SelectedIndexChanged += comboBoxInputMode_SelectedIndexChanged;
         }
 
-        private void preparingListViewForLottery()
+        private void preparingListViewForLottery(BracketGenData? bracketGenData)
         {
-            if (BracketGenDataBoys != null)
+            listViewDndLotteryNumber.Items.Clear();
+            if (bracketGenData != null)
             {
-                for (int i = 1; i <= TournamentData!.BaseDataBoys.NumberOfTeams; i++)
+                for (int i = 1; i <= bracketGenData.NumberOfTeams; i++)
                 {
-                    listViewDndLotteryNumberBoys.Items.Add(
+                    listViewDndLotteryNumber.Items.Add(
                         new ListViewItem()
                         {
                             Name = i.ToString(),
@@ -111,69 +119,41 @@ namespace PbaU12Tools.Lottery
                             Tag = new LotteryData()
                             {
                                 LotteryNumber = i,
-                                SeedNumber = BracketGenDataBoys.PureSeedArray![i - 1]
+                                SeedNumber = bracketGenData.PureSeedArray![i - 1]
                             }
                         });
                 }
-                columnDnDLotteryNumberBoys.Width = -2;
-            }
-
-            if (BracketGenDataGirls != null)
-            {
-                lotteryResultCtrlGirls.BracketGenData = BracketGenDataGirls;
-            }
-        }
-
-        private void loadTeamDatas()
-        {
-            try
-            {
-                TeamDatas? teamDatasBoys = TeamDatas.DeserializeTeamDatas(Categories.Boys);
-                if (teamDatasBoys != null)
-                {
-                    addAllTeamDatas(listViewDnDTeamsBoys, teamDatasBoys);
-                }
-
-                TeamDatas? teamDatasGirls = TeamDatas.DeserializeTeamDatas(Categories.Girls);
-                if (teamDatasGirls != null)
-                {
-                    lotteryResultCtrlGirls.TeamDatas = teamDatasGirls;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    this,
-                    ex.Message,
-                    "チームデータがロードできませんでした",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                columnDnDLotteryNumber.Width = -2;
             }
         }
 
         private void addAllTeamDatas(ListView listView, TeamDatas teamDatas)
         {
-            foreach (var team in teamDatas.TeamDatasList!)
+            listViewDnDTeams.Items.Clear();
+            if (teamDatas != null)
             {
-                if (team.District == Districts.KagoshimaNorth ||
-                    team.District == Districts.KagoshimaWest ||
-                    team.District == Districts.KagoshimaSouth ||
-                    team.District == Districts.KagoshimaCentral)
+                foreach (var team in teamDatas.TeamDatasList!)
                 {
-                    ListViewItem listViewItem =
-                        new ListViewItem()
-                        {
-                            Text = team.ShortName,
-                            Tag = new LotteryResultData()
+                    if (team.District == Districts.KagoshimaNorth ||
+                        team.District == Districts.KagoshimaWest ||
+                        team.District == Districts.KagoshimaSouth ||
+                        team.District == Districts.KagoshimaCentral)
+                    {
+                        ListViewItem listViewItem =
+                            new ListViewItem()
                             {
-                                TeamData = team,
-                            }
-                        };
-                    listViewItem.SubItems.Add(string.Empty);
-                    listView.Items.Add(listViewItem);
+                                Text = team.ShortName,
+                                Tag = new LotteryResultData()
+                                {
+                                    TeamData = team,
+                                }
+                            };
+                        listViewItem.SubItems.Add(string.Empty);
+                        listView.Items.Add(listViewItem);
+                    }
                 }
+                listView.Columns[1].Width = -2;
             }
-            listView.Columns[1].Width = -2;
         }
 
         private ListViewItem? getListViewItemFromDraggingPoint(ListView listView, Point point)
@@ -192,17 +172,8 @@ namespace PbaU12Tools.Lottery
 
         private void InsertLotteryNumber(Categories category, LotteryResultData? lotteryResultData)
         {
-            ListView listView;
-            //if (category == Categories.Boys)
-            {
-                listView = listViewDndLotteryNumberBoys;
-            }
-            //else
-            //{
-            //    listView = listViewDndLotteryNumberGirls;
-            //}
             int index = -1;
-            foreach (ListViewItem item in listView.Items)
+            foreach (ListViewItem item in listViewDndLotteryNumber.Items)
             {
                 if (item.Tag is LotteryData lotteryData)
                 {
@@ -226,34 +197,19 @@ namespace PbaU12Tools.Lottery
             ListViewItem visibleItem;
             if (index != -1)
             {
-                visibleItem = listView.Items.Insert(index, listViewItem);
+                visibleItem = listViewDndLotteryNumber.Items.Insert(index, listViewItem);
             }
             else
             {
-                visibleItem = listView.Items.Add(listViewItem);
+                visibleItem = listViewDndLotteryNumber.Items.Add(listViewItem);
             }
             visibleItem.Selected = true;
-            listView.EnsureVisible(visibleItem.Index);
+            listViewDndLotteryNumber.EnsureVisible(visibleItem.Index);
         }
 
         #endregion
 
         #region イベント・ハンドラ
-
-        #region フォーム
-        private void LotteryForm_Load(object sender, EventArgs e)
-        {
-            if (TournamentData == null)
-            {
-                DialogResult = DialogResult.Cancel;
-                Close();
-            }
-
-            loadTeamDatas();
-
-            preparingListViewForLottery();
-        }
-        #endregion
 
         #region 入力モードComboBox
         private void comboBoxInputMode_SelectedIndexChanged(object? sender, EventArgs e)
@@ -268,13 +224,13 @@ namespace PbaU12Tools.Lottery
                 {
                     if ((InputMode)itemData.Tag! == InputMode.DirectInput)
                     {
-                        panelDnDTeamBoys.Visible = false;
-                        panelDirectInputBoys.Visible = true;
+                        panelDnDTeam.Visible = false;
+                        panelDirectInput.Visible = true;
                     }
                     else if ((InputMode)itemData.Tag! == InputMode.DragDrop)
                     {
-                        panelDirectInputBoys.Visible = false;
-                        panelDnDTeamBoys.Visible = true;
+                        panelDirectInput.Visible = false;
+                        panelDnDTeam.Visible = true;
                     }
                 }
             }
@@ -284,7 +240,7 @@ namespace PbaU12Tools.Lottery
         #region 抽選番号ListView
         private void listViewDndLotteryNumber_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            if (listViewDndLotteryNumberBoys.SelectedItems.Count == 1)
+            if (listViewDndLotteryNumber.SelectedItems.Count == 1)
             {
                 if (e.Button == MouseButtons.Left)
                 {
@@ -299,11 +255,11 @@ namespace PbaU12Tools.Lottery
         {
             if (e.IsSelected && e.Item != null)
             {
-                labelLotteryNumberBoys.Text = e.Item.Text;
+                labelLotteryNumber.Text = e.Item.Text;
             }
             else
             {
-                labelLotteryNumberBoys.Text = string.Empty;
+                labelLotteryNumber.Text = string.Empty;
             }
         }
 

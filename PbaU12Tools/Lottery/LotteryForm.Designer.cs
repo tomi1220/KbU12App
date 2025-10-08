@@ -49,23 +49,7 @@
             columnLotteryNumberBoys = new ColumnHeader();
             columnTeamNameBoys = new ColumnHeader();
             tabPageGirls = new TabPage();
-            panelDnDTeamGirls = new Panel();
-            tableLayoutPanelLotteryGirls = new TableLayoutPanel();
-            panel6 = new Panel();
-            listViewDndLotteryNumberGirls = new ListView();
-            columnDnDLotteryNumberGirls = new ColumnHeader();
-            labelLotteryNumberGirls = new Label();
-            panel7 = new Panel();
-            listViewDnDTeamsGirls = new ListView();
-            columnHeader2 = new ColumnHeader();
-            columnHeader3 = new ColumnHeader();
-            panel8 = new Panel();
-            buttonDeleteGirls = new Button();
-            buttonAddGirls = new Button();
-            panelDirectInputGirls = new Panel();
-            listViewDiTeamsGirls = new ListView();
-            columnLotteryNumberGirls = new ColumnHeader();
-            columnTeamNameGirls = new ColumnHeader();
+            lotteryResultCtrlGirls = new PbaU12Tools.ControlEx.LotteryResultCtrl();
             imageList1 = new ImageList(components);
             panel1 = new Panel();
             label1 = new Label();
@@ -81,12 +65,6 @@
             panel3.SuspendLayout();
             panelDirectInputBoys.SuspendLayout();
             tabPageGirls.SuspendLayout();
-            panelDnDTeamGirls.SuspendLayout();
-            tableLayoutPanelLotteryGirls.SuspendLayout();
-            panel6.SuspendLayout();
-            panel7.SuspendLayout();
-            panel8.SuspendLayout();
-            panelDirectInputGirls.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -197,6 +175,7 @@
             listViewDnDTeamsBoys.AllowDrop = true;
             listViewDnDTeamsBoys.Columns.AddRange(new ColumnHeader[] { columnDnDTeamBoys, columnDnDLotteryResultBoys });
             listViewDnDTeamsBoys.Dock = DockStyle.Fill;
+            listViewDnDTeamsBoys.FullRowSelect = true;
             listViewDnDTeamsBoys.GridLines = true;
             listViewDnDTeamsBoys.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listViewDnDTeamsBoys.Location = new Point(6, 6);
@@ -209,6 +188,7 @@
             listViewDnDTeamsBoys.DragDrop += listViewDnDTeams_DragDrop;
             listViewDnDTeamsBoys.DragEnter += listViewDnDTeams_DragEnter;
             listViewDnDTeamsBoys.DragOver += listViewDnDTeams_DragOver;
+            listViewDnDTeamsBoys.DoubleClick += listViewDnDTeamsBoys_DoubleClick;
             // 
             // columnDnDTeamBoys
             // 
@@ -281,8 +261,7 @@
             // 
             // tabPageGirls
             // 
-            tabPageGirls.Controls.Add(panelDnDTeamGirls);
-            tabPageGirls.Controls.Add(panelDirectInputGirls);
+            tabPageGirls.Controls.Add(lotteryResultCtrlGirls);
             tabPageGirls.Location = new Point(4, 24);
             tabPageGirls.Name = "tabPageGirls";
             tabPageGirls.Padding = new Padding(3);
@@ -291,170 +270,15 @@
             tabPageGirls.Text = "女子";
             tabPageGirls.UseVisualStyleBackColor = true;
             // 
-            // panelDnDTeamGirls
+            // lotteryResultCtrlGirls
             // 
-            panelDnDTeamGirls.Controls.Add(tableLayoutPanelLotteryGirls);
-            panelDnDTeamGirls.Location = new Point(10, 42);
-            panelDnDTeamGirls.Name = "panelDnDTeamGirls";
-            panelDnDTeamGirls.Size = new Size(380, 390);
-            panelDnDTeamGirls.TabIndex = 4;
-            // 
-            // tableLayoutPanelLotteryGirls
-            // 
-            tableLayoutPanelLotteryGirls.ColumnCount = 3;
-            tableLayoutPanelLotteryGirls.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
-            tableLayoutPanelLotteryGirls.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 43F));
-            tableLayoutPanelLotteryGirls.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-            tableLayoutPanelLotteryGirls.Controls.Add(panel6, 2, 0);
-            tableLayoutPanelLotteryGirls.Controls.Add(panel7, 0, 0);
-            tableLayoutPanelLotteryGirls.Controls.Add(panel8, 1, 0);
-            tableLayoutPanelLotteryGirls.Dock = DockStyle.Fill;
-            tableLayoutPanelLotteryGirls.Location = new Point(0, 0);
-            tableLayoutPanelLotteryGirls.Name = "tableLayoutPanelLotteryGirls";
-            tableLayoutPanelLotteryGirls.RowCount = 1;
-            tableLayoutPanelLotteryGirls.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelLotteryGirls.Size = new Size(380, 390);
-            tableLayoutPanelLotteryGirls.TabIndex = 0;
-            // 
-            // panel6
-            // 
-            panel6.Controls.Add(listViewDndLotteryNumberGirls);
-            panel6.Controls.Add(labelLotteryNumberGirls);
-            panel6.Dock = DockStyle.Fill;
-            panel6.Location = new Point(281, 3);
-            panel6.Name = "panel6";
-            panel6.Padding = new Padding(6);
-            panel6.Size = new Size(96, 384);
-            panel6.TabIndex = 2;
-            // 
-            // listViewDndLotteryNumberGirls
-            // 
-            listViewDndLotteryNumberGirls.Columns.AddRange(new ColumnHeader[] { columnDnDLotteryNumberGirls });
-            listViewDndLotteryNumberGirls.Dock = DockStyle.Fill;
-            listViewDndLotteryNumberGirls.FullRowSelect = true;
-            listViewDndLotteryNumberGirls.GridLines = true;
-            listViewDndLotteryNumberGirls.Location = new Point(6, 49);
-            listViewDndLotteryNumberGirls.MultiSelect = false;
-            listViewDndLotteryNumberGirls.Name = "listViewDndLotteryNumberGirls";
-            listViewDndLotteryNumberGirls.Size = new Size(84, 329);
-            listViewDndLotteryNumberGirls.TabIndex = 0;
-            listViewDndLotteryNumberGirls.UseCompatibleStateImageBehavior = false;
-            listViewDndLotteryNumberGirls.View = View.Details;
-            listViewDndLotteryNumberGirls.ItemDrag += listViewDndLotteryNumber_ItemDrag;
-            listViewDndLotteryNumberGirls.ItemSelectionChanged += listViewDndLotteryNumber_ItemSelectionChanged;
-            // 
-            // columnDnDLotteryNumberGirls
-            // 
-            columnDnDLotteryNumberGirls.Text = "抽選番号";
-            // 
-            // labelLotteryNumberGirls
-            // 
-            labelLotteryNumberGirls.BorderStyle = BorderStyle.FixedSingle;
-            labelLotteryNumberGirls.Dock = DockStyle.Top;
-            labelLotteryNumberGirls.Font = new Font("Meiryo UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            labelLotteryNumberGirls.Location = new Point(6, 6);
-            labelLotteryNumberGirls.Name = "labelLotteryNumberGirls";
-            labelLotteryNumberGirls.Size = new Size(84, 43);
-            labelLotteryNumberGirls.TabIndex = 2;
-            labelLotteryNumberGirls.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel7
-            // 
-            panel7.Controls.Add(listViewDnDTeamsGirls);
-            panel7.Dock = DockStyle.Fill;
-            panel7.Location = new Point(3, 3);
-            panel7.Name = "panel7";
-            panel7.Padding = new Padding(6);
-            panel7.Size = new Size(229, 384);
-            panel7.TabIndex = 0;
-            // 
-            // listViewDnDTeamsGirls
-            // 
-            listViewDnDTeamsGirls.Activation = ItemActivation.OneClick;
-            listViewDnDTeamsGirls.AllowDrop = true;
-            listViewDnDTeamsGirls.Columns.AddRange(new ColumnHeader[] { columnHeader2, columnHeader3 });
-            listViewDnDTeamsGirls.Dock = DockStyle.Fill;
-            listViewDnDTeamsGirls.GridLines = true;
-            listViewDnDTeamsGirls.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            listViewDnDTeamsGirls.Location = new Point(6, 6);
-            listViewDnDTeamsGirls.MultiSelect = false;
-            listViewDnDTeamsGirls.Name = "listViewDnDTeamsGirls";
-            listViewDnDTeamsGirls.Size = new Size(217, 372);
-            listViewDnDTeamsGirls.TabIndex = 0;
-            listViewDnDTeamsGirls.UseCompatibleStateImageBehavior = false;
-            listViewDnDTeamsGirls.View = View.Details;
-            listViewDnDTeamsGirls.DragDrop += listViewDnDTeams_DragDrop;
-            listViewDnDTeamsGirls.DragEnter += listViewDnDTeams_DragEnter;
-            listViewDnDTeamsGirls.DragOver += listViewDnDTeams_DragOver;
-            // 
-            // columnHeader2
-            // 
-            columnHeader2.Text = "チーム名";
-            columnHeader2.Width = 140;
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "抽選番号";
-            columnHeader3.TextAlign = HorizontalAlignment.Center;
-            // 
-            // panel8
-            // 
-            panel8.Controls.Add(buttonDeleteGirls);
-            panel8.Controls.Add(buttonAddGirls);
-            panel8.Dock = DockStyle.Fill;
-            panel8.Location = new Point(238, 3);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(37, 384);
-            panel8.TabIndex = 3;
-            // 
-            // buttonDeleteGirls
-            // 
-            buttonDeleteGirls.Location = new Point(3, 35);
-            buttonDeleteGirls.Name = "buttonDeleteGirls";
-            buttonDeleteGirls.Size = new Size(31, 23);
-            buttonDeleteGirls.TabIndex = 1;
-            buttonDeleteGirls.Text = "&>";
-            buttonDeleteGirls.UseVisualStyleBackColor = true;
-            // 
-            // buttonAddGirls
-            // 
-            buttonAddGirls.Location = new Point(3, 6);
-            buttonAddGirls.Name = "buttonAddGirls";
-            buttonAddGirls.Size = new Size(31, 23);
-            buttonAddGirls.TabIndex = 0;
-            buttonAddGirls.Text = "&<";
-            buttonAddGirls.UseVisualStyleBackColor = true;
-            // 
-            // panelDirectInputGirls
-            // 
-            panelDirectInputGirls.Controls.Add(listViewDiTeamsGirls);
-            panelDirectInputGirls.Location = new Point(175, 144);
-            panelDirectInputGirls.Name = "panelDirectInputGirls";
-            panelDirectInputGirls.Padding = new Padding(6);
-            panelDirectInputGirls.Size = new Size(200, 325);
-            panelDirectInputGirls.TabIndex = 3;
-            // 
-            // listViewDiTeamsGirls
-            // 
-            listViewDiTeamsGirls.Columns.AddRange(new ColumnHeader[] { columnLotteryNumberGirls, columnTeamNameGirls });
-            listViewDiTeamsGirls.Dock = DockStyle.Fill;
-            listViewDiTeamsGirls.FullRowSelect = true;
-            listViewDiTeamsGirls.GridLines = true;
-            listViewDiTeamsGirls.LabelEdit = true;
-            listViewDiTeamsGirls.Location = new Point(6, 6);
-            listViewDiTeamsGirls.Name = "listViewDiTeamsGirls";
-            listViewDiTeamsGirls.Size = new Size(188, 313);
-            listViewDiTeamsGirls.TabIndex = 1;
-            listViewDiTeamsGirls.UseCompatibleStateImageBehavior = false;
-            listViewDiTeamsGirls.View = View.Details;
-            // 
-            // columnLotteryNumberGirls
-            // 
-            columnLotteryNumberGirls.Text = "抽選番号";
-            // 
-            // columnTeamNameGirls
-            // 
-            columnTeamNameGirls.Text = "チーム名";
+            lotteryResultCtrlGirls.BackColor = Color.Transparent;
+            lotteryResultCtrlGirls.Category = Categories.Unknown;
+            lotteryResultCtrlGirls.Dock = DockStyle.Fill;
+            lotteryResultCtrlGirls.Location = new Point(3, 3);
+            lotteryResultCtrlGirls.Name = "lotteryResultCtrlGirls";
+            lotteryResultCtrlGirls.Size = new Size(395, 469);
+            lotteryResultCtrlGirls.TabIndex = 0;
             // 
             // imageList1
             // 
@@ -534,12 +358,6 @@
             panel3.ResumeLayout(false);
             panelDirectInputBoys.ResumeLayout(false);
             tabPageGirls.ResumeLayout(false);
-            panelDnDTeamGirls.ResumeLayout(false);
-            tableLayoutPanelLotteryGirls.ResumeLayout(false);
-            panel6.ResumeLayout(false);
-            panel7.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            panelDirectInputGirls.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -573,22 +391,6 @@
         private ColumnHeader columnDnDLotteryNumberBoys;
         private Label label1;
         private Label labelLotteryNumberBoys;
-        private Panel panelDnDTeamGirls;
-        private TableLayoutPanel tableLayoutPanelLotteryGirls;
-        private Panel panel6;
-        private ListView listViewDndLotteryNumberGirls;
-        private ColumnHeader columnDnDLotteryNumberGirls;
-        private Label labelLotteryNumberGirls;
-        private Panel panel7;
-        private ListView listViewDnDTeamsGirls;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
-        private Panel panel8;
-        private Button buttonDeleteGirls;
-        private Button buttonAddGirls;
-        private Panel panelDirectInputGirls;
-        private ListView listViewDiTeamsGirls;
-        private ColumnHeader columnLotteryNumberGirls;
-        private ColumnHeader columnTeamNameGirls;
+        private ControlEx.LotteryResultCtrl lotteryResultCtrlGirls;
     }
 }
