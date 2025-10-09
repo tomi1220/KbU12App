@@ -378,7 +378,7 @@
             Name = "FormDistTourneyMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DistTourney";
-            Load += FormDistMain_Load;
+            Shown += FormDistTourneyMain_Shown;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             panelAll.ResumeLayout(false);

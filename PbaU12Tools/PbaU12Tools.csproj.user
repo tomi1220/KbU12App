@@ -5,6 +5,9 @@
     <Compile Update="Bracket\BracketOutputDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Common\StartupNaviDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ControlEx\LotteryResultCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -15,7 +15,7 @@ namespace PbaU12Tools
         public const string TournamentDatasFolder = "TournamentDatas";
         public const string ExcelWorksheetFolder = "ExcelWorksheet";
 
-        public const string RecentlyUsedData = "RecentlyUsedData";
+        public const string RecentlyUsedFolder = "RecentlyUsedFolder";
         public const string RecentlyUsedFileName = "RecentlyUsedFileName";
 
         public const string TournamentDataFileName = "TournamentData.xml";

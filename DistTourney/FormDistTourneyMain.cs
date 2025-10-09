@@ -157,14 +157,19 @@ namespace DistTourney
             AppSetting setting = new();
             if (_tournamentDataFilePath != null)
             {
-                setting[CommonValues.RecentlyUsedData] =
+                //string[] dirctories =
+                //   Path.GetDirectoryName(_tournamentDataFilePath)!.Split(Path.DirectorySeparatorChar);
+                //foreach (var s in dirctories)
+                //{
+                //}
+                setting[CommonValues.RecentlyUsedFolder] =
                     Path.GetDirectoryName(_tournamentDataFilePath)!;
                 setting[CommonValues.RecentlyUsedFileName] =
                     Path.GetFileName(_tournamentDataFilePath);
             }
             else
             {
-                setting[CommonValues.RecentlyUsedData] = string.Empty;
+                setting[CommonValues.RecentlyUsedFolder] = string.Empty;
                 setting[CommonValues.RecentlyUsedFileName] = string.Empty;
             }
             setting.Save();
@@ -217,7 +222,7 @@ namespace DistTourney
         private TournamentData? loadTournamentData()
         {
             AppSetting setting = new();
-            string recentlyUsedFolder = setting[CommonValues.RecentlyUsedData].ToString();
+            string recentlyUsedFolder = setting[CommonValues.RecentlyUsedFolder].ToString();
             string recentlyUsedFileName = setting[CommonValues.RecentlyUsedFileName].ToString();
             if (!string.IsNullOrEmpty(recentlyUsedFolder))
             {
@@ -312,7 +317,7 @@ namespace DistTourney
 
         #region イベント・ハンドラ
 
-        private void FormDistMain_Load(object sender, EventArgs e)
+        private void FormDistTourneyMain_Shown(object sender, EventArgs e)
         {
             if (!CommonTools.PreparingFolder())
             {
@@ -332,6 +337,10 @@ namespace DistTourney
 
                 panelAll.Enabled = true;
             }
+        }
+
+        private void FormDistMain_Load(object sender, EventArgs e)
+        {
         }
 
         #region メニュー
