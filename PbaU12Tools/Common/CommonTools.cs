@@ -96,7 +96,7 @@ namespace PbaU12Tools
             return true;
         }
 
-        public static string TournamentFolderPath(string tournamentName)
+        public static string GetTournamentDatasFolderPath(string tournamentName)
         {
             // PbaU12\Documents\TournamentDatas\大会名 フォルダー
             string tournamentDatasFolderPath =

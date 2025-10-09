@@ -20,6 +20,9 @@
     <Compile Update="Settings\SettingsVenueDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="StartupNavi\StartupNaviForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="TournamentData\TournamentDataBaseDialog.cs">
       <SubType>Form</SubType>
     </Compile>
