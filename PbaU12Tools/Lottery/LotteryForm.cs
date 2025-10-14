@@ -60,7 +60,7 @@ namespace PbaU12Tools.Lottery
         #endregion
 
         #region プロパティ
-        public TournamentData.TournamentData? TournamentData { private get; set; } = null;
+        public TournamentData.TourneyData? TournamentData { private get; set; } = null;
         public BracketGenData? BracketGenDataBoys { get; set; } = null;
         public BracketGenData? BracketGenDataGirls { get; set; } = null;
         #endregion

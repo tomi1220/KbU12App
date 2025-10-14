@@ -52,8 +52,8 @@ namespace PbaU12Tools.ControlEx
         #endregion
 
         #region プロパティ
-        public TournamentData.TournamentData? TournamentData { private get; set; } = null;
-        public TournamentBaseData? TournamentBaseData { private get; set; } = null;
+        public TournamentData.TourneyData? TournamentData { private get; set; } = null;
+        public TournenyBaseData? TournamentBaseData { private get; set; } = null;
         private Categories _category = Categories.Unknown;
         public Categories Category
         {

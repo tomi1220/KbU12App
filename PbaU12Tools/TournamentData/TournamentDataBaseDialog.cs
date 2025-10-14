@@ -21,12 +21,12 @@ namespace PbaU12Tools.TournamentData
         #endregion
 
         #region フィールド
-        private TournamentData? _tournamentDataOrg;
+        private TourneyData? _tournamentDataOrg;
         #endregion
 
         #region コンストラクタ
 
-        public TournamentDataBaseDialog(TournamentData tournamentData)
+        public TournamentDataBaseDialog(TourneyData tournamentData)
         {
             InitializeComponent();
 
@@ -41,7 +41,7 @@ namespace PbaU12Tools.TournamentData
         #endregion
 
         #region プロパティ
-        public TournamentData? NewTournamentData { get; set; } = null;
+        public TourneyData? NewTournamentData { get; set; } = null;
         #endregion
 
         #region ローカル・メソッド
@@ -146,9 +146,9 @@ namespace PbaU12Tools.TournamentData
             return otherVenueDatas;
         }
 
-        private TournamentData createTournamentData()
+        private TourneyData createTournamentData()
         {
-            TournamentData tournamentData = new TournamentData();
+            TourneyData tournamentData = new TourneyData();
             if (numOfTeamsCtrlBoys.CategoryValidity)
             {
                 tournamentData.BaseDataBoys =

@@ -30,7 +30,7 @@ namespace PbaU12Tools.Bracket
         #endregion
 
         #region プロパティ
-        public TournamentData.TournamentData? TourneyData { get; set; }
+        public TournamentData.TourneyData? TourneyData { get; set; }
         public BracketGenData? BracketGenDataBoys { get; set; }
         public BracketGenData? BracketGenDataGirls { get; set; }
         public TournamentDataStatuses CurrentStatus { get; set; } = TournamentDataStatuses.None;

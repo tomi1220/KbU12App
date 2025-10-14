@@ -14,7 +14,7 @@
     <Compile Update="Lottery\LotteryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Settings\SettingsTourneyNameDialog.cs">
+    <Compile Update="Settings\SettingsTournamentNameDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Settings\SettingsVenueDialog.cs">

@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using System.Windows.Media;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace PbaU12Tools
@@ -34,8 +35,9 @@ namespace PbaU12Tools
 
         #region プロパティ
         public bool AllowBlankTournamentName { get; set; } = false;
-        public TournamentNameDatas? TournamentNameDatas { private get; set; }
-        public TournamentNameData? TournamentNameData { get; set; }
+        public int OldestYear { get; set; }
+        public TourneyNameDatas? TourneyNameDatas { private get; set; }
+        public TourneyNameData? TourneyNameData { get; set; }
         public string TournamentName { get; set; } = string.Empty;
         #endregion
 
@@ -45,9 +47,29 @@ namespace PbaU12Tools
         #region ローカル・メソッド
         private void setTournamentNameComboBox()
         {
-            comboBoxTournamentName.Items.Clear();
+            string selectFiscalYear = string.Empty;
+            int nextFiscalYear = DateTime.Now.Year;
+            if (DateTime.Now.Month >= 4)
+            {
+                // 4月～12月
+                nextFiscalYear++;
+            }
+            selectFiscalYear = (nextFiscalYear - 1).ToString();
+            if (OldestYear == 0)
+            {
+                OldestYear = DateTime.Now.Year;
+                if (DateTime.Now.Month < 4)
+                {
+                    OldestYear--;
+                }
+            }
+            for (int i = OldestYear; i <= nextFiscalYear; i++)
+            {
+                comboBoxFiscalYear.Items.Add(i.ToString());
+            }
+            comboBoxFiscalYear.Text = selectFiscalYear;
 
-            if (TournamentNameDatas == null)
+            if (TourneyNameDatas == null)
             {
                 string filePath =
                     Path.Combine(
@@ -59,15 +81,15 @@ namespace PbaU12Tools
                     using var sr = new StreamReader(filePath);
                     string xmlText = sr.ReadToEnd();
 
-                    TournamentNameDatas = TournamentNameDatas.Deserialize(xmlText);
+                    TourneyNameDatas = TourneyNameDatas.Deserialize(xmlText);
                 }
             }
 
-            if (TournamentNameDatas != null)
+            if (TourneyNameDatas != null)
             {
-                if (TournamentNameDatas.TournamentNameDatasList != null)
+                if (TourneyNameDatas.TourneyNameDatasList != null)
                 {
-                    foreach (var tn in TournamentNameDatas.TournamentNameDatasList)
+                    foreach (var tn in TourneyNameDatas.TourneyNameDatasList)
                     {
                         ItemData itemData =
                             new()
@@ -112,9 +134,9 @@ namespace PbaU12Tools
                 }
                 foreach (ItemData itemData in comboBoxTournamentName.Items)
                 {
-                    if (itemData.Tag is TournamentNameData tournamentName)
+                    if (itemData.Tag is TourneyNameData tourneyName)
                     {
-                        if (tournamentName.Name == baseName)
+                        if (tourneyName.Name == baseName)
                         {
                             comboBoxTournamentName.SelectedItem = itemData;
                             break;
@@ -140,7 +162,7 @@ namespace PbaU12Tools
         private void buttonOK_Click(object sender, EventArgs e)
         {
             string tournamentName = string.Empty;
-            TournamentNameData? tournamentNameData = null;
+            TourneyNameData? tourneyNameData = null;
 
             if (!string.IsNullOrWhiteSpace(comboBoxTournamentName.Text.Trim()))
             {
@@ -148,9 +170,9 @@ namespace PbaU12Tools
                 {
                     if (comboBoxTournamentName.Text == itemData.Text)
                     {
-                        if (itemData.Tag is TournamentNameData tagData)
+                        if (itemData.Tag is TourneyNameData tagData)
                         {
-                            tournamentNameData = tagData;
+                            tourneyNameData = tagData;
                         }
                     }
                 }
@@ -175,7 +197,7 @@ namespace PbaU12Tools
             else
             {
                 TournamentName = tournamentName;
-                this.TournamentNameData = tournamentNameData;
+                this.TourneyNameData = tourneyNameData;
 
                 this.Close();
             }

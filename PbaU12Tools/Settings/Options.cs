@@ -45,12 +45,12 @@ namespace PbaU12Tools.Settings
         }
 
 
-        public static TournamentNameDatas? Deserialize(string xmlText)
+        public static TourneyNameDatas? Deserialize(string xmlText)
         {
-            TournamentNameDatas? tournamentNameDatas = null;
+            TourneyNameDatas? tournamentNameDatas = null;
 
-            KbU12XmlSerializer xmlSerializer = new(typeof(TournamentNameDatas));
-            tournamentNameDatas = (TournamentNameDatas)xmlSerializer.Deserialize(xmlText)!;
+            KbU12XmlSerializer xmlSerializer = new(typeof(TourneyNameDatas));
+            tournamentNameDatas = (TourneyNameDatas)xmlSerializer.Deserialize(xmlText)!;
             if (tournamentNameDatas == null)
             {
                 if (xmlSerializer.ExceptionData != null)

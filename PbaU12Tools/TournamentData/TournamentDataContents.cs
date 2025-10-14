@@ -25,7 +25,7 @@ namespace PbaU12Tools.TournamentData
             InitializeComponent();
         }
 
-        public void SetTournamentDataContents(TournamentData data)
+        public void SetTournamentDataContents(TourneyData data)
         {
             if (data != null)
             {

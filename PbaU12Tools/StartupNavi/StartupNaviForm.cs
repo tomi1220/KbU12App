@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PbaU12Tools.TournamentName;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,6 +29,7 @@ namespace PbaU12Tools.StartupNavi
         #endregion
 
         #region プロパティ
+        public TourneyNameData? TournamentNameData { get; set; } = null;
         #endregion
 
         #region ローカル・メソッド
@@ -69,6 +71,15 @@ namespace PbaU12Tools.StartupNavi
         private void StartupNaviForm_Load(object sender, EventArgs e)
         {
             makeTournamentDataTree();
+        }
+
+        private void buttonNetTournamentData_Click(object sender, EventArgs e)
+        {
+            var tournamentNameDialog = new TournamentNameDialog();
+            if (tournamentNameDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                TournamentNameData = tournamentNameDialog.TourneyNameData!;
+            }
         }
         #endregion
     }

@@ -6,7 +6,7 @@ namespace PbaU12Tools.Bracket
     public partial class BracketGenerator
     {
         #region メソッド
-        public static BracketGenData CreateGenData(TournamentBaseData baseData)
+        public static BracketGenData CreateGenData(TournenyBaseData baseData)
         {
             BracketGenData bracketGenData = new BracketGenData();
             bracketGenData.Category = baseData.Category;

@@ -9,12 +9,13 @@ using System.Xml.Serialization;
 
 namespace PbaU12Tools.TournamentName
 {
-    public class TournamentNameData
+    public class TourneyNameData
     {
         /// <summary>
         /// 大会名称（回数を含まない）
         /// </summary>
         public string Name { get; set; } = string.Empty;
+        public int Season { get; set; }
         /// <summary>
         /// 男子チーム数固定
         /// </summary>
@@ -26,8 +27,8 @@ namespace PbaU12Tools.TournamentName
 
         public string GetFullName(int numOfTimes)
         {
-            string tournamentName = GetFullName(Name, numOfTimes);
-            return tournamentName;
+            string tourneyName = GetFullName(Name, numOfTimes);
+            return tourneyName;
         }
 
         public static string GetFullName(string name, int numOfTimes)
@@ -38,9 +39,9 @@ namespace PbaU12Tools.TournamentName
         }
     }
 
-    public class TournamentNameDatas
+    public class TourneyNameDatas
     {
-        public List<TournamentNameData>? TournamentNameDatasList { get; set; } = [];
+        public List<TourneyNameData>? TourneyNameDatasList { get; set; } = [];
 
         public string? Serialize()
         {
@@ -49,12 +50,12 @@ namespace PbaU12Tools.TournamentName
             return xmlText;
         }
 
-        public static string? Serialize(TournamentNameDatas tournamentNameDatas)
+        public static string? Serialize(TourneyNameDatas tourneyNameDatas)
         {
             try
             {
-                KbU12XmlSerializer xmlSerializer = new(typeof(TournamentNameDatas));
-                string xmlText = xmlSerializer.Serialize(tournamentNameDatas);
+                KbU12XmlSerializer xmlSerializer = new(typeof(TourneyNameDatas));
+                string xmlText = xmlSerializer.Serialize(tourneyNameDatas);
 
                 return xmlText;
             }
@@ -70,15 +71,15 @@ namespace PbaU12Tools.TournamentName
             }
         }
 
-        public static TournamentNameDatas? Deserialize(string xmlText)
+        public static TourneyNameDatas? Deserialize(string xmlText)
         {
-            TournamentNameDatas? tournamentNameDatas = null;
+            TourneyNameDatas? tourneyNameDatas = null;
 
             try
             {
-                KbU12XmlSerializer xmlSerializer = new(typeof(TournamentNameDatas));
-                tournamentNameDatas = (TournamentNameDatas)xmlSerializer.Deserialize(xmlText)!;
-                if (tournamentNameDatas == null)
+                KbU12XmlSerializer xmlSerializer = new(typeof(TourneyNameDatas));
+                tourneyNameDatas = (TourneyNameDatas)xmlSerializer.Deserialize(xmlText)!;
+                if (tourneyNameDatas == null)
                 {
                     if (xmlSerializer.ExceptionData != null)
                     {
@@ -91,7 +92,7 @@ namespace PbaU12Tools.TournamentName
                     }
                 }
 
-                return tournamentNameDatas;
+                return tourneyNameDatas;
             }
             catch (Exception ex)
             {
@@ -102,7 +103,7 @@ namespace PbaU12Tools.TournamentName
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
 
-                return tournamentNameDatas;
+                return tourneyNameDatas;
             }
         }
     }
