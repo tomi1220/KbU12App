@@ -32,7 +32,7 @@
             panel1 = new Panel();
             buttonCancel = new Button();
             buttonOK = new Button();
-            button1 = new Button();
+            buttonNetTournamentData = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -48,7 +48,7 @@
             // 
             panel1.Controls.Add(buttonCancel);
             panel1.Controls.Add(buttonOK);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(buttonNetTournamentData);
             panel1.Dock = DockStyle.Bottom;
             panel1.Location = new Point(6, 370);
             panel1.Name = "panel1";
@@ -58,6 +58,7 @@
             // buttonCancel
             // 
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.DialogResult = DialogResult.Cancel;
             buttonCancel.Location = new Point(296, 8);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(75, 23);
@@ -68,6 +69,7 @@
             // buttonOK
             // 
             buttonOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonOK.DialogResult = DialogResult.OK;
             buttonOK.Location = new Point(215, 8);
             buttonOK.Name = "buttonOK";
             buttonOK.Size = new Size(75, 23);
@@ -75,21 +77,24 @@
             buttonOK.Text = "OK";
             buttonOK.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // buttonNetTournamentData
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button1.AutoSize = true;
-            button1.Location = new Point(3, 7);
-            button1.Name = "button1";
-            button1.Size = new Size(127, 25);
-            button1.TabIndex = 0;
-            button1.Text = "新しい大会情報(&N)...";
-            button1.UseVisualStyleBackColor = true;
+            buttonNetTournamentData.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonNetTournamentData.AutoSize = true;
+            buttonNetTournamentData.Location = new Point(3, 7);
+            buttonNetTournamentData.Name = "buttonNetTournamentData";
+            buttonNetTournamentData.Size = new Size(127, 25);
+            buttonNetTournamentData.TabIndex = 0;
+            buttonNetTournamentData.Text = "新しい大会情報(&N)...";
+            buttonNetTournamentData.UseVisualStyleBackColor = true;
+            buttonNetTournamentData.Click += buttonNetTournamentData_Click;
             // 
             // StartupNaviForm
             // 
+            AcceptButton = buttonOK;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = buttonCancel;
             ClientSize = new Size(386, 411);
             Controls.Add(treeView1);
             Controls.Add(panel1);
@@ -109,7 +114,7 @@
 
         private TreeView treeView1;
         private Panel panel1;
-        private Button button1;
+        private Button buttonNetTournamentData;
         private Button buttonCancel;
         private Button buttonOK;
     }

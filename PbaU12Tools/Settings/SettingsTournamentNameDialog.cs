@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace PbaU12Tools.Settings
 {
-    public partial class SettingsTourneyNameDialog : Form
+    public partial class SettingsTournamentNameDialog : Form
     {
         #region コンストラクタ
-        public SettingsTourneyNameDialog()
+        public SettingsTournamentNameDialog()
         {
             InitializeComponent();
 
@@ -23,24 +23,24 @@ namespace PbaU12Tools.Settings
         #endregion
 
         #region プロパティ
-        public TournamentNameData? TourneneyNameData { get; set; }
+        public TourneyNameData? TourneyNameData { get; set; }
         #endregion
 
         #region イベント・ハンドラ
         private void SettingsTourneyNameDialog_Load(object sender, EventArgs e)
         {
-            if (TourneneyNameData != null)
+            if (TourneyNameData != null)
             {
-                textBoxTournamentName.Text = TourneneyNameData.Name;
-                if (TourneneyNameData.FixedNumOfBoysTeams > 0)
+                textBoxTournamentName.Text = TourneyNameData.Name;
+                if (TourneyNameData.FixedNumOfBoysTeams > 0)
                 {
                     checkBoxFixedNumOfBoysTeams.Checked = true;
-                    numericUpDownNumOfBoysTeams.Value = TourneneyNameData.FixedNumOfBoysTeams;
+                    numericUpDownNumOfBoysTeams.Value = TourneyNameData.FixedNumOfBoysTeams;
                 }
-                if (TourneneyNameData.FixedNumOfGirlsTeams > 0)
+                if (TourneyNameData.FixedNumOfGirlsTeams > 0)
                 {
                     checkBoxFixedNumOfGirlsTeams.Checked = true;
-                    numericUpDownNumOfGirlsTeams.Value = TourneneyNameData.FixedNumOfGirlsTeams;
+                    numericUpDownNumOfGirlsTeams.Value = TourneyNameData.FixedNumOfGirlsTeams;
                 }
             }
         }
@@ -99,16 +99,16 @@ namespace PbaU12Tools.Settings
                 return;
             }
 
-            if (TourneneyNameData == null)
+            if (TourneyNameData == null)
             {
-                TourneneyNameData = new TournamentNameData();
+                TourneyNameData = new TourneyNameData();
             }
-            TourneneyNameData.Name = textBoxTournamentName.Text.Trim();
-            TourneneyNameData.FixedNumOfBoysTeams =
+            TourneyNameData.Name = textBoxTournamentName.Text.Trim();
+            TourneyNameData.FixedNumOfBoysTeams =
                 (int)(checkBoxFixedNumOfBoysTeams.Checked
                     ? numericUpDownNumOfBoysTeams.Value
                     : 0);
-            TourneneyNameData.FixedNumOfGirlsTeams =
+            TourneyNameData.FixedNumOfGirlsTeams =
                 (int)(checkBoxFixedNumOfGirlsTeams.Checked
                     ? numericUpDownNumOfGirlsTeams.Value
                     : 0);

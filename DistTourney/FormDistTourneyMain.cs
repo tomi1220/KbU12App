@@ -29,8 +29,8 @@ namespace DistTourney
 
         private string? _tournamentDataFilePath = null;
 
-        private TournamentData? _tournamentDataOrg;
-        private TournamentData? _tournamentData;
+        private TourneyData? _tournamentDataOrg;
+        private TourneyData? _tournamentData;
         #endregion
 
         #region コンストラクタ
@@ -80,7 +80,7 @@ namespace DistTourney
             {
                 _tournamentDataFilePath = ofd.FileName;
 
-                _tournamentDataOrg = TournamentData.Deserialize(ofd.FileName);
+                _tournamentDataOrg = TourneyData.Deserialize(ofd.FileName);
                 if (_tournamentDataOrg != null)
                 {
                     _tournamentData = _tournamentDataOrg;
@@ -101,7 +101,7 @@ namespace DistTourney
             }
         }
 
-        private void setTournamentDataInformation(TournamentData tournamentData)
+        private void setTournamentDataInformation(TourneyData tournamentData)
         {
             // 進行状況
             if (tournamentData.Status == TournamentDataStatuses.None)
@@ -220,7 +220,7 @@ namespace DistTourney
             return false;
         }
 
-        private TournamentData? loadTournamentData()
+        private TourneyData? loadTournamentData()
         {
             AppSetting setting = new();
             string recentlyUsedFolder = setting[CommonValues.RecentlyUsedFolder].ToString();
@@ -239,8 +239,8 @@ namespace DistTourney
                     }
                     if (xmlText != string.Empty)
                     {
-                        KbU12XmlSerializer serializer = new(typeof(TournamentData));
-                        TournamentData? tournamentData = (TournamentData?)serializer.Deserialize(xmlText);
+                        KbU12XmlSerializer serializer = new(typeof(TourneyData));
+                        TourneyData? tournamentData = (TourneyData?)serializer.Deserialize(xmlText);
 
                         return tournamentData;
                     }
@@ -310,7 +310,7 @@ namespace DistTourney
         {
             if (_tournamentData == null)
             {
-                _tournamentData = new TournamentData();
+                _tournamentData = new TourneyData();
             }
             _tournamentData.TournamentName = _tournamentName;
         }
@@ -326,12 +326,17 @@ namespace DistTourney
             }
 
             StartupNaviForm startupNaviForm = new StartupNaviForm();
-            if (startupNaviForm.ShowDialog(this) == DialogResult.Cancel)
+            DialogResult startupNaviFormResult = startupNaviForm.ShowDialog();
+            if (startupNaviFormResult == DialogResult.Cancel)
             {
                 Close();
             }
+            else if (startupNaviFormResult == DialogResult.OK)
+            {
 
-            TournamentData? tournamentData = loadTournamentData();
+            }
+
+            TourneyData? tournamentData = loadTournamentData();
             if (tournamentData != null)
             {
                 _tournamentDataOrg = tournamentData;
@@ -358,7 +363,7 @@ namespace DistTourney
             {
                 labelTournamentName.Text = _tournamentName;
 
-                _tournamentData = new TournamentData();
+                _tournamentData = new TourneyData();
 
                 toolStripTextBox1.Text =
                     CommonValues.TournamentDataStatusesStrings[(int)TournamentDataStatuses.RafflePreparation];

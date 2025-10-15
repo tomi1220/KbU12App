@@ -1,6 +1,6 @@
 ﻿namespace PbaU12Tools.Settings
 {
-    partial class SettingsTourneyNameDialog
+    partial class SettingsTournamentNameDialog
     {
         /// <summary>
         /// Required designer variable.

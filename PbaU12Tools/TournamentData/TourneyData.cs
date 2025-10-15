@@ -14,7 +14,7 @@ namespace PbaU12Tools.TournamentData
     /// <summary>
     /// 大会情報
     /// </summary>
-    public class TournamentBaseData
+    public class TournenyBaseData
     {
         /// カテゴリー
         /// </summary>
@@ -28,10 +28,10 @@ namespace PbaU12Tools.TournamentData
         /// </summary>
         public int NumberOfSuperSeed { get; set; } = 0;
 
-        public TournamentBaseData Clone()
+        public TournenyBaseData Clone()
         {
-            TournamentBaseData newTournamentBaseData =
-                new TournamentBaseData()
+            TournenyBaseData newTournamentBaseData =
+                new TournenyBaseData()
                 {
                     Category = this.Category,
                     NumberOfTeams = this.NumberOfTeams,
@@ -42,7 +42,7 @@ namespace PbaU12Tools.TournamentData
         }
     }
 
-    public class TournamentData
+    public class TourneyData
     {
         #region プロパティ
         /// <summary>
@@ -58,11 +58,11 @@ namespace PbaU12Tools.TournamentData
         /// <summary>
         /// 男子基本情報
         /// </summary>
-        public TournamentBaseData BaseDataBoys { get; set; } = new TournamentBaseData();
+        public TournenyBaseData BaseDataBoys { get; set; } = new TournenyBaseData();
         /// <summary>
         /// 女子基本情報
         /// </summary>
-        public TournamentBaseData BaseDataGirls { get; set; } = new TournamentBaseData();
+        public TournenyBaseData BaseDataGirls { get; set; } = new TournenyBaseData();
         /// <summary>
         /// 会場データ
         /// </summary>
@@ -91,10 +91,10 @@ namespace PbaU12Tools.TournamentData
         #endregion
 
         #region メソッド
-        public TournamentData Clone()
+        public TourneyData Clone()
         {
-            TournamentData newTournamentData =
-                new TournamentData()
+            TourneyData newTournamentData =
+                new TourneyData()
                 {
                     Status = this.Status,
                     TournamentName = this.TournamentName,
@@ -116,11 +116,11 @@ namespace PbaU12Tools.TournamentData
             return xmlText;
         }
 
-        public static string? Serialize(TournamentData tournamentData)
+        public static string? Serialize(TourneyData tournamentData)
         {
             try
             {
-                KbU12XmlSerializer xmlSerializer = new(typeof(TournamentData));
+                KbU12XmlSerializer xmlSerializer = new(typeof(TourneyData));
                 string xmlText = xmlSerializer.Serialize(tournamentData);
 
                 return xmlText;
@@ -138,10 +138,10 @@ namespace PbaU12Tools.TournamentData
             }
         }
 
-        public static TournamentData? Deserialize(
+        public static TourneyData? Deserialize(
             string? tournamentDataFilePath = null)
         {
-            TournamentData? TournamentData = null;
+            TourneyData? TournamentData = null;
 
             try
             {
@@ -162,8 +162,8 @@ namespace PbaU12Tools.TournamentData
                     using var sr = new StreamReader(filePath);
                     string xmlText = sr.ReadToEnd();
 
-                    KbU12XmlSerializer xmlSerializer = new(typeof(TournamentData));
-                    TournamentData = (TournamentData)xmlSerializer.Deserialize(xmlText)!;
+                    KbU12XmlSerializer xmlSerializer = new(typeof(TourneyData));
+                    TournamentData = (TourneyData)xmlSerializer.Deserialize(xmlText)!;
                     if (TournamentData == null)
                     {
                         if (xmlSerializer.ExceptionData != null)

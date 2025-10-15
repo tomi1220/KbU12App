@@ -42,8 +42,8 @@ namespace PbaU12Tools.TournamentData
         #endregion
 
         #region プロパティ
-        public TournamentData? PreTournamentData { private get; set; }
-        public TournamentData? CurrentTournamentData { get; private set; }
+        public TourneyData? PreTournamentData { private get; set; }
+        public TourneyData? CurrentTournamentData { get; private set; }
         #endregion
 
         #region メソッド

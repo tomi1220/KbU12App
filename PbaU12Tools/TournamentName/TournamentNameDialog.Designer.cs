@@ -36,14 +36,18 @@
             comboBoxTournamentName = new ComboBox();
             buttonOK = new Button();
             buttonCancel = new Button();
+            comboBoxFiscalYear = new ComboBox();
+            label1 = new Label();
+            panel1 = new Panel();
             panelNumOfTournaments.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownNumOfTournaments).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // checkBoxNumOfTournaments
             // 
             checkBoxNumOfTournaments.AutoSize = true;
-            checkBoxNumOfTournaments.Location = new Point(12, 18);
+            checkBoxNumOfTournaments.Location = new Point(160, 18);
             checkBoxNumOfTournaments.Margin = new Padding(3, 3, 0, 3);
             checkBoxNumOfTournaments.Name = "checkBoxNumOfTournaments";
             checkBoxNumOfTournaments.Size = new Size(15, 14);
@@ -57,7 +61,7 @@
             panelNumOfTournaments.Controls.Add(numericUpDownNumOfTournaments);
             panelNumOfTournaments.Controls.Add(labelNumOfTournaments1);
             panelNumOfTournaments.Enabled = false;
-            panelNumOfTournaments.Location = new Point(30, 12);
+            panelNumOfTournaments.Location = new Point(178, 12);
             panelNumOfTournaments.Name = "panelNumOfTournaments";
             panelNumOfTournaments.Size = new Size(90, 29);
             panelNumOfTournaments.TabIndex = 1;
@@ -107,7 +111,7 @@
             // 
             buttonOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonOK.DialogResult = DialogResult.OK;
-            buttonOK.Location = new Point(340, 85);
+            buttonOK.Location = new Point(3, 3);
             buttonOK.Name = "buttonOK";
             buttonOK.Size = new Size(75, 23);
             buttonOK.TabIndex = 3;
@@ -119,13 +123,40 @@
             // 
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonCancel.DialogResult = DialogResult.Cancel;
-            buttonCancel.Location = new Point(421, 85);
+            buttonCancel.Location = new Point(91, 3);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(75, 23);
             buttonCancel.TabIndex = 4;
             buttonCancel.Text = "キャンセル";
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += buttonCancel_Click;
+            // 
+            // comboBoxFiscalYear
+            // 
+            comboBoxFiscalYear.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxFiscalYear.FormattingEnabled = true;
+            comboBoxFiscalYear.Location = new Point(66, 14);
+            comboBoxFiscalYear.Name = "comboBoxFiscalYear";
+            comboBoxFiscalYear.Size = new Size(72, 23);
+            comboBoxFiscalYear.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 17);
+            label1.Name = "label1";
+            label1.Size = new Size(48, 15);
+            label1.TabIndex = 6;
+            label1.Text = "年度(&S):";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(buttonOK);
+            panel1.Controls.Add(buttonCancel);
+            panel1.Location = new Point(170, 83);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(169, 29);
+            panel1.TabIndex = 7;
             // 
             // TournamentNameDialog
             // 
@@ -134,8 +165,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = buttonCancel;
             ClientSize = new Size(508, 120);
-            Controls.Add(buttonCancel);
-            Controls.Add(buttonOK);
+            Controls.Add(panel1);
+            Controls.Add(label1);
+            Controls.Add(comboBoxFiscalYear);
             Controls.Add(comboBoxTournamentName);
             Controls.Add(panelNumOfTournaments);
             Controls.Add(checkBoxNumOfTournaments);
@@ -147,6 +179,7 @@
             panelNumOfTournaments.ResumeLayout(false);
             panelNumOfTournaments.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownNumOfTournaments).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -161,5 +194,8 @@
         private ComboBox comboBoxTournamentName;
         private Button buttonOK;
         private Button buttonCancel;
+        private ComboBox comboBoxFiscalYear;
+        private Label label1;
+        private Panel panel1;
     }
 }

@@ -54,7 +54,7 @@ namespace PbaU12Tools.Settings
             buttonAddTournamentName.Image = CommonResources.Add;
             buttonEditTournamentName.Image = CommonResources.Edit;
             buttonDeleteTournamentName.Image = CommonResources.Delete;
-            buttonSaveTournamentNameData.Image = CommonResources.Save;
+            //buttonSaveTourneyNameData.Image = CommonResources.Save;
 
             imageListVenueListView.Images.Add(CommonResources.Home);
             buttonAddVenue.Image = CommonResources.Add;
@@ -87,9 +87,9 @@ namespace PbaU12Tools.Settings
         #endregion
 
         #region ローカル・メソッド
-        private void loadTournamentNameDatas()
+        private void loadTourneyNameDatas()
         {
-            TournamentNameDatas? tournamentNameDatas;
+            TourneyNameDatas? TourneyNameDatas;
 
             try
             {
@@ -103,14 +103,14 @@ namespace PbaU12Tools.Settings
                     using var sr = new StreamReader(filePath);
                     string xmlText = sr.ReadToEnd();
 
-                    tournamentNameDatas = TournamentNameDatas.Deserialize(xmlText);
+                    TourneyNameDatas = TourneyNameDatas.Deserialize(xmlText);
 
-                    if (tournamentNameDatas != null)
+                    if (TourneyNameDatas != null)
                     {
-                        if (tournamentNameDatas.TournamentNameDatasList != null)
+                        if (TourneyNameDatas.TourneyNameDatasList != null)
                         {
                             List<ListViewItem> listViewItems = [];
-                            foreach (var tnd in tournamentNameDatas.TournamentNameDatasList)
+                            foreach (var tnd in TourneyNameDatas.TourneyNameDatasList)
                             {
                                 ListViewItem item = updateListViewItemForTournamentName(tnd, null);
                                 listViewItems.Add(item);
@@ -139,18 +139,18 @@ namespace PbaU12Tools.Settings
         }
 
         private static ListViewItem updateListViewItemForTournamentName(
-            TournamentNameData tournamentNameData,
+            TourneyNameData tourneyNameData,
             ListViewItem? item)
         {
             item ??= new ListViewItem();
-            item.Text = tournamentNameData.Name;
+            item.Text = tourneyNameData.Name;
             item.ImageIndex = 0;
-            item.Tag = tournamentNameData;
-            if (tournamentNameData.FixedNumOfBoysTeams > 0 ||
-                tournamentNameData.FixedNumOfGirlsTeams > 0)
+            item.Tag = tourneyNameData;
+            if (tourneyNameData.FixedNumOfBoysTeams > 0 ||
+                tourneyNameData.FixedNumOfGirlsTeams > 0)
             {
                 string subItemText =
-                    $"男子={tournamentNameData.FixedNumOfBoysTeams} /女子={tournamentNameData.FixedNumOfGirlsTeams}";
+                    $"男子={tourneyNameData.FixedNumOfBoysTeams} /女子={tourneyNameData.FixedNumOfGirlsTeams}";
                 item.SubItems.Add(subItemText);
             }
             else
@@ -161,26 +161,26 @@ namespace PbaU12Tools.Settings
             return item;
         }
 
-        private string? serializeTournamentNameDatas()
+        private string? serializeTourneyNameDatas()
         {
-            TournamentNameDatas? tournamentNameDatas = new();
+            TourneyNameDatas? TourneyNameDatas = new();
 
             foreach (ListViewItem item in listViewTournamentNames.Items)
             {
-                if (item.Tag is TournamentNameData TournamentNameData)
+                if (item.Tag is TourneyNameData TourneyNameData)
                 {
-                    tournamentNameDatas.TournamentNameDatasList!.Add(TournamentNameData);
+                    TourneyNameDatas.TourneyNameDatasList!.Add(TourneyNameData);
                 }
             }
 
-            string xmlText = TournamentNameDatas.Serialize(tournamentNameDatas)!;
+            string xmlText = TourneyNameDatas.Serialize(TourneyNameDatas)!;
 
             return xmlText;
         }
 
-        private void saveTournamentNameDatas()
+        private void saveTourneyNameDatas()
         {
-            string? xmlText = serializeTournamentNameDatas();
+            string? xmlText = serializeTourneyNameDatas();
 
             try
             {
@@ -661,24 +661,24 @@ namespace PbaU12Tools.Settings
             return xmlText;
         }
 
-        private void openSettingsTourneyNameDialog(
-            TournamentNameData? tournamentNameData,
+        private void opensettingsTournamentNameDialog(
+            TourneyNameData? TourneyNameData,
             ListViewItem? listViewItem)
         {
-            using var settingsTourneyNameDialog = new SettingsTourneyNameDialog();
-            settingsTourneyNameDialog.TourneneyNameData = tournamentNameData;
-            if (settingsTourneyNameDialog.ShowDialog(this) == DialogResult.OK)
+            using var settingsTournamentNameDialog = new SettingsTournamentNameDialog();
+            settingsTournamentNameDialog.TourneyNameData = TourneyNameData;
+            if (settingsTournamentNameDialog.ShowDialog(this) == DialogResult.OK)
             {
                 if (listViewItem != null)
                 {
                     updateListViewItemForTournamentName(
-                        settingsTourneyNameDialog.TourneneyNameData!, listViewItem);
+                        settingsTournamentNameDialog.TourneyNameData!, listViewItem);
                 }
                 else
                 {
                     listViewItem =
                         updateListViewItemForTournamentName(
-                            settingsTourneyNameDialog.TourneneyNameData!, null);
+                            settingsTournamentNameDialog.TourneyNameData!, null);
                     listViewTournamentNames.Items.Add(listViewItem);
                 }
                 adjustTournamentNameColumnWidth();
@@ -741,10 +741,10 @@ namespace PbaU12Tools.Settings
             if (listViewTournamentNames.SelectedItems.Count == 1)
             {
                 if (listViewTournamentNames.SelectedItems[0].Tag is
-                    TournamentNameData tournamentNameData)
+                    TourneyNameData TourneyNameData)
                 {
-                    openSettingsTourneyNameDialog(
-                        tournamentNameData, listViewTournamentNames.SelectedItems[0]);
+                    opensettingsTournamentNameDialog(
+                        TourneyNameData, listViewTournamentNames.SelectedItems[0]);
                 }
             }
         }
@@ -780,7 +780,7 @@ namespace PbaU12Tools.Settings
         #region イベント・ハンドラ
         private void SettingForm_Load(object sender, EventArgs e)
         {
-            loadTournamentNameDatas();
+            loadTourneyNameDatas();
 
             loadVenueDatas();
 
@@ -795,7 +795,7 @@ namespace PbaU12Tools.Settings
         #region 大会ページ
         private void buttonAddTournamentName_Click(object sender, EventArgs e)
         {
-            openSettingsTourneyNameDialog(null, null);
+            opensettingsTournamentNameDialog(null, null);
         }
 
         private void buttonEditTournamentName_Click(object sender, EventArgs e)
@@ -826,7 +826,7 @@ namespace PbaU12Tools.Settings
 
         private void buttonSaveTournamentNameData_Click(object sender, EventArgs e)
         {
-            saveTournamentNameDatas();
+            saveTourneyNameDatas();
         }
 
         private void listViewTournamentNames_DoubleClick(object sender, EventArgs e)
