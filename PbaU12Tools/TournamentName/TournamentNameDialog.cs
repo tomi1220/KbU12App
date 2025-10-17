@@ -47,14 +47,14 @@ namespace PbaU12Tools
         #region ローカル・メソッド
         private void setTournamentNameComboBox()
         {
-            string selectFiscalYear = string.Empty;
-            int nextFiscalYear = DateTime.Now.Year;
+            string selectYear = string.Empty;
+            int nextYear = DateTime.Now.Year;
             if (DateTime.Now.Month >= 4)
             {
                 // 4月～12月
-                nextFiscalYear++;
+                nextYear++;
             }
-            selectFiscalYear = (nextFiscalYear - 1).ToString();
+            selectYear = (nextYear - 1).ToString();
             if (OldestYear == 0)
             {
                 OldestYear = DateTime.Now.Year;
@@ -63,11 +63,11 @@ namespace PbaU12Tools
                     OldestYear--;
                 }
             }
-            for (int i = OldestYear; i <= nextFiscalYear; i++)
+            for (int i = OldestYear; i <= nextYear; i++)
             {
-                comboBoxFiscalYear.Items.Add(i.ToString());
+                comboBoxYear.Items.Add(i.ToString());
             }
-            comboBoxFiscalYear.Text = selectFiscalYear;
+            comboBoxYear.Text = selectYear;
 
             if (TourneyNameDatas == null)
             {
@@ -161,8 +161,43 @@ namespace PbaU12Tools
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
+            int year;
             string tournamentName = string.Empty;
             TourneyNameData? tourneyNameData = null;
+
+            if (comboBoxYear.SelectedIndex != -1)
+            {
+                try
+                {
+                    year = int.Parse(comboBoxYear.Text);
+                }
+                catch (FormatException formatEx)
+                {
+                    MessageBox.Show(
+                        this,
+                        comboBoxYear.Text + ": Bad Format" + Environment.NewLine +
+                        formatEx.Message,
+                        this.Text,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    DialogResult = DialogResult.None;
+                    ActiveControl = comboBoxYear;
+                    return;
+                }
+                catch (OverflowException overflowEx)
+                {
+                    MessageBox.Show(
+                        this,
+                        comboBoxYear.Text + ": Overflow" + Environment.NewLine +
+                        overflowEx.Message,
+                        this.Text,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    DialogResult = DialogResult.None;
+                    ActiveControl = comboBoxYear;
+                    return;
+                }
+            }
 
             if (!string.IsNullOrWhiteSpace(comboBoxTournamentName.Text.Trim()))
             {

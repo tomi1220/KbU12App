@@ -75,6 +75,7 @@ namespace PbaU12Tools.StartupNavi
 
         private void buttonNetTournamentData_Click(object sender, EventArgs e)
         {
+            // ［新しい大会情報(&N)...］ボタン
             var tournamentNameDialog = new TournamentNameDialog();
             if (tournamentNameDialog.ShowDialog(this) == DialogResult.OK)
             {

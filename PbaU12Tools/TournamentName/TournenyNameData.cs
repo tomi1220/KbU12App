@@ -15,7 +15,7 @@ namespace PbaU12Tools.TournamentName
         /// 大会名称（回数を含まない）
         /// </summary>
         public string Name { get; set; } = string.Empty;
-        public int Season { get; set; }
+        public int Year { get; set; }
         /// <summary>
         /// 男子チーム数固定
         /// </summary>

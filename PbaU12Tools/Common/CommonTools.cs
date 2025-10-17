@@ -96,9 +96,9 @@ namespace PbaU12Tools
             return true;
         }
 
-        public static string GetTournamentDatasFolderPath(string tournamentName)
+        public static string GetTournamentDatasFolderPath(int string tournamentName)
         {
-            // PbaU12\Documents\TournamentDatas\大会名 フォルダー
+            // PbaU12\Documents\TournamentDatas\9999(年度)\大会名 フォルダー
             string tournamentDatasFolderPath =
                 Path.Combine(TournamentDatasFolderPath, tournamentName);
             if (!preparingFolder(tournamentDatasFolderPath))

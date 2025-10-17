@@ -36,7 +36,7 @@
             comboBoxTournamentName = new ComboBox();
             buttonOK = new Button();
             buttonCancel = new Button();
-            comboBoxFiscalYear = new ComboBox();
+            comboBoxYear = new ComboBox();
             label1 = new Label();
             panel1 = new Panel();
             panelNumOfTournaments.SuspendLayout();
@@ -131,14 +131,14 @@
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += buttonCancel_Click;
             // 
-            // comboBoxFiscalYear
+            // comboBoxYear
             // 
-            comboBoxFiscalYear.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxFiscalYear.FormattingEnabled = true;
-            comboBoxFiscalYear.Location = new Point(66, 14);
-            comboBoxFiscalYear.Name = "comboBoxFiscalYear";
-            comboBoxFiscalYear.Size = new Size(72, 23);
-            comboBoxFiscalYear.TabIndex = 5;
+            comboBoxYear.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxYear.FormattingEnabled = true;
+            comboBoxYear.Location = new Point(66, 14);
+            comboBoxYear.Name = "comboBoxYear";
+            comboBoxYear.Size = new Size(72, 23);
+            comboBoxYear.TabIndex = 5;
             // 
             // label1
             // 
@@ -167,7 +167,7 @@
             ClientSize = new Size(508, 120);
             Controls.Add(panel1);
             Controls.Add(label1);
-            Controls.Add(comboBoxFiscalYear);
+            Controls.Add(comboBoxYear);
             Controls.Add(comboBoxTournamentName);
             Controls.Add(panelNumOfTournaments);
             Controls.Add(checkBoxNumOfTournaments);
@@ -194,7 +194,7 @@
         private ComboBox comboBoxTournamentName;
         private Button buttonOK;
         private Button buttonCancel;
-        private ComboBox comboBoxFiscalYear;
+        private ComboBox comboBoxYear;
         private Label label1;
         private Panel panel1;
     }
