@@ -19,8 +19,8 @@ namespace PbaU12Tools
     {
 
         #region 定数
-        [GeneratedRegex(@"^[0-9]+$")]
-        internal static partial Regex NumericRegex();
+        //[GeneratedRegex(@"^[0-9]+$")]
+        //internal static partial Regex NumericRegex();
         #endregion
 
         #region フィールド

@@ -4,6 +4,7 @@ using PbaU12Tools.Lottery;
 using PbaU12Tools.Settings;
 using PbaU12Tools.StartupNavi;
 using PbaU12Tools.TournamentData;
+using PbaU12Tools.TournamentName;
 using PbaU12Tools.Venue;
 using PbaU12Tools.Xml;
 using System.Diagnostics;
@@ -25,7 +26,8 @@ namespace DistTourney
         #endregion
 
         #region フィールド
-        private string _tournamentName = string.Empty;
+        private TourneyNameData? _tournamentNameData = null;
+        //private string _tournamentName = string.Empty;
 
         private string? _tournamentDataFilePath = null;
 
@@ -333,7 +335,7 @@ namespace DistTourney
             }
             else if (startupNaviFormResult == DialogResult.OK)
             {
-
+                _tournamentNameData = startupNaviForm.TournamentNameData;
             }
 
             TourneyData? tournamentData = loadTournamentData();

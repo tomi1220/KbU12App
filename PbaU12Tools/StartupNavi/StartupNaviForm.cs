@@ -1,4 +1,6 @@
-﻿using PbaU12Tools.TournamentName;
+﻿using PbaU12Tools.TournamentData;
+using PbaU12Tools.TournamentName;
+using PbaU12Tools.Xml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +31,9 @@ namespace PbaU12Tools.StartupNavi
         #endregion
 
         #region プロパティ
+        public string TournamentDataFilePath { get; private set; }
+
+        public TourneyData? TournamentData { get; private set; }
         public TourneyNameData? TournamentNameData { get; set; } = null;
         #endregion
 
@@ -64,12 +69,40 @@ namespace PbaU12Tools.StartupNavi
             }
             return parentNode;
         }
+
+        private void loadRecentlyUsedData()
+        {
+            AppSetting setting = new();
+            string recentlyUsedFolder = setting[CommonValues.RecentlyUsedFolder].ToString();
+            string recentlyUsedFileName = setting[CommonValues.RecentlyUsedFileName].ToString();
+            if (!string.IsNullOrEmpty(recentlyUsedFolder))
+            {
+                TournamentDataFilePath =
+                    Path.Combine(recentlyUsedFolder, recentlyUsedFileName);
+
+                if (File.Exists(TournamentDataFilePath))
+                {
+                    string xmlText = string.Empty;
+                    using (StreamReader sr = File.OpenText(TournamentDataFilePath))
+                    {
+                        xmlText = sr.ReadToEnd();
+                    }
+                    if (xmlText != string.Empty)
+                    {
+                        KbU12XmlSerializer serializer = new(typeof(TourneyData));
+                        TournamentData = (TourneyData?)serializer.Deserialize(xmlText);
+                    }
+                }
+            }
+        }
         #endregion
 
         #region イベント・ハンドラ
 
         private void StartupNaviForm_Load(object sender, EventArgs e)
         {
+            loadRecentlyUsedData();
+
             makeTournamentDataTree();
         }
 

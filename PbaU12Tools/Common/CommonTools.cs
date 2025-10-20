@@ -1,13 +1,20 @@
-﻿using System;
+﻿using PbaU12Tools.TournamentName;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace PbaU12Tools
 {
     public partial class CommonTools
     {
+        #region 定数
+        [GeneratedRegex(@"^[0-9]+$")]
+        internal static partial Regex NumericRegex();
+        #endregion
+
         #region プロパティ
         public static string DataFolderPath { get; set; } = string.Empty;
         public static string DocumentsFolderPath { get; set; } = string.Empty;
@@ -96,16 +103,63 @@ namespace PbaU12Tools
             return true;
         }
 
-        public static string GetTournamentDatasFolderPath(int string tournamentName)
+        public static string GetTournamentDatasFolderPath(int year, string tournamentName)
         {
             // PbaU12\Documents\TournamentDatas\9999(年度)\大会名 フォルダー
             string tournamentDatasFolderPath =
-                Path.Combine(TournamentDatasFolderPath, tournamentName);
+                Path.Combine(
+                    TournamentDatasFolderPath, year.ToString(), tournamentName);
             if (!preparingFolder(tournamentDatasFolderPath))
             {
                 return string.Empty;
             }
             return tournamentDatasFolderPath;
+        }
+
+        private void setTournamentNameData(string TournamentName)
+        {
+            if (!string.IsNullOrEmpty(TournamentName))
+            {
+                string baseName = string.Empty;
+                if (TournamentName.StartsWith('第'))
+                {
+                    // 大会名が"第"で始まるので、回数付きか調べる
+                    int kaiIndex = TournamentName.IndexOf('回');
+                    if (kaiIndex > -1)
+                    {
+                        // "回"がある
+                        string numberText = TournamentName[1..kaiIndex];
+                        // 半角数字のみか？
+                        if (NumericRegex().IsMatch(numberText))
+                        {
+                            int numOfTournament = int.Parse(numberText);
+                            panelNumOfTournaments.Enabled = true;
+                            checkBoxNumOfTournaments.Checked = true;
+                            numericUpDownNumOfTournaments.Value = numOfTournament;
+                        }
+                        baseName = TournamentName.Substring(kaiIndex + 1);
+                    }
+                    else
+                    {
+                        baseName = TournamentName;
+                    }
+                }
+                foreach (ItemData itemData in comboBoxTournamentName.Items)
+                {
+                    if (itemData.Tag is TourneyNameData tourneyName)
+                    {
+                        if (tourneyName.Name == baseName)
+                        {
+                            comboBoxTournamentName.SelectedItem = itemData;
+                            break;
+                        }
+                    }
+                }
+                if (comboBoxTournamentName.SelectedIndex == -1)
+                {
+                    comboBoxTournamentName.Text = TournamentName;
+                }
+            }
         }
     }
 }
