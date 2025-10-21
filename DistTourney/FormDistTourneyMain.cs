@@ -47,22 +47,15 @@ namespace DistTourney
         #endregion
 
         #region ローカル・メソッド
-        /// <summary>
-        /// 新規作成
-        /// </summary>
-        /// <returns></returns>
-        private bool newTournamentData()
-        {
-            return openTournamentNameDialog();
-        }
 
         private bool openTournamentNameDialog()
         {
             using var dlg = new TournamentNameDialog();
-            dlg.TournamentName = _tournamentName;
+            dlg.TournamentName = _tournamentData!.TournamentName;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                _tournamentName = dlg.TournamentName;
+                _tournamentData.NumberOfTimes = dlg.Nu;
+                _tournamentData.TournamentName = dlg.TournamentName;
 
                 return true;
             }
@@ -343,8 +336,6 @@ namespace DistTourney
             {
                 _tournamentDataOrg = tournamentData;
 
-                _tournamentName = _tournamentDataOrg.TournamentName;
-
                 _tournamentData = _tournamentDataOrg.Clone();
 
                 setTournamentDataInformation(tournamentData);
@@ -358,36 +349,6 @@ namespace DistTourney
         }
 
         #region メニュー
-        private void toolStripMenuItemNew_Click(object sender, EventArgs e)
-        {
-            // 新規作成
-            if (newTournamentData())
-            {
-                labelTournamentName.Text = _tournamentName;
-
-                _tournamentData = new TourneyData();
-
-                toolStripTextBox1.Text =
-                    CommonValues.TournamentDataStatusesStrings[(int)TournamentDataStatuses.RafflePreparation];
-
-                panelAll.Enabled = true;
-            }
-        }
-
-        private void toolStripMenuItemOpen_Click(object sender, EventArgs e)
-        {
-            if (openTournamentData())
-            {
-                labelTournamentName.Text = _tournamentName;
-
-                int index = (int)_tournamentDataOrg!.Status;
-                toolStripTextBox1.Text =
-                    CommonValues.TournamentDataStatusesStrings[index != -1 ? index : 0];
-
-                panelAll.Enabled = true;
-            }
-        }
-
         private void toolStripMenuItemSave_Click(object sender, EventArgs e)
         {
             // 保存
@@ -445,7 +406,7 @@ namespace DistTourney
         {
             if (openTournamentNameDialog())
             {
-                labelTournamentName.Text = _tournamentName;
+                labelTournamentName.Text = _tournamentData!.TournamentName;
             }
         }
         #endregion

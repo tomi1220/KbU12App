@@ -104,34 +104,10 @@ namespace PbaU12Tools
 
         private void setTournamentNameData()
         {
-
-            TourneyData.TournamentNameSpliter(TournamentName, out int numOfTimes);
-            if (!string.IsNullOrEmpty(TournamentName))
+            string baseName =
+                TourneyData.TournamentNameSpliter(TournamentName, out int numOfTimes);
+            if (!string.IsNullOrEmpty(baseName))
             {
-                string baseName = string.Empty;
-                if (TournamentName.StartsWith('第'))
-                {
-                    // 大会名が"第"で始まるので、回数付きか調べる
-                    int kaiIndex = TournamentName.IndexOf('回');
-                    if (kaiIndex > -1)
-                    {
-                        // "回"がある
-                        string numberText = TournamentName[1..kaiIndex];
-                        // 半角数字のみか？
-                        if (CommonTools.NumericRegex().IsMatch(numberText))
-                        {
-                            int numOfTournament = int.Parse(numberText);
-                            panelNumOfTournaments.Enabled = true;
-                            checkBoxNumOfTournaments.Checked = true;
-                            numericUpDownNumOfTournaments.Value = numOfTournament;
-                        }
-                        baseName = TournamentName.Substring(kaiIndex + 1);
-                    }
-                    else
-                    {
-                        baseName = TournamentName;
-                    }
-                }
                 foreach (ItemData itemData in comboBoxTournamentName.Items)
                 {
                     if (itemData.Tag is TourneyNameData tourneyName)

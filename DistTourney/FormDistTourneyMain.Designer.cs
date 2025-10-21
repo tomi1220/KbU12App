@@ -31,9 +31,6 @@
             components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
             ファイルFToolStripMenuItem = new ToolStripMenuItem();
-            toolStripMenuItemNew = new ToolStripMenuItem();
-            toolStripMenuItemOpen = new ToolStripMenuItem();
-            toolStripSeparator1 = new ToolStripSeparator();
             toolStripMenuItemSave = new ToolStripMenuItem();
             toolStripMenuItemSaveAs = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
@@ -86,29 +83,10 @@
             // 
             // ファイルFToolStripMenuItem
             // 
-            ファイルFToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemNew, toolStripMenuItemOpen, toolStripSeparator1, toolStripMenuItemSave, toolStripMenuItemSaveAs, toolStripSeparator2, toolStripMenuItemOpenInExplorer, toolStripSeparator3, toolStripMenuItemExit });
+            ファイルFToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSave, toolStripMenuItemSaveAs, toolStripSeparator2, toolStripMenuItemOpenInExplorer, toolStripSeparator3, toolStripMenuItemExit });
             ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
             ファイルFToolStripMenuItem.Size = new Size(67, 23);
             ファイルFToolStripMenuItem.Text = "ファイル(F)";
-            // 
-            // toolStripMenuItemNew
-            // 
-            toolStripMenuItemNew.Name = "toolStripMenuItemNew";
-            toolStripMenuItemNew.Size = new Size(204, 22);
-            toolStripMenuItemNew.Text = "新規作成(&N)...";
-            toolStripMenuItemNew.Click += toolStripMenuItemNew_Click;
-            // 
-            // toolStripMenuItemOpen
-            // 
-            toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
-            toolStripMenuItemOpen.Size = new Size(204, 22);
-            toolStripMenuItemOpen.Text = "開く(&O)...";
-            toolStripMenuItemOpen.Click += toolStripMenuItemOpen_Click;
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(201, 6);
             // 
             // toolStripMenuItemSave
             // 
@@ -401,9 +379,6 @@
 
         private MenuStrip menuStrip1;
         private ToolStripMenuItem ファイルFToolStripMenuItem;
-        private ToolStripMenuItem toolStripMenuItemNew;
-        private ToolStripMenuItem toolStripMenuItemOpen;
-        private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem toolStripMenuItemSave;
         private ToolStripMenuItem toolStripMenuItemSaveAs;
         private ToolStripSeparator toolStripSeparator2;
