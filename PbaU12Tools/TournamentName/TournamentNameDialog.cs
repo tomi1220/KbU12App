@@ -1,4 +1,5 @@
 ﻿using PbaU12Tools.Common;
+using PbaU12Tools.TournamentData;
 using PbaU12Tools.TournamentName;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,10 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 //using System.Windows.Media;
-using static System.Net.Mime.MediaTypeNames;
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace PbaU12Tools
 {
@@ -19,8 +19,6 @@ namespace PbaU12Tools
     {
 
         #region 定数
-        //[GeneratedRegex(@"^[0-9]+$")]
-        //internal static partial Regex NumericRegex();
         #endregion
 
         #region フィールド
@@ -106,6 +104,8 @@ namespace PbaU12Tools
 
         private void setTournamentNameData()
         {
+
+            TourneyData.TournamentNameSpliter(TournamentName, out int numOfTimes);
             if (!string.IsNullOrEmpty(TournamentName))
             {
                 string baseName = string.Empty;
@@ -118,7 +118,7 @@ namespace PbaU12Tools
                         // "回"がある
                         string numberText = TournamentName[1..kaiIndex];
                         // 半角数字のみか？
-                        if (NumericRegex().IsMatch(numberText))
+                        if (CommonTools.NumericRegex().IsMatch(numberText))
                         {
                             int numOfTournament = int.Parse(numberText);
                             panelNumOfTournaments.Enabled = true;

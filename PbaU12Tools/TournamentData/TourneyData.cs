@@ -1,13 +1,14 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using PbaU12Tools.Bracket;
+using PbaU12Tools.Match;
+using PbaU12Tools.Venue;
+using PbaU12Tools.Xml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using PbaU12Tools.Bracket;
-using PbaU12Tools.Match;
-using PbaU12Tools.Venue;
-using PbaU12Tools.Xml;
 
 namespace PbaU12Tools.TournamentData
 {
@@ -49,6 +50,11 @@ namespace PbaU12Tools.TournamentData
         /// 進行状況
         /// </summary>
         public TournamentDataStatuses Status { get; set; } = TournamentDataStatuses.None;
+
+        /// <summary>
+        /// 大会回数
+        /// </summary>
+        public int NumberOfTimes { get; set; } = -1;
 
         /// <summary>
         /// 大会名称
@@ -107,6 +113,60 @@ namespace PbaU12Tools.TournamentData
                 };
 
             return newTournamentData;
+        }
+
+        public string GetFullName()
+        {
+            string tourneyName = GetFullName(TournamentName, NumberOfTimes);
+            return tourneyName;
+        }
+
+        public string GetFullName(int numOfTimes)
+        {
+            string tourneyName = GetFullName(TournamentName, numOfTimes);
+            return tourneyName;
+        }
+
+        public static string GetFullName(string name, int numOfTimes)
+        {
+            string tournamentName =
+                (numOfTimes != -1 ? "第" + numOfTimes.ToString() + "回" : "") + name;
+            return tournamentName;
+        }
+
+        public static string TournamentNameSpliter(string TournamentName, out int numberOfTimes)
+        {
+            numberOfTimes = -1;
+            string baseName = string.Empty;
+            if (!string.IsNullOrEmpty(TournamentName))
+            {
+                if (TournamentName.StartsWith('第'))
+                {
+                    // 大会名が"第"で始まるので、回数付きか調べる
+                    int kaiIndex = TournamentName.IndexOf('回');
+                    if (kaiIndex > -1)
+                    {
+                        // "回"がある
+                        string numberText = TournamentName[1..kaiIndex];
+                        // 半角数字のみか？
+                        if (CommonTools.NumericRegex().IsMatch(numberText))
+                        {
+                            numberOfTimes = int.Parse(numberText);
+                        }
+                        baseName = TournamentName.Substring(kaiIndex + 1);
+                    }
+                    else
+                    {
+                        baseName = TournamentName;
+                    }
+                }
+                else
+                {
+                    baseName = TournamentName;
+                }
+            }
+
+            return baseName;
         }
 
         public string? Serialize()

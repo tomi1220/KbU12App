@@ -24,19 +24,6 @@ namespace PbaU12Tools.TournamentName
         /// 女子チーム数固定
         /// </summary>
         public int FixedNumOfGirlsTeams { get; set; }
-
-        public string GetFullName(int numOfTimes)
-        {
-            string tourneyName = GetFullName(Name, numOfTimes);
-            return tourneyName;
-        }
-
-        public static string GetFullName(string name, int numOfTimes)
-        {
-            string tournamentName =
-                (numOfTimes != 0 ? "第" + numOfTimes.ToString() + "回" : "") + name;
-            return tournamentName;
-        }
     }
 
     public class TourneyNameDatas
