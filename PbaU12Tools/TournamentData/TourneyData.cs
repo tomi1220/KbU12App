@@ -15,6 +15,7 @@ namespace PbaU12Tools.TournamentData
     /// <summary>
     /// 大会情報
     /// </summary>
+    [XmlRoot("TournamentBaseData")]
     public class TournenyBaseData
     {
         /// カテゴリー
@@ -43,6 +44,7 @@ namespace PbaU12Tools.TournamentData
         }
     }
 
+    [XmlRoot("TournamentData")]
     public class TourneyData
     {
         #region プロパティ
@@ -50,6 +52,11 @@ namespace PbaU12Tools.TournamentData
         /// 進行状況
         /// </summary>
         public TournamentDataStatuses Status { get; set; } = TournamentDataStatuses.None;
+
+        /// <summary>
+        /// 年度
+        /// </summary>
+        public int Year { get; set; }
 
         /// <summary>
         /// 大会回数

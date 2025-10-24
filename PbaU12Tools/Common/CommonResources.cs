@@ -83,5 +83,9 @@ namespace PbaU12Tools
         {
             get { return Properties.Resources.PngHome; }
         }
+        public static Image FolderClosed
+        {
+            get { return Properties.Resources.PngFolderClosed; }
+        }
     }
 }

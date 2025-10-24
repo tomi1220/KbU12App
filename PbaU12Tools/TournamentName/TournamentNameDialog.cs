@@ -33,10 +33,11 @@ namespace PbaU12Tools
 
         #region プロパティ
         public bool AllowBlankTournamentName { get; set; } = false;
-        public int OldestYear { get; set; }
+        public int OldestYear { get; set; } = 0;
         public TourneyNameDatas? TourneyNameDatas { private get; set; }
         public TourneyNameData? TourneyNameData { get; set; }
         public string TournamentName { get; set; } = string.Empty;
+        public int NumberOfTournaments { get; set; } = 0;
         #endregion
 
         #region メソッド
@@ -108,6 +109,8 @@ namespace PbaU12Tools
                 TourneyData.TournamentNameSpliter(TournamentName, out int numOfTimes);
             if (!string.IsNullOrEmpty(baseName))
             {
+                numericUpDownNumOfTournaments.Value = numOfTimes;
+
                 foreach (ItemData itemData in comboBoxTournamentName.Items)
                 {
                     if (itemData.Tag is TourneyNameData tourneyName)
@@ -191,12 +194,26 @@ namespace PbaU12Tools
 
                 if (checkBoxNumOfTournaments.Checked)
                 {
-                    string numOfTimes =
-                        labelNumOfTournaments1.Text +
-                        numericUpDownNumOfTournaments.Value.ToString() +
-                        labelNumOfTournaments2.Text;
+                    if (numericUpDownNumOfTournaments.Value == 0)
+                    {
+                        MessageBox.Show(
+                            this,
+                            "大会回数が設定されていません。",
+                            this.Text,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        DialogResult = DialogResult.None;
+                        ActiveControl = numericUpDownNumOfTournaments;
+                        return;
+                    }
 
-                    tournamentName = numOfTimes + tournamentName;
+                    NumberOfTournaments = (int)numericUpDownNumOfTournaments.Value;
+
+                    //string numOfTimes =
+                    //    labelNumOfTournaments1.Text +
+                    //    numericUpDownNumOfTournaments.Value.ToString() +
+                    //    labelNumOfTournaments2.Text;
+                    //tournamentName = numOfTimes + tournamentName;
                 }
             }
 

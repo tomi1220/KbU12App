@@ -173,6 +173,16 @@ namespace PbaU12Tools.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap PngFolderClosed {
+            get {
+                object obj = ResourceManager.GetObject("PngFolderClosed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap PngGirlsTeam {
             get {
                 object obj = ResourceManager.GetObject("PngGirlsTeam", resourceCulture);

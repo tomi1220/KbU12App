@@ -54,7 +54,7 @@ namespace DistTourney
             dlg.TournamentName = _tournamentData!.TournamentName;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                _tournamentData.NumberOfTimes = dlg.Nu;
+                _tournamentData.NumberOfTimes = dlg.NumberOfTournaments;
                 _tournamentData.TournamentName = dlg.TournamentName;
 
                 return true;
@@ -79,7 +79,7 @@ namespace DistTourney
                 if (_tournamentDataOrg != null)
                 {
                     _tournamentData = _tournamentDataOrg;
-                    _tournamentName = _tournamentDataOrg.TournamentName;
+                    _tournamentData.TournamentName = _tournamentDataOrg.TournamentName;
 
                     return true;
                 }
@@ -123,8 +123,6 @@ namespace DistTourney
             {
                 return false;
             }
-
-            updateTournamentData();
 
             if (string.IsNullOrEmpty(_tournamentDataFilePath))
             {
@@ -177,12 +175,13 @@ namespace DistTourney
             {
                 return false;
             }
-            updateTournamentData();
 
             using SaveFileDialog sfd = new();
             sfd.Title = "新しい大会情報を保存するファイルを指定してください。";
             sfd.Filter = CommonValues.TournamentDataFileFilter;
-            sfd.InitialDirectory = CommonTools.GetTournamentDatasFolderPath(_tournamentName);
+            sfd.InitialDirectory =
+                CommonTools.GetTournamentDatasFolderPath(
+                    _tournamentData.Year, _tournamentData.GetFullName());
             if (!string.IsNullOrEmpty(_tournamentDataFilePath))
             {
                 sfd.FileName = Path.GetFileName(_tournamentDataFilePath);
@@ -274,7 +273,8 @@ namespace DistTourney
 
                     string filePathBoys =
                         Path.Combine(
-                            CommonTools.GetTournamentDatasFolderPath(_tournamentName),
+                            CommonTools.GetTournamentDatasFolderPath(
+                                _tournamentData!.Year, _tournamentData.GetFullName()),
                             CommonValues.BracketGenDataFileName(bracketGenData.Category));
 
                     using var swBoys = new StreamWriter(filePathBoys);
@@ -299,15 +299,6 @@ namespace DistTourney
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
-        }
-
-        private void updateTournamentData()
-        {
-            if (_tournamentData == null)
-            {
-                _tournamentData = new TourneyData();
-            }
-            _tournamentData.TournamentName = _tournamentName;
         }
         #endregion
 
@@ -472,12 +463,14 @@ namespace DistTourney
             dialog.TourneyData = _tournamentData;
             string filePathBoys =
                 Path.Combine(
-                    CommonTools.GetTournamentDatasFolderPath(_tournamentName),
+                    CommonTools.GetTournamentDatasFolderPath(
+                        _tournamentData!.Year, _tournamentData.GetFullName()),
                     CommonValues.BracketGenDataFileName(Categories.Boys));
             dialog.BracketGenDataBoys = BracketGenData.Deserialize(Categories.Boys, filePathBoys);
             string filePathGirls =
                 Path.Combine(
-                    CommonTools.GetTournamentDatasFolderPath(_tournamentName),
+                    CommonTools.GetTournamentDatasFolderPath(
+                        _tournamentData!.Year, _tournamentData.GetFullName()),
                     CommonValues.BracketGenDataFileName(Categories.Girls));
             dialog.BracketGenDataGirls = BracketGenData.Deserialize(Categories.Girls, filePathGirls);
             dialog.ShowDialog(this);
@@ -492,12 +485,14 @@ namespace DistTourney
 
             string filePathBoys =
                 Path.Combine(
-                    CommonTools.GetTournamentDatasFolderPath(_tournamentName),
+                    CommonTools.GetTournamentDatasFolderPath(
+                        _tournamentData!.Year, _tournamentData.GetFullName()),
                     CommonValues.BracketGenDataFileName(Categories.Boys));
             lotteryForm.BracketGenDataBoys = BracketGenData.Deserialize(Categories.Boys, filePathBoys);
             string filePathGirls =
                 Path.Combine(
-                    CommonTools.GetTournamentDatasFolderPath(_tournamentName),
+                    CommonTools.GetTournamentDatasFolderPath(
+                        _tournamentData!.Year, _tournamentData.GetFullName()),
                     CommonValues.BracketGenDataFileName(Categories.Girls));
             lotteryForm.BracketGenDataGirls = BracketGenData.Deserialize(Categories.Girls, filePathGirls);
             lotteryForm.Show(this);

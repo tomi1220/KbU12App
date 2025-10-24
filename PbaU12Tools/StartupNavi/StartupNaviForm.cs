@@ -31,9 +31,9 @@ namespace PbaU12Tools.StartupNavi
         #endregion
 
         #region プロパティ
-        public string TournamentDataFilePath { get; private set; }
+        public string TournamentDataFolderPath { get; private set; }
 
-        public TourneyData? TournamentData { get; private set; }
+        //public TourneyData? TournamentData { get; private set; }
         public TourneyNameData? TournamentNameData { get; set; } = null;
         #endregion
 
@@ -45,6 +45,8 @@ namespace PbaU12Tools.StartupNavi
                 TreeNode rootNode = new TreeNode(CommonTools.TournamentDatasFolderPath);
                 treeView1.Nodes.Add(
                     getChildDirectories(CommonTools.TournamentDatasFolderPath, rootNode));
+
+                treeView1.ExpandAll();
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -64,33 +66,47 @@ namespace PbaU12Tools.StartupNavi
 
             foreach (var dir in dirs)
             {
-                TreeNode treeNode = new TreeNode(Path.GetFileName(dir));
+                TreeNode treeNode =
+                    new TreeNode()
+                    {
+                        Name = Path.GetFileName(dir),
+                        Text = Path.GetFileName(dir)
+                    };
                 parentNode.Nodes.Add(getChildDirectories(dir, treeNode));
             }
             return parentNode;
         }
 
-        private void loadRecentlyUsedData()
+        private void getRecentlyUsedFileNameInfo(
+            out string recentlyUsedFolder, out string recentlyUsedFileName)
         {
             AppSetting setting = new();
-            string recentlyUsedFolder = setting[CommonValues.RecentlyUsedFolder].ToString();
-            string recentlyUsedFileName = setting[CommonValues.RecentlyUsedFileName].ToString();
+            recentlyUsedFolder = setting[CommonValues.RecentlyUsedFolder].ToString();
+            recentlyUsedFileName = setting[CommonValues.RecentlyUsedFileName].ToString();
+        }
+
+
+        private void nodeSelectionAtStartup()
+        {
+            getRecentlyUsedFileNameInfo(
+                out string recentlyUsedFolder, out string recentlyUsedFileName);
             if (!string.IsNullOrEmpty(recentlyUsedFolder))
             {
-                TournamentDataFilePath =
-                    Path.Combine(recentlyUsedFolder, recentlyUsedFileName);
-
-                if (File.Exists(TournamentDataFilePath))
+                string[] folders =
+                    recentlyUsedFolder.Split(Path.DirectorySeparatorChar);
+                if (folders.Length == 2)
                 {
-                    string xmlText = string.Empty;
-                    using (StreamReader sr = File.OpenText(TournamentDataFilePath))
+                    TreeNode[] treeNodesOfYearFolder =
+                        treeView1.Nodes.Find(folders[0], true);
+                    if (treeNodesOfYearFolder.Length == 1)
                     {
-                        xmlText = sr.ReadToEnd();
-                    }
-                    if (xmlText != string.Empty)
-                    {
-                        KbU12XmlSerializer serializer = new(typeof(TourneyData));
-                        TournamentData = (TourneyData?)serializer.Deserialize(xmlText);
+                        TreeNode[] treeNodes =
+                            treeNodesOfYearFolder[0].Nodes.Find(
+                                folders[1], true);
+                        if (treeNodes.Length == 1)
+                        {
+                            treeView1.SelectedNode = treeNodes[0];
+                        }
                     }
                 }
             }
@@ -101,9 +117,24 @@ namespace PbaU12Tools.StartupNavi
 
         private void StartupNaviForm_Load(object sender, EventArgs e)
         {
-            loadRecentlyUsedData();
+            CommonTools.PreparingFolder();
 
             makeTournamentDataTree();
+
+            nodeSelectionAtStartup();
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            // ［OK］ボタン
+            if (treeView1.SelectedNode == null)
+            {
+                DialogResult = DialogResult.None;
+            }
+            else
+            {
+                treeView1.SelectedNode.
+            }
         }
 
         private void buttonNetTournamentData_Click(object sender, EventArgs e)
