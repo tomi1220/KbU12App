@@ -16,6 +16,13 @@ namespace PbaU12Tools
         Unregistered = 2
     }
 
+    public enum NodeID
+    {
+        Root = 1,
+        Year = 2,
+        Tourney = 3
+    }
+
     /// <summary>
     /// カテゴリー
     /// </summary>

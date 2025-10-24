@@ -1,4 +1,5 @@
-﻿using PbaU12Tools.TournamentData;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using PbaU12Tools.TournamentData;
 using PbaU12Tools.TournamentName;
 using PbaU12Tools.Xml;
 using System;
@@ -27,13 +28,14 @@ namespace PbaU12Tools.StartupNavi
             InitializeComponent();
 
             this.Icon = CommonResources.BracketIcon;
+
+            this.imageList1.Images.Add(CommonResources.FolderClosed);
         }
         #endregion
 
         #region プロパティ
-        public string TournamentDataFolderPath { get; private set; }
+        public string TournamentDataFolderPath { get; private set; } = string.Empty;
 
-        //public TourneyData? TournamentData { get; private set; }
         public TourneyNameData? TournamentNameData { get; set; } = null;
         #endregion
 
@@ -42,9 +44,17 @@ namespace PbaU12Tools.StartupNavi
         {
             try
             {
-                TreeNode rootNode = new TreeNode(CommonTools.TournamentDatasFolderPath);
+                TreeNode rootNode =
+                    new TreeNode()
+                    {
+                        Name = CommonTools.TournamentDatasFolderPath,
+                        Text = CommonTools.TournamentDatasFolderPath,
+                        ImageIndex = 0,
+                        SelectedImageIndex = 0,
+                        Tag = NodeID.Root,
+                    };
                 treeView1.Nodes.Add(
-                    getChildDirectories(CommonTools.TournamentDatasFolderPath, rootNode));
+                    getChildDirectories(CommonTools.TournamentDatasFolderPath, rootNode, (int)NodeID.Year));
 
                 treeView1.ExpandAll();
             }
@@ -58,7 +68,8 @@ namespace PbaU12Tools.StartupNavi
             }
         }
 
-        private TreeNode getChildDirectories(string parentDirectory, TreeNode parentNode)
+        private TreeNode getChildDirectories(
+            string parentDirectory, TreeNode parentNode, int nodeID)
         {
             List<string> dirs =
                 new List<string>(
@@ -70,9 +81,12 @@ namespace PbaU12Tools.StartupNavi
                     new TreeNode()
                     {
                         Name = Path.GetFileName(dir),
-                        Text = Path.GetFileName(dir)
+                        Text = Path.GetFileName(dir),
+                        ImageIndex = 0,
+                        SelectedImageIndex = 0,
+                        Tag = (NodeID)nodeID,
                     };
-                parentNode.Nodes.Add(getChildDirectories(dir, treeNode));
+                parentNode.Nodes.Add(getChildDirectories(dir, treeNode, nodeID + 1));
             }
             return parentNode;
         }
@@ -133,7 +147,10 @@ namespace PbaU12Tools.StartupNavi
             }
             else
             {
-                treeView1.SelectedNode.
+                if ((NodeID)treeView1.SelectedNode.Tag == NodeID.Tourney)
+                {
+
+                }
             }
         }
 
@@ -147,5 +164,11 @@ namespace PbaU12Tools.StartupNavi
             }
         }
         #endregion
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            NodeID nodeID = (NodeID)e.Node!.Tag;
+            labelDebug.Text = nodeID.ToString();
+        }
     }
 }
