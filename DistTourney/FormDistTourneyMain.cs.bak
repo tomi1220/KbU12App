@@ -47,14 +47,6 @@ namespace DistTourney
         #endregion
 
         #region ローカル・メソッド
-        /// <summary>
-        /// 新規作成
-        /// </summary>
-        /// <returns></returns>
-        private bool newTournamentData()
-        {
-            return openTournamentNameDialog();
-        }
 
         private bool openTournamentNameDialog()
         {
@@ -132,8 +124,6 @@ namespace DistTourney
                 return false;
             }
 
-            updateTournamentData();
-
             if (string.IsNullOrEmpty(_tournamentDataFilePath))
             {
                 return saveAsTournamentData();
@@ -185,7 +175,6 @@ namespace DistTourney
             {
                 return false;
             }
-            updateTournamentData();
 
             using SaveFileDialog sfd = new();
             sfd.Title = "新しい大会情報を保存するファイルを指定してください。";
@@ -311,15 +300,6 @@ namespace DistTourney
                     MessageBoxIcon.Error);
             }
         }
-
-        private void updateTournamentData()
-        {
-            if (_tournamentData == null)
-            {
-                _tournamentData = new TourneyData();
-            }
-            _tournamentData.TournamentName = _tournamentData!.TournamentName;
-        }
         #endregion
 
         #region イベント・ハンドラ
@@ -360,36 +340,6 @@ namespace DistTourney
         }
 
         #region メニュー
-        private void toolStripMenuItemNew_Click(object sender, EventArgs e)
-        {
-            // 新規作成
-            if (newTournamentData())
-            {
-                labelTournamentName.Text = _tournamentData!.TournamentName;
-
-                _tournamentData = new TourneyData();
-
-                toolStripTextBox1.Text =
-                    CommonValues.TournamentDataStatusesStrings[(int)TournamentDataStatuses.RafflePreparation];
-
-                panelAll.Enabled = true;
-            }
-        }
-
-        private void toolStripMenuItemOpen_Click(object sender, EventArgs e)
-        {
-            if (openTournamentData())
-            {
-                labelTournamentName.Text = _tournamentData!.TournamentName;
-
-                int index = (int)_tournamentDataOrg!.Status;
-                toolStripTextBox1.Text =
-                    CommonValues.TournamentDataStatusesStrings[index != -1 ? index : 0];
-
-                panelAll.Enabled = true;
-            }
-        }
-
         private void toolStripMenuItemSave_Click(object sender, EventArgs e)
         {
             // 保存
