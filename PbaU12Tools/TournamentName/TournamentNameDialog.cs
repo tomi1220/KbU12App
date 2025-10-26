@@ -34,10 +34,11 @@ namespace PbaU12Tools
         #region プロパティ
         public bool AllowBlankTournamentName { get; set; } = false;
         public int OldestYear { get; set; } = 0;
-        public TourneyNameDatas? TourneyNameDatas { private get; set; }
-        public TourneyNameData? TourneyNameData { get; set; }
+        public TourneyNameDatas? TourneyNameDatas { private get; set; } = null;
+        public int Year { get; set; } = 0;
         public string TournamentName { get; set; } = string.Empty;
         public int NumberOfTournaments { get; set; } = 0;
+        public TourneyNameData? TournamentNameData { get; set; } = null;
         #endregion
 
         #region メソッド
@@ -86,9 +87,9 @@ namespace PbaU12Tools
 
             if (TourneyNameDatas != null)
             {
-                if (TourneyNameDatas.TourneyNameDatasList != null)
+                if (TourneyNameDatas.TournamentNameDatas != null)
                 {
-                    foreach (var tn in TourneyNameDatas.TourneyNameDatasList)
+                    foreach (var tn in TourneyNameDatas.TournamentNameDatas)
                     {
                         ItemData itemData =
                             new()
@@ -111,20 +112,23 @@ namespace PbaU12Tools
             {
                 numericUpDownNumOfTournaments.Value = numOfTimes;
 
-                foreach (ItemData itemData in comboBoxTournamentName.Items)
+                if (TournamentNameData != null)
                 {
-                    if (itemData.Tag is TourneyNameData tourneyName)
+                    foreach (ItemData itemData in comboBoxTournamentName.Items)
                     {
-                        if (tourneyName.Name == baseName)
+                        if (itemData.Tag is TourneyNameData tourneyName)
                         {
-                            comboBoxTournamentName.SelectedItem = itemData;
-                            break;
+                            if (tourneyName.Name == baseName)
+                            {
+                                comboBoxTournamentName.SelectedItem = itemData;
+                                break;
+                            }
                         }
                     }
-                }
-                if (comboBoxTournamentName.SelectedIndex == -1)
-                {
-                    comboBoxTournamentName.Text = TournamentName;
+                    if (comboBoxTournamentName.SelectedIndex == -1)
+                    {
+                        comboBoxTournamentName.Text = TournamentName;
+                    }
                 }
             }
         }
@@ -140,10 +144,12 @@ namespace PbaU12Tools
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            int year;
+            int year = 0;
+            int numberOfTournaments = 0;
             string tournamentName = string.Empty;
             TourneyNameData? tourneyNameData = null;
 
+            // 年度
             if (comboBoxYear.SelectedIndex != -1)
             {
                 try
@@ -177,9 +183,42 @@ namespace PbaU12Tools
                     return;
                 }
             }
-
-            if (!string.IsNullOrWhiteSpace(comboBoxTournamentName.Text.Trim()))
+            else
             {
+                MessageBox.Show(
+                    this,
+                    "年度を選択してください。",
+                    this.Text,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                DialogResult = DialogResult.None;
+                ActiveControl = comboBoxYear;
+                return;
+            }
+
+            // 大会回数
+            if (checkBoxNumOfTournaments.Checked)
+            {
+                if (numericUpDownNumOfTournaments.Value == 0)
+                {
+                    MessageBox.Show(
+                        this,
+                        "大会回数が設定されていません。",
+                        this.Text,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    DialogResult = DialogResult.None;
+                    ActiveControl = numericUpDownNumOfTournaments;
+                    return;
+                }
+
+                numberOfTournaments = (int)numericUpDownNumOfTournaments.Value;
+            }
+
+            // 大会名
+            if (comboBoxTournamentName.SelectedIndex != -1)
+            {
+                // 既存の大会名からの選択
                 if (comboBoxTournamentName.SelectedItem is ItemData itemData)
                 {
                     if (comboBoxTournamentName.Text == itemData.Text)
@@ -187,34 +226,15 @@ namespace PbaU12Tools
                         if (itemData.Tag is TourneyNameData tagData)
                         {
                             tourneyNameData = tagData;
+                            tournamentName = tourneyNameData.Name;
                         }
                     }
                 }
+            }
+            else
+            {
+                // 新規の大会名称が入力されている
                 tournamentName = comboBoxTournamentName.Text.Trim();
-
-                if (checkBoxNumOfTournaments.Checked)
-                {
-                    if (numericUpDownNumOfTournaments.Value == 0)
-                    {
-                        MessageBox.Show(
-                            this,
-                            "大会回数が設定されていません。",
-                            this.Text,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                        DialogResult = DialogResult.None;
-                        ActiveControl = numericUpDownNumOfTournaments;
-                        return;
-                    }
-
-                    NumberOfTournaments = (int)numericUpDownNumOfTournaments.Value;
-
-                    //string numOfTimes =
-                    //    labelNumOfTournaments1.Text +
-                    //    numericUpDownNumOfTournaments.Value.ToString() +
-                    //    labelNumOfTournaments2.Text;
-                    //tournamentName = numOfTimes + tournamentName;
-                }
             }
 
             if (!AllowBlankTournamentName &&
@@ -224,8 +244,10 @@ namespace PbaU12Tools
             }
             else
             {
+                Year = year;
+                NumberOfTournaments = numberOfTournaments;
                 TournamentName = tournamentName;
-                this.TourneyNameData = tourneyNameData;
+                TournamentNameData = tourneyNameData;
 
                 this.Close();
             }

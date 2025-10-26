@@ -38,16 +38,16 @@
             buttonCancel = new Button();
             comboBoxYear = new ComboBox();
             label1 = new Label();
-            panel1 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
             panelNumOfTournaments.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownNumOfTournaments).BeginInit();
-            panel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // checkBoxNumOfTournaments
             // 
             checkBoxNumOfTournaments.AutoSize = true;
-            checkBoxNumOfTournaments.Location = new Point(160, 18);
+            checkBoxNumOfTournaments.Location = new Point(12, 52);
             checkBoxNumOfTournaments.Margin = new Padding(3, 3, 0, 3);
             checkBoxNumOfTournaments.Name = "checkBoxNumOfTournaments";
             checkBoxNumOfTournaments.Size = new Size(15, 14);
@@ -61,7 +61,7 @@
             panelNumOfTournaments.Controls.Add(numericUpDownNumOfTournaments);
             panelNumOfTournaments.Controls.Add(labelNumOfTournaments1);
             panelNumOfTournaments.Enabled = false;
-            panelNumOfTournaments.Location = new Point(178, 12);
+            panelNumOfTournaments.Location = new Point(30, 46);
             panelNumOfTournaments.Name = "panelNumOfTournaments";
             panelNumOfTournaments.Size = new Size(90, 29);
             panelNumOfTournaments.TabIndex = 1;
@@ -100,18 +100,18 @@
             // 
             // comboBoxTournamentName
             // 
-            comboBoxTournamentName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBoxTournamentName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             comboBoxTournamentName.FormattingEnabled = true;
-            comboBoxTournamentName.Location = new Point(12, 47);
+            comboBoxTournamentName.Location = new Point(12, 82);
             comboBoxTournamentName.Name = "comboBoxTournamentName";
             comboBoxTournamentName.Size = new Size(484, 23);
             comboBoxTournamentName.TabIndex = 2;
             // 
             // buttonOK
             // 
-            buttonOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonOK.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonOK.DialogResult = DialogResult.OK;
-            buttonOK.Location = new Point(3, 3);
+            buttonOK.Location = new Point(164, 3);
             buttonOK.Name = "buttonOK";
             buttonOK.Size = new Size(75, 23);
             buttonOK.TabIndex = 3;
@@ -121,9 +121,8 @@
             // 
             // buttonCancel
             // 
-            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonCancel.DialogResult = DialogResult.Cancel;
-            buttonCancel.Location = new Point(91, 3);
+            buttonCancel.Location = new Point(245, 3);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(75, 23);
             buttonCancel.TabIndex = 4;
@@ -149,14 +148,20 @@
             label1.TabIndex = 6;
             label1.Text = "年度(&S):";
             // 
-            // panel1
+            // tableLayoutPanel1
             // 
-            panel1.Controls.Add(buttonOK);
-            panel1.Controls.Add(buttonCancel);
-            panel1.Location = new Point(170, 83);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(169, 29);
-            panel1.TabIndex = 7;
+            tableLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(buttonOK, 0, 0);
+            tableLayoutPanel1.Controls.Add(buttonCancel, 1, 0);
+            tableLayoutPanel1.Location = new Point(12, 117);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(484, 29);
+            tableLayoutPanel1.TabIndex = 8;
             // 
             // TournamentNameDialog
             // 
@@ -164,14 +169,16 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = buttonCancel;
-            ClientSize = new Size(508, 120);
-            Controls.Add(panel1);
+            ClientSize = new Size(508, 155);
+            Controls.Add(tableLayoutPanel1);
             Controls.Add(label1);
             Controls.Add(comboBoxYear);
             Controls.Add(comboBoxTournamentName);
             Controls.Add(panelNumOfTournaments);
             Controls.Add(checkBoxNumOfTournaments);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximumSize = new Size(600, 194);
+            MinimumSize = new Size(524, 194);
             Name = "TournamentNameDialog";
             StartPosition = FormStartPosition.CenterParent;
             Text = "大会名称の設定";
@@ -179,7 +186,7 @@
             panelNumOfTournaments.ResumeLayout(false);
             panelNumOfTournaments.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownNumOfTournaments).EndInit();
-            panel1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -196,6 +203,6 @@
         private Button buttonCancel;
         private ComboBox comboBoxYear;
         private Label label1;
-        private Panel panel1;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

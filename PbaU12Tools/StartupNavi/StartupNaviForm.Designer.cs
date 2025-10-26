@@ -35,7 +35,6 @@
             buttonCancel = new Button();
             buttonOK = new Button();
             buttonNetTournamentData = new Button();
-            labelDebug = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -49,7 +48,6 @@
             treeView1.SelectedImageIndex = 0;
             treeView1.Size = new Size(422, 364);
             treeView1.TabIndex = 0;
-            treeView1.AfterSelect += treeView1_AfterSelect;
             // 
             // imageList1
             // 
@@ -59,7 +57,6 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(labelDebug);
             panel1.Controls.Add(buttonCancel);
             panel1.Controls.Add(buttonOK);
             panel1.Controls.Add(buttonNetTournamentData);
@@ -104,14 +101,6 @@
             buttonNetTournamentData.UseVisualStyleBackColor = true;
             buttonNetTournamentData.Click += buttonNetTournamentData_Click;
             // 
-            // labelDebug
-            // 
-            labelDebug.AutoSize = true;
-            labelDebug.Location = new Point(190, 12);
-            labelDebug.Name = "labelDebug";
-            labelDebug.Size = new Size(0, 15);
-            labelDebug.TabIndex = 3;
-            // 
             // StartupNaviForm
             // 
             AcceptButton = buttonOK;
@@ -141,6 +130,5 @@
         private Button buttonCancel;
         private Button buttonOK;
         private ImageList imageList1;
-        private Label labelDebug;
     }
 }

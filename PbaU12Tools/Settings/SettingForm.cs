@@ -54,7 +54,7 @@ namespace PbaU12Tools.Settings
             buttonAddTournamentName.Image = CommonResources.Add;
             buttonEditTournamentName.Image = CommonResources.Edit;
             buttonDeleteTournamentName.Image = CommonResources.Delete;
-            //buttonSaveTourneyNameData.Image = CommonResources.Save;
+            buttonSaveTournamentNameData.Image = CommonResources.Save;
 
             imageListVenueListView.Images.Add(CommonResources.Home);
             buttonAddVenue.Image = CommonResources.Add;
@@ -107,10 +107,10 @@ namespace PbaU12Tools.Settings
 
                     if (TourneyNameDatas != null)
                     {
-                        if (TourneyNameDatas.TourneyNameDatasList != null)
+                        if (TourneyNameDatas.TournamentNameDatas != null)
                         {
                             List<ListViewItem> listViewItems = [];
-                            foreach (var tnd in TourneyNameDatas.TourneyNameDatasList)
+                            foreach (var tnd in TourneyNameDatas.TournamentNameDatas)
                             {
                                 ListViewItem item = updateListViewItemForTournamentName(tnd, null);
                                 listViewItems.Add(item);
@@ -169,7 +169,7 @@ namespace PbaU12Tools.Settings
             {
                 if (item.Tag is TourneyNameData TourneyNameData)
                 {
-                    TourneyNameDatas.TourneyNameDatasList!.Add(TourneyNameData);
+                    TourneyNameDatas.TournamentNameDatas!.Add(TourneyNameData);
                 }
             }
 

@@ -15,7 +15,6 @@ namespace PbaU12Tools.TournamentName
         /// 大会名称（回数を含まない）
         /// </summary>
         public string Name { get; set; } = string.Empty;
-        public int Year { get; set; }
         /// <summary>
         /// 男子チーム数固定
         /// </summary>
@@ -26,9 +25,11 @@ namespace PbaU12Tools.TournamentName
         public int FixedNumOfGirlsTeams { get; set; }
     }
 
+    [XmlRoot("TournamentNameDatas")]
     public class TourneyNameDatas
     {
-        public List<TourneyNameData>? TourneyNameDatasList { get; set; } = [];
+        [XmlElement("TournamentNameData")]
+        public List<TourneyNameData>? TournamentNameDatas { get; set; } = [];
 
         public string? Serialize()
         {

@@ -26,7 +26,7 @@ namespace DistTourney
         #endregion
 
         #region フィールド
-        private TourneyNameData? _tournamentNameData = null;
+        //private TourneyNameData? _tournamentNameData = null;
         //private string _tournamentName = string.Empty;
 
         private string? _tournamentDataFilePath = null;
@@ -227,28 +227,19 @@ namespace DistTourney
 
         private TourneyData? loadTournamentData()
         {
-            AppSetting setting = new();
-            string recentlyUsedFolder = setting[CommonValues.RecentlyUsedFolder].ToString();
-            string recentlyUsedFileName = setting[CommonValues.RecentlyUsedFileName].ToString();
-            if (!string.IsNullOrEmpty(recentlyUsedFolder))
+            if (File.Exists(_tournamentDataFilePath))
             {
-                _tournamentDataFilePath =
-                    Path.Combine(recentlyUsedFolder, recentlyUsedFileName);
-
-                if (File.Exists(_tournamentDataFilePath))
+                string xmlText = string.Empty;
+                using (StreamReader sr = File.OpenText(_tournamentDataFilePath))
                 {
-                    string xmlText = string.Empty;
-                    using (StreamReader sr = File.OpenText(_tournamentDataFilePath))
-                    {
-                        xmlText = sr.ReadToEnd();
-                    }
-                    if (xmlText != string.Empty)
-                    {
-                        KbU12XmlSerializer serializer = new(typeof(TourneyData));
-                        TourneyData? tournamentData = (TourneyData?)serializer.Deserialize(xmlText);
+                    xmlText = sr.ReadToEnd();
+                }
+                if (xmlText != string.Empty)
+                {
+                    KbU12XmlSerializer serializer = new(typeof(TourneyData));
+                    TourneyData? tournamentData = (TourneyData?)serializer.Deserialize(xmlText);
 
-                        return tournamentData;
-                    }
+                    return tournamentData;
                 }
             }
 
@@ -333,25 +324,25 @@ namespace DistTourney
 
             StartupNaviForm startupNaviForm = new StartupNaviForm();
             DialogResult startupNaviFormResult = startupNaviForm.ShowDialog();
-            if (startupNaviFormResult == DialogResult.Cancel)
+            if (startupNaviFormResult == DialogResult.OK)
             {
-                Close();
-            }
-            else if (startupNaviFormResult == DialogResult.OK)
-            {
-                _tournamentNameData = startupNaviForm.TournamentNameData;
-            }
+                if (!string.IsNullOrEmpty(startupNaviForm.TournamentDataFilePath))
+                {
+                    _tournamentDataFilePath = startupNaviForm.TournamentDataFilePath;
 
-            TourneyData? tournamentData = loadTournamentData();
-            if (tournamentData != null)
-            {
-                _tournamentDataOrg = tournamentData;
+                    TourneyData? tournamentData = loadTournamentData();
 
-                _tournamentData = _tournamentDataOrg.Clone();
+                    if (tournamentData != null)
+                    {
+                        _tournamentDataOrg = tournamentData;
 
-                setTournamentDataInformation(tournamentData);
+                        _tournamentData = _tournamentDataOrg.Clone();
 
-                panelAll.Enabled = true;
+                        setTournamentDataInformation(tournamentData);
+
+                        panelAll.Enabled = true;
+                    }
+                }
             }
         }
 

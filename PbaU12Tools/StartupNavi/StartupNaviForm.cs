@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Wordprocessing;
 using PbaU12Tools.TournamentData;
 using PbaU12Tools.TournamentName;
 using PbaU12Tools.Xml;
@@ -22,10 +23,33 @@ namespace PbaU12Tools.StartupNavi
         #region 定数
         #endregion
 
+#if DEBUG
+        private Label labelDebug;
+#endif
+
         #region コンストラクタ
         public StartupNaviForm()
         {
             InitializeComponent();
+#if DEBUG
+            // 
+            // labelDebug
+            // 
+            labelDebug = new Label();
+            labelDebug.AutoSize = true;
+            labelDebug.Location = new Point(190, 12);
+            labelDebug.Name = "labelDebug";
+            labelDebug.Size = new Size(0, 15);
+            labelDebug.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(labelDebug);
+            // 
+            // treeView1
+            // 
+            treeView1.AfterSelect += treeView1_AfterSelect;
+#endif
 
             this.Icon = CommonResources.BracketIcon;
 
@@ -34,9 +58,9 @@ namespace PbaU12Tools.StartupNavi
         #endregion
 
         #region プロパティ
-        public string TournamentDataFolderPath { get; private set; } = string.Empty;
+        public string TournamentDataFilePath { get; private set; } = string.Empty;
 
-        public TourneyNameData? TournamentNameData { get; set; } = null;
+        public TourneyData? TournamentData { get; set; } = null;
         #endregion
 
         #region ローカル・メソッド
@@ -125,6 +149,27 @@ namespace PbaU12Tools.StartupNavi
                 }
             }
         }
+
+        private string getTournamentDataFilePath(TreeNode treeNode)
+        {
+            List<string> folders = new List<string>();
+            folders.Add(treeNode.Text);
+
+            TreeNode parentNode = treeNode.Parent;
+            while (parentNode != null)
+            {
+                folders.Add(parentNode.Text);
+                parentNode = parentNode.Parent;
+            }
+
+            if (folders.Count > 1)
+            {
+                folders.Reverse();
+            }
+
+            string path = Path.Combine(folders.ToArray());
+            return path;
+        }
         #endregion
 
         #region イベント・ハンドラ
@@ -149,7 +194,8 @@ namespace PbaU12Tools.StartupNavi
             {
                 if ((NodeID)treeView1.SelectedNode.Tag == NodeID.Tourney)
                 {
-
+                    TournamentDataFilePath =
+                        getTournamentDataFilePath(treeView1.SelectedNode);
                 }
             }
         }
@@ -160,15 +206,40 @@ namespace PbaU12Tools.StartupNavi
             var tournamentNameDialog = new TournamentNameDialog();
             if (tournamentNameDialog.ShowDialog(this) == DialogResult.OK)
             {
-                TournamentNameData = tournamentNameDialog.TourneyNameData!;
+                if (tournamentNameDialog.TournamentNameData != null)
+                {
+                    TournamentData =
+                        new TourneyData
+                        {
+                            Year = tournamentNameDialog.Year,
+                            NumberOfTimes = tournamentNameDialog.NumberOfTournaments,
+                            TournamentName = tournamentNameDialog.TournamentNameData.Name,
+                        };
+                    TournamentData.BaseDataBoys.NumberOfTeams = tournamentNameDialog.TournamentNameData.FixedNumOfBoysTeams;
+                    TournamentData.BaseDataGirls.NumberOfTeams = tournamentNameDialog.TournamentNameData.FixedNumOfGirlsTeams;
+                }
+                else
+                {
+                    TournamentData =
+                        new TourneyData
+                        {
+                            Year = tournamentNameDialog.Year,
+                            NumberOfTimes = tournamentNameDialog.NumberOfTournaments,
+                            TournamentName = tournamentNameDialog.TournamentName,
+                        };
+                }
+
+                DialogResult = DialogResult.OK;
+                Close();
             }
         }
-        #endregion
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+#if DEBUG
+        private void treeView1_AfterSelect(object? sender, TreeViewEventArgs e)
         {
             NodeID nodeID = (NodeID)e.Node!.Tag;
             labelDebug.Text = nodeID.ToString();
         }
+#endif
+        #endregion
     }
 }
