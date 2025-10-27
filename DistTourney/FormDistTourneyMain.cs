@@ -326,9 +326,12 @@ namespace DistTourney
             DialogResult startupNaviFormResult = startupNaviForm.ShowDialog();
             if (startupNaviFormResult == DialogResult.OK)
             {
-                if (!string.IsNullOrEmpty(startupNaviForm.TournamentDataFilePath))
+                if (!string.IsNullOrEmpty(startupNaviForm.TournamentDataFolderPath))
                 {
-                    _tournamentDataFilePath = startupNaviForm.TournamentDataFilePath;
+                    _tournamentDataFilePath =
+                        Path.Combine(
+                            startupNaviForm.TournamentDataFolderPath,
+                            CommonValues.TournamentDataFileName);
 
                     TourneyData? tournamentData = loadTournamentData();
 

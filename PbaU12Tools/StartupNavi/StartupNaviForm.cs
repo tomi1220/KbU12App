@@ -58,7 +58,7 @@ namespace PbaU12Tools.StartupNavi
         #endregion
 
         #region プロパティ
-        public string TournamentDataFilePath { get; private set; } = string.Empty;
+        public string TournamentDataFolderPath { get; private set; } = string.Empty;
 
         public TourneyData? TournamentData { get; set; } = null;
         #endregion
@@ -66,19 +66,11 @@ namespace PbaU12Tools.StartupNavi
         #region ローカル・メソッド
         private void makeTournamentDataTree()
         {
+            labelBaseFolder.Text = CommonTools.TournamentDatasFolderPath;
+
             try
             {
-                TreeNode rootNode =
-                    new TreeNode()
-                    {
-                        Name = CommonTools.TournamentDatasFolderPath,
-                        Text = CommonTools.TournamentDatasFolderPath,
-                        ImageIndex = 0,
-                        SelectedImageIndex = 0,
-                        Tag = NodeID.Root,
-                    };
-                treeView1.Nodes.Add(
-                    getChildDirectories(CommonTools.TournamentDatasFolderPath, rootNode, (int)NodeID.Year));
+                getChildDirectories(CommonTools.TournamentDatasFolderPath, null, (int)NodeID.Year);
 
                 treeView1.ExpandAll();
             }
@@ -92,8 +84,8 @@ namespace PbaU12Tools.StartupNavi
             }
         }
 
-        private TreeNode getChildDirectories(
-            string parentDirectory, TreeNode parentNode, int nodeID)
+        private TreeNode? getChildDirectories(
+            string parentDirectory, TreeNode? parentNode, int nodeID)
         {
             List<string> dirs =
                 new List<string>(
@@ -110,7 +102,14 @@ namespace PbaU12Tools.StartupNavi
                         SelectedImageIndex = 0,
                         Tag = (NodeID)nodeID,
                     };
-                parentNode.Nodes.Add(getChildDirectories(dir, treeNode, nodeID + 1));
+                if (parentNode != null)
+                {
+                    parentNode.Nodes.Add(getChildDirectories(dir, treeNode, nodeID + 1)!);
+                }
+                else
+                {
+                    treeView1.Nodes.Add(getChildDirectories(dir, treeNode, nodeID + 1)!);
+                }
             }
             return parentNode;
         }
@@ -162,12 +161,14 @@ namespace PbaU12Tools.StartupNavi
                 parentNode = parentNode.Parent;
             }
 
+            folders.Add(labelBaseFolder.Text);
+
             if (folders.Count > 1)
             {
                 folders.Reverse();
             }
 
-            string path = Path.Combine(folders.ToArray());
+            string path = Path.Join(folders.ToArray());
             return path;
         }
         #endregion
@@ -194,7 +195,7 @@ namespace PbaU12Tools.StartupNavi
             {
                 if ((NodeID)treeView1.SelectedNode.Tag == NodeID.Tourney)
                 {
-                    TournamentDataFilePath =
+                    TournamentDataFolderPath =
                         getTournamentDataFilePath(treeView1.SelectedNode);
                 }
             }

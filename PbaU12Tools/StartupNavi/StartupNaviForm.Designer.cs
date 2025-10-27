@@ -35,7 +35,10 @@
             buttonCancel = new Button();
             buttonOK = new Button();
             buttonNetTournamentData = new Button();
+            panelBaseFolder = new Panel();
+            labelBaseFolder = new Label();
             panel1.SuspendLayout();
+            panelBaseFolder.SuspendLayout();
             SuspendLayout();
             // 
             // treeView1
@@ -43,10 +46,10 @@
             treeView1.Dock = DockStyle.Fill;
             treeView1.ImageIndex = 0;
             treeView1.ImageList = imageList1;
-            treeView1.Location = new Point(6, 6);
+            treeView1.Location = new Point(6, 36);
             treeView1.Name = "treeView1";
             treeView1.SelectedImageIndex = 0;
-            treeView1.Size = new Size(422, 364);
+            treeView1.Size = new Size(422, 334);
             treeView1.TabIndex = 0;
             // 
             // imageList1
@@ -101,6 +104,23 @@
             buttonNetTournamentData.UseVisualStyleBackColor = true;
             buttonNetTournamentData.Click += buttonNetTournamentData_Click;
             // 
+            // panelBaseFolder
+            // 
+            panelBaseFolder.Controls.Add(labelBaseFolder);
+            panelBaseFolder.Dock = DockStyle.Top;
+            panelBaseFolder.Location = new Point(6, 6);
+            panelBaseFolder.Name = "panelBaseFolder";
+            panelBaseFolder.Size = new Size(422, 30);
+            panelBaseFolder.TabIndex = 2;
+            // 
+            // labelBaseFolder
+            // 
+            labelBaseFolder.AutoSize = true;
+            labelBaseFolder.Location = new Point(7, 8);
+            labelBaseFolder.Name = "labelBaseFolder";
+            labelBaseFolder.Size = new Size(0, 15);
+            labelBaseFolder.TabIndex = 0;
+            // 
             // StartupNaviForm
             // 
             AcceptButton = buttonOK;
@@ -110,6 +130,7 @@
             ClientSize = new Size(434, 411);
             Controls.Add(treeView1);
             Controls.Add(panel1);
+            Controls.Add(panelBaseFolder);
             Font = new Font("Meiryo UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             MinimumSize = new Size(330, 330);
             Name = "StartupNaviForm";
@@ -119,6 +140,8 @@
             Load += StartupNaviForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panelBaseFolder.ResumeLayout(false);
+            panelBaseFolder.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -130,5 +153,7 @@
         private Button buttonCancel;
         private Button buttonOK;
         private ImageList imageList1;
+        private Panel panelBaseFolder;
+        private Label labelBaseFolder;
     }
 }
