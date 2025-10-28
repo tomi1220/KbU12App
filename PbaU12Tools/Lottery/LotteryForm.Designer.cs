@@ -31,13 +31,13 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPageBoys = new TabPage();
+            lotteryResultCtrlBoys = new PbaU12Tools.ControlEx.LotteryResultCtrl();
             tabPageGirls = new TabPage();
             lotteryResultCtrlGirls = new PbaU12Tools.ControlEx.LotteryResultCtrl();
             imageList1 = new ImageList(components);
             panel1 = new Panel();
             button2 = new Button();
             button1 = new Button();
-            lotteryResultCtrlBoys = new PbaU12Tools.ControlEx.LotteryResultCtrl();
             tabControl1.SuspendLayout();
             tabPageBoys.SuspendLayout();
             tabPageGirls.SuspendLayout();
@@ -66,6 +66,16 @@
             tabPageBoys.TabIndex = 0;
             tabPageBoys.Text = "男子";
             tabPageBoys.UseVisualStyleBackColor = true;
+            // 
+            // lotteryResultCtrlBoys
+            // 
+            lotteryResultCtrlBoys.BackColor = Color.Transparent;
+            lotteryResultCtrlBoys.Category = Categories.Unknown;
+            lotteryResultCtrlBoys.Dock = DockStyle.Fill;
+            lotteryResultCtrlBoys.Location = new Point(3, 3);
+            lotteryResultCtrlBoys.Name = "lotteryResultCtrlBoys";
+            lotteryResultCtrlBoys.Size = new Size(395, 469);
+            lotteryResultCtrlBoys.TabIndex = 0;
             // 
             // tabPageGirls
             // 
@@ -123,16 +133,7 @@
             button1.TabIndex = 0;
             button1.Text = "OK";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // lotteryResultCtrlBoys
-            // 
-            lotteryResultCtrlBoys.BackColor = Color.Transparent;
-            lotteryResultCtrlBoys.Category = Categories.Unknown;
-            lotteryResultCtrlBoys.Dock = DockStyle.Fill;
-            lotteryResultCtrlBoys.Location = new Point(3, 3);
-            lotteryResultCtrlBoys.Name = "lotteryResultCtrlBoys";
-            lotteryResultCtrlBoys.Size = new Size(395, 469);
-            lotteryResultCtrlBoys.TabIndex = 0;
+            button1.Click += button1_Click;
             // 
             // LotteryForm
             // 

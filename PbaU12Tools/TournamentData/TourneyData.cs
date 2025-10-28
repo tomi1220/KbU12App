@@ -110,6 +110,7 @@ namespace PbaU12Tools.TournamentData
                 new TourneyData()
                 {
                     Status = this.Status,
+                    Year = this.Year,
                     TournamentName = this.TournamentName,
                     BaseDataBoys = this.BaseDataBoys.Clone(),
                     BaseDataGirls = this.BaseDataGirls.Clone(),

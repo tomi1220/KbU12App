@@ -87,28 +87,10 @@ namespace PbaU12Tools.Lottery
 
         private void loadTeamDatas()
         {
-            try
+            if (TeamDatas.loadTeamDatas(out TeamDatas? teamDatasBoys, out TeamDatas? teamDatasGirls))
             {
-                TeamDatas? teamDatasBoys = TeamDatas.DeserializeTeamDatas(Categories.Boys);
-                if (teamDatasBoys != null)
-                {
-                    lotteryResultCtrlBoys.TeamDatas = teamDatasBoys;
-                }
-
-                TeamDatas? teamDatasGirls = TeamDatas.DeserializeTeamDatas(Categories.Girls);
-                if (teamDatasGirls != null)
-                {
-                    lotteryResultCtrlGirls.TeamDatas = teamDatasGirls;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    this,
-                    ex.Message,
-                    "チームデータがロードできませんでした",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                lotteryResultCtrlBoys.TeamDatas = teamDatasBoys;
+                lotteryResultCtrlGirls.TeamDatas = teamDatasGirls;
             }
         }
 
@@ -128,6 +110,11 @@ namespace PbaU12Tools.Lottery
             loadTeamDatas();
 
             preparingListViewForLottery();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
         #endregion
 

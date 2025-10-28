@@ -132,5 +132,30 @@ namespace PbaU12Tools
                 return teamDatas;
             }
         }
+
+        public static bool loadTeamDatas(out TeamDatas? teamDatasBoys, out TeamDatas? teamDatasGirls)
+        {
+            teamDatasBoys = null;
+            teamDatasGirls = null;
+
+            try
+            {
+                teamDatasBoys = TeamDatas.DeserializeTeamDatas(Categories.Boys);
+
+                teamDatasGirls = TeamDatas.DeserializeTeamDatas(Categories.Girls);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "チームデータがロードできませんでした",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return false;
+            }
+        }
     }
 }

@@ -266,21 +266,21 @@ namespace DistTourney
             try
             {
                 {
-                    string? xmlTextBoys = bracketGenData.Serialize();
+                    string? xmlText = bracketGenData.Serialize();
 
-                    if (xmlTextBoys == null)
+                    if (xmlText == null)
                     {
                         return;
                     }
 
-                    string filePathBoys =
+                    string filePath =
                         Path.Combine(
                             CommonTools.GetTournamentDatasFolderPath(
                                 _tournamentData!.Year, _tournamentData.GetFullName()),
                             CommonValues.BracketGenDataFileName(bracketGenData.Category));
 
-                    using var swBoys = new StreamWriter(filePathBoys);
-                    swBoys.Write(xmlTextBoys);
+                    using var sw = new StreamWriter(filePath);
+                    sw.Write(xmlText);
 
                 }
 
