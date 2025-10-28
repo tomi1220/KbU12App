@@ -139,13 +139,13 @@ namespace PbaU12Tools.Bracket
                 // データ sheet
                 generateDataSheet(workbook);
 
-                if ((TourneyData.Usage == TournamentData.UsageCls.ForDraw ||
-                     TourneyData.Usage == TournamentData.UsageCls.ForTournament) &&
-                    _datTournamentInfoID != 0)
-                {
-                    // チーム名・地区名を埋め込む
-                    EmbedNames(worksheet);
-                }
+                //if ((TourneyData.Usage == TournamentData.UsageCls.ForDraw ||
+                //     TourneyData.Usage == TournamentData.UsageCls.ForTournament) &&
+                //    _datTournamentInfoID != 0)
+                //{
+                //    // チーム名・地区名を埋め込む
+                //    EmbedNames(worksheet);
+                //}
 
                 try
                 {
@@ -198,34 +198,31 @@ namespace PbaU12Tools.Bracket
             int startCol, int startRow)
         {
             // トーナメントの山
-            string categoryPrefix;
-            //foreach (var d in TourneyData.BrackectDataDic)
+            startRow = ExcelTournamentBracket.CATEGORY_ROW + 3;
+
+            string categoryPrefix =
+                (bracketGenData.Category == Categories.Boys
+                    ? ExcelTournamentBracket.CELL_NAME_PREFIX_BOYS
+                    : ExcelTournamentBracket.CELL_NAME_PREFIX_GIRLS);
+
+            if (bracketGenData.NumberOfSuperSeed == 0)
             {
-                startRow = ExcelTournamentBracket.CATEGORY_ROW + 3;
+                // スーパーシードなし
+                Round1and2(worksheet, bracketGenData, categoryPrefix);
 
-                categoryPrefix =
-                    (bracketGenData.Category == Categories.Boys
-                        ? ExcelTournamentBracket.CELL_NAME_PREFIX_BOYS
-                        : ExcelTournamentBracket.CELL_NAME_PREFIX_GIRLS);
+                CompleteBracket(worksheet, genData, d.Value.AllDataInfo, categoryPrefix);
+            }
+            else
+            {
+                // スーパーシードあり
+                Round1and2SuperSeedCompatible(worksheet, d.Value, categoryPrefix);
 
-                if (bracketGenData.NumberOfSuperSeed == 0)
-                {
-                    // スーパーシードなし
-                    Round1and2(worksheet, bracketGenData, categoryPrefix);
-
-                    CompleteBracket(worksheet, d.Value, d.Value.AllDataInfo, categoryPrefix);
-                }
-                else
-                {
-                    // スーパーシードあり
-                    Round1and2SuperSeedCompatible(worksheet, d.Value, categoryPrefix);
-
-                    CompleteBracket(worksheet, d.Value, d.Value.AllDataInfo, categoryPrefix);
-                }
+                CompleteBracket(worksheet, d.Value, d.Value.AllDataInfo, categoryPrefix);
             }
 
             // 行の高さ・列幅、見出しなど
-            InitWorksheet(worksheet);
+            fillWorksheetWithValues(worksheet, GenDataBoys!);
+            fillWorksheetWithValues(worksheet, GenDataGirls!);
             // ブラケット以外の設定
             BuildOtherBracket(worksheet);
         }
@@ -234,316 +231,311 @@ namespace PbaU12Tools.Bracket
         /// ［組合せ］シートの初期化
         /// </summary>
         /// <param name="worksheet"></param>
-        private void InitWorksheet(IXLWorksheet worksheet)
+        private void fillWorksheetWithValues(
+            IXLWorksheet worksheet, BracketGenData genData)
         {
             int maxBracketRows = 0;
             int col = 1;
-            string categoryText = string.Empty;
+            string categoryText =
+                (genData.Category == Categories.Boys)
+                    ? ExcelTournamentBracket.CELL_NAME_PREFIX_BOYS
+                    : ExcelTournamentBracket.CELL_NAME_PREFIX_GIRLS;
 
-            foreach (var d in TourneyData.BrackectDataDic)
+            if (col > 1)
             {
-                categoryText =
-                    (d.Value.Category == Categories.Boys)
-                        ? ExcelTournamentBracket.CELL_NAME_PREFIX_BOYS
-                        : ExcelTournamentBracket.CELL_NAME_PREFIX_GIRLS;
+                worksheet.Column(col++).Width = ExcelTournamentBracket.GAP_CATEGORY_COLUMN_WIDTH;
+            }
 
-                if (col > 1)
-                {
-                    worksheet.Column(col++).Width = ExcelTournamentBracket.GAP_CATEGORY_COLUMN_WIDTH;
-                }
+            // カラム
+            int numOfColsUsed =
+                ExcelTournamentBracket.DEFAULT_LEFT_COLUMN_MARGIN +
+                ExcelTournamentBracket.DEFAULT_RIGHT_COLUMN_MARGIN +
+                (ExcelTournamentBracket.COL_TEAM +
+                 ExcelTournamentBracket.COL_NUMBER) * 2 +
+                 (genData.AllDataInfo!.Round - 1) * 2 +
+                ExcelTournamentBracket.FINAL_SPACE_COLUMNS * 2;
+            if (TourneyData!.District)
+            {
+                numOfColsUsed += ExcelTournamentBracket.COL_DISTRICT * 2;
+            }
+            if (!TourneyData.FinalLeague)
+            {
+                numOfColsUsed += 2;
+            }
+            else
+            {
+                // 決勝リーグ枠を確保
+                numOfColsUsed += ExcelTournamentBracket.FINAL_LEAGUE_SPACE_COLUMNS;
+            }
+            for (int wCol = 1; wCol <= numOfColsUsed; wCol++, col++)
+            {
+                worksheet.Column(col).Width = ExcelTournamentBracket.DEFAULT_COLUMN_WIDTH;
+            }
 
-                // カラム
-                int numOfColsUsed =
-                    ExcelTournamentBracket.DEFAULT_LEFT_COLUMN_MARGIN +
-                    ExcelTournamentBracket.DEFAULT_RIGHT_COLUMN_MARGIN +
-                    (ExcelTournamentBracket.COL_TEAM +
-                     ExcelTournamentBracket.COL_NUMBER) * 2 +
-                     (d.Value.AllDataInfo.Round - 1) * 2 +
-                    //ExcelTournamentBracket.FINAL_SPACE_COLUMNS * 2;
-                    ExcelTournamentBracket.FINAL_SPACE_COLUMNS * 2;
-                if (TourneyData.District)
-                {
-                    numOfColsUsed += ExcelTournamentBracket.COL_DISTRICT * 2;
-                }
-                if (!TourneyData.FinalLeague)
-                {
-                    numOfColsUsed += 2;
-                }
-                else
-                {
-                    // 決勝リーグ枠を確保
-                    numOfColsUsed += ExcelTournamentBracket.FINAL_LEAGUE_SPACE_COLUMNS;
-                }
-                for (int wCol = 1; wCol <= numOfColsUsed; wCol++, col++)
-                {
-                    worksheet.Column(col).Width = ExcelTournamentBracket.DEFAULT_COLUMN_WIDTH;
-                }
+            // カテゴリー行
+            worksheet.Row(ExcelTournamentBracket.CATEGORY_ROW).Height = ExcelTournamentBracket.CATEGORY_ROW_HEIGHT;
+            IXLRange categoryRange =
+                worksheet.Range(
+                    ExcelTournamentBracket.CATEGORY_ROW,
+                    col - numOfColsUsed,
+                    ExcelTournamentBracket.CATEGORY_ROW,
+                    col - 1).Merge(false);
+            categoryRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+            categoryRange.Style.Font.FontSize = ExcelTournamentBracket.CATEGORY_FONT_SIZE;
 
-                // カテゴリー行
-                worksheet.Row(ExcelTournamentBracket.CATEGORY_ROW).Height = ExcelTournamentBracket.CATEGORY_ROW_HEIGHT;
-                IXLRange categoryRange =
+            string textFormulaA1_Left;      // 計算式（左）
+            string textFormulaA1_Right;     // 計算式（右）
+            if (genData.Category == Categories.Boys)
+            {
+                categoryRange.Value = ExcelTournamentBracket.CATEGORY_BOYS;
+                // 計算式
+                textFormulaA1_Left =
+                    string.Format(
+                        ExcelTournamentBracket.CELL_FormulaA1_LEFT_FORMAT,
+                        ExcelTournamentBracket.TEAMLIST_B_NAME,
+                        ExcelTournamentBracket.SEEDNUMBER_B_NAME);
+                textFormulaA1_Right =
+                    string.Format(
+                        ExcelTournamentBracket.CELL_FormulaA1_RIGHT_FORMAT,
+                        ExcelTournamentBracket.TEAMLIST_B_NAME,
+                        ExcelTournamentBracket.SEEDNUMBER_B_NAME);
+            }
+            else
+            {
+                categoryRange.Value = ExcelTournamentBracket.CATEGORY_GIRLS;
+                // 計算式
+                textFormulaA1_Left =
+                    string.Format(
+                        ExcelTournamentBracket.CELL_FormulaA1_LEFT_FORMAT,
+                        ExcelTournamentBracket.TEAMLIST_G_NAME,
+                        ExcelTournamentBracket.SEEDNUMBER_G_NAME);
+                textFormulaA1_Right =
+                    string.Format(
+                        ExcelTournamentBracket.CELL_FormulaA1_RIGHT_FORMAT,
+                        ExcelTournamentBracket.TEAMLIST_G_NAME,
+                        ExcelTournamentBracket.SEEDNUMBER_G_NAME);
+            }
+            categoryRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            categoryRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+
+            // カテゴリー行の下の隙間行
+            worksheet.Row(ExcelTournamentBracket.CATEGORY_ROW + 1).Height = ExcelTournamentBracket.GAP_L_ROW_HEIGHT;
+            worksheet.Row(ExcelTournamentBracket.CATEGORY_ROW + 2).Height = ExcelTournamentBracket.GAP_S_ROW_HEIGHT;
+
+            maxBracketRows =
+                Math.Max(
+                    maxBracketRows,
+                    maxBracketRows = genData.NumberOfTeams / 2 + genData.NumberOfTeams % 2);
+
+            // チーム名・地区・番号
+            int colT = col - numOfColsUsed;
+            int colD = 0;
+            int colN = 0;
+            if (TourneyData.District)
+            {
+                colD = colT + ExcelTournamentBracket.COL_TEAM;
+                colN = colD + ExcelTournamentBracket.COL_DISTRICT;
+            }
+            else
+            {
+                colN = colT + ExcelTournamentBracket.COL_TEAM;
+            }
+            //d.Value.StartColumnL = colN + ExcelTournamentBracket.COL_NUMBER;
+            int numbering = 1;
+
+            //----
+            // 左
+            //----
+            int i = 0;
+            for (int row = _startRow; genData.PureSeedArray![i] != 3; i++, row += ExcelTournamentBracket.TEAM_ROW)
+            {
+                // チーム名
+                IXLRange tempRange =
                     worksheet.Range(
-                        ExcelTournamentBracket.CATEGORY_ROW,
-                        col - numOfColsUsed,
-                        ExcelTournamentBracket.CATEGORY_ROW,
-                        col - 1).Merge(false);
-                categoryRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                categoryRange.Style.Font.FontSize = ExcelTournamentBracket.CATEGORY_FONT_SIZE;
+                        row,
+                        colT,
+                        row + ExcelTournamentBracket.TEAM_ROW - 1,
+                        colT + ExcelTournamentBracket.COL_TEAM - 1).Merge(false);
+                tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+                tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_TEAM;
+                tempRange.Value = "";
+                tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Distributed;
+                tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                string teamName =
+                    categoryText +
+                    ExcelTournamentBracket.CELL_NAME_PREFIX_TEAM +
+                    ExcelTournamentBracket.CELL_NAME_DELIMITER +
+                    numbering.ToString();
+                tempRange.AddToNamed(teamName, XLScope.Worksheet);
+                tempRange.FormulaA1 = textFormulaA1_Left;
 
-                string textFormulaA1_Left;      // 計算式（左）
-                string textFormulaA1_Right;     // 計算式（右）
-                if (d.Value.Category == Categories.Boys)
-                {
-                    categoryRange.Value = ExcelTournamentBracket.CATEGORY_BOYS;
-                    // 計算式
-                    textFormulaA1_Left =
-                        string.Format(
-                            ExcelTournamentBracket.CELL_FormulaA1_LEFT_FORMAT,
-                            ExcelTournamentBracket.TEAMLIST_B_NAME,
-                            ExcelTournamentBracket.SEEDNUMBER_B_NAME);
-                    textFormulaA1_Right =
-                        string.Format(
-                            ExcelTournamentBracket.CELL_FormulaA1_RIGHT_FORMAT,
-                            ExcelTournamentBracket.TEAMLIST_B_NAME,
-                            ExcelTournamentBracket.SEEDNUMBER_B_NAME);
-                }
-                else
-                {
-                    categoryRange.Value = ExcelTournamentBracket.CATEGORY_GIRLS;
-                    // 計算式
-                    textFormulaA1_Left =
-                        string.Format(
-                            ExcelTournamentBracket.CELL_FormulaA1_LEFT_FORMAT,
-                            ExcelTournamentBracket.TEAMLIST_G_NAME,
-                            ExcelTournamentBracket.SEEDNUMBER_G_NAME);
-                    textFormulaA1_Right =
-                        string.Format(
-                            ExcelTournamentBracket.CELL_FormulaA1_RIGHT_FORMAT,
-                            ExcelTournamentBracket.TEAMLIST_G_NAME,
-                            ExcelTournamentBracket.SEEDNUMBER_G_NAME);
-                }
-                categoryRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                categoryRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-
-                // カテゴリー行の下の隙間行
-                worksheet.Row(ExcelTournamentBracket.CATEGORY_ROW + 1).Height = ExcelTournamentBracket.GAP_L_ROW_HEIGHT;
-                worksheet.Row(ExcelTournamentBracket.CATEGORY_ROW + 2).Height = ExcelTournamentBracket.GAP_S_ROW_HEIGHT;
-
-                maxBracketRows =
-                    Math.Max(
-                        maxBracketRows,
-                        maxBracketRows = d.Value.NumberOfTeams / 2 + d.Value.NumberOfTeams % 2);
-
-                // チーム名・地区・番号
-                int colT = col - numOfColsUsed;
-                int colD = 0;
-                int colN = 0;
                 if (TourneyData.District)
                 {
-                    colD = colT + ExcelTournamentBracket.COL_TEAM;
-                    colN = colD + ExcelTournamentBracket.COL_DISTRICT;
-                }
-                else
-                {
-                    colN = colT + ExcelTournamentBracket.COL_TEAM;
-                }
-                //d.Value.StartColumnL = colN + ExcelTournamentBracket.COL_NUMBER;
-                int numbering = 1;
-
-                //----
-                // 左
-                //----
-                int i = 0;
-                for (int row = d.Value.StartRow; d.Value.PureSeedArray[i] != 3; i++, row += ExcelTournamentBracket.TEAM_ROW)
-                {
-                    // チーム名
-                    IXLRange tempRange =
-                        worksheet.Range(
-                            row,
-                            colT,
-                            row + ExcelTournamentBracket.TEAM_ROW - 1,
-                            colT + ExcelTournamentBracket.COL_TEAM - 1).Merge(false);
-                    tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                    tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_TEAM;
-                    tempRange.Value = "";
-                    tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Distributed;
-                    tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                    string teamName =
-                        categoryText +
-                        ExcelTournamentBracket.CELL_NAME_PREFIX_TEAM +
-                        ExcelTournamentBracket.CELL_NAME_DELIMITER +
-                        numbering.ToString();
-                    tempRange.AddToNamed(teamName, XLScope.Worksheet);
-                    tempRange.FormulaA1 = textFormulaA1_Left;
-
-                    if (TourneyData.District)
-                    {
-                        // 地区名称
-                        tempRange =
-                            worksheet.Range(
-                                row,
-                                colD,
-                                row + ExcelTournamentBracket.TEAM_ROW - 1,
-                                colD + ExcelTournamentBracket.COL_DISTRICT - 1).Merge(false);
-                        tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                        tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_DISTRICT;
-                        tempRange.Value = "";
-                        tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                        tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                        string districtName =
-                            categoryText +
-                            ExcelTournamentBracket.CELL_NAME_PREFIX_DISTRICT +
-                            ExcelTournamentBracket.CELL_NAME_DELIMITER +
-                            numbering.ToString();
-                        tempRange.AddToNamed(districtName, XLScope.Worksheet);
-                    }
-                    // 番号
+                    // 地区名称
                     tempRange =
-                        worksheet.Range(
-                            row,
-                            colN,
-                            row + ExcelTournamentBracket.TEAM_ROW - 1,
-                            colN + ExcelTournamentBracket.COL_NUMBER - 1).Merge(false);
-                    tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                    tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_NUMBER;
-                    tempRange.Value = numbering.ToString();
-                    tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                    tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                    string tournamentNumber =
-                        categoryText +
-                        ExcelTournamentBracket.CELL_NAME_PREFIX_TNUM +
-                        ExcelTournamentBracket.CELL_NAME_DELIMITER +
-                        numbering.ToString();
-                    tempRange.AddToNamed(tournamentNumber, XLScope.Worksheet);
-
-                    if (TourneyData.OpenDisplayFrame)
-                    {
-                        // TO/オープン参加等表示枠
-                        row += ExcelTournamentBracket.TO_ETC_ROW;
-                        tempRange =
-                            worksheet.Range(
-                                row,
-                                colT,
-                                row + ExcelTournamentBracket.TEAM_ROW - 1,
-                                colT + ExcelTournamentBracket.COL_TEAM - 1).Merge(false);
-                        tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                        tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_TO_ETC;
-                        tempRange.Value = "";
-                        tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Distributed;
-                        tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                        string noteName =
-                            categoryText +
-                            ExcelTournamentBracket.CELL_NAME_PREFIX_NOTE +
-                            ExcelTournamentBracket.CELL_NAME_DELIMITER +
-                            numbering.ToString();
-                        tempRange.AddToNamed(noteName, XLScope.Worksheet);
-                    }
-
-                    numbering++;
-                }
-                //----
-                // 右
-                //----
-                if (TourneyData.District)
-                {
-                    colD = col - ExcelTournamentBracket.COL_DISTRICT;
-                    colT = colD - ExcelTournamentBracket.COL_TEAM;
-                    colN = colT - ExcelTournamentBracket.COL_NUMBER;
-                }
-                else
-                {
-                    colD = 0;
-                    colT = col - ExcelTournamentBracket.COL_TEAM;
-                    colN = colT - ExcelTournamentBracket.COL_NUMBER;
-                }
-                //d.Value.StartColumnR = colN - 1;
-                for (int row = d.Value.StartRow; i < d.Value.NumberOfTeams; i++, row += ExcelTournamentBracket.TEAM_ROW)
-                {
-                    // 番号
-                    IXLRange tempRange =
-                        worksheet.Range(
-                            row,
-                            colN,
-                            row + ExcelTournamentBracket.TEAM_ROW - 1,
-                            colN + ExcelTournamentBracket.COL_NUMBER - 1).Merge(false);
-                    tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                    tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_NUMBER;
-                    tempRange.Value = numbering.ToString();
-                    tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                    tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                    string tournamentNumber =
-                        categoryText +
-                        ExcelTournamentBracket.CELL_NAME_PREFIX_TNUM +
-                        ExcelTournamentBracket.CELL_NAME_DELIMITER +
-                        numbering.ToString();
-                    tempRange.AddToNamed(tournamentNumber, XLScope.Worksheet);
-                    // チーム名
-                    tempRange =
-                        worksheet.Range(
-                            row,
-                            colT,
-                            row + ExcelTournamentBracket.TEAM_ROW - 1,
-                            colT + ExcelTournamentBracket.COL_TEAM - 1).Merge(false);
-                    tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                    tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_TEAM;
-                    tempRange.Value = "";
-                    tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Distributed;
-                    tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                    string teamName =
-                        categoryText +
-                        ExcelTournamentBracket.CELL_NAME_PREFIX_TEAM +
-                        ExcelTournamentBracket.CELL_NAME_DELIMITER +
-                        numbering.ToString();
-                    tempRange.AddToNamed(teamName, XLScope.Worksheet);
-                    tempRange.FormulaA1 = textFormulaA1_Right;
-
-                    if (TourneyData.District)
-                    {
-                        // 地区名称
-                        tempRange =
                         worksheet.Range(
                             row,
                             colD,
                             row + ExcelTournamentBracket.TEAM_ROW - 1,
                             colD + ExcelTournamentBracket.COL_DISTRICT - 1).Merge(false);
-                        tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                        tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_DISTRICT;
-                        tempRange.Value = "";
-                        tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                        tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                        string districtName =
-                            categoryText +
-                            ExcelTournamentBracket.CELL_NAME_PREFIX_DISTRICT +
-                            ExcelTournamentBracket.CELL_NAME_DELIMITER +
-                            numbering.ToString();
-                        tempRange.AddToNamed(districtName, XLScope.Worksheet);
-                    }
-
-                    if (TourneyData.OpenDisplayFrame)
-                    {
-                        // TO/オープン参加等表示枠
-                        row += 2;
-                        tempRange =
-                            worksheet.Range(
-                                row,
-                                colT,
-                                row + ExcelTournamentBracket.TEAM_ROW - 1,
-                                colT + ExcelTournamentBracket.COL_TEAM - 1).Merge(false);
-                        tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                        tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_TO_ETC;
-                        tempRange.Value = "";
-                        tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Distributed;
-                        tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                        string noteName =
-                            categoryText +
-                            ExcelTournamentBracket.CELL_NAME_PREFIX_NOTE +
-                            ExcelTournamentBracket.CELL_NAME_DELIMITER +
-                            numbering.ToString();
-                        tempRange.AddToNamed(noteName, XLScope.Worksheet);
-                    }
-
-                    numbering++;
+                    tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+                    tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_DISTRICT;
+                    tempRange.Value = "";
+                    tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    string districtName =
+                        categoryText +
+                        ExcelTournamentBracket.CELL_NAME_PREFIX_DISTRICT +
+                        ExcelTournamentBracket.CELL_NAME_DELIMITER +
+                        numbering.ToString();
+                    tempRange.AddToNamed(districtName, XLScope.Worksheet);
                 }
+                // 番号
+                tempRange =
+                    worksheet.Range(
+                        row,
+                        colN,
+                        row + ExcelTournamentBracket.TEAM_ROW - 1,
+                        colN + ExcelTournamentBracket.COL_NUMBER - 1).Merge(false);
+                tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+                tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_NUMBER;
+                tempRange.Value = numbering.ToString();
+                tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                string tournamentNumber =
+                    categoryText +
+                    ExcelTournamentBracket.CELL_NAME_PREFIX_TNUM +
+                    ExcelTournamentBracket.CELL_NAME_DELIMITER +
+                    numbering.ToString();
+                tempRange.AddToNamed(tournamentNumber, XLScope.Worksheet);
+
+                if (TourneyData.OpenDisplayFrame)
+                {
+                    // TO/オープン参加等表示枠
+                    row += ExcelTournamentBracket.TO_ETC_ROW;
+                    tempRange =
+                        worksheet.Range(
+                            row,
+                            colT,
+                            row + ExcelTournamentBracket.TEAM_ROW - 1,
+                            colT + ExcelTournamentBracket.COL_TEAM - 1).Merge(false);
+                    tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+                    tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_TO_ETC;
+                    tempRange.Value = "";
+                    tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Distributed;
+                    tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    string noteName =
+                        categoryText +
+                        ExcelTournamentBracket.CELL_NAME_PREFIX_NOTE +
+                        ExcelTournamentBracket.CELL_NAME_DELIMITER +
+                        numbering.ToString();
+                    tempRange.AddToNamed(noteName, XLScope.Worksheet);
+                }
+
+                numbering++;
+            }
+            //----
+            // 右
+            //----
+            if (TourneyData.District)
+            {
+                colD = col - ExcelTournamentBracket.COL_DISTRICT;
+                colT = colD - ExcelTournamentBracket.COL_TEAM;
+                colN = colT - ExcelTournamentBracket.COL_NUMBER;
+            }
+            else
+            {
+                colD = 0;
+                colT = col - ExcelTournamentBracket.COL_TEAM;
+                colN = colT - ExcelTournamentBracket.COL_NUMBER;
+            }
+            //d.Value.StartColumnR = colN - 1;
+            for (int row = _startRow; i < genData.NumberOfTeams; i++, row += ExcelTournamentBracket.TEAM_ROW)
+            {
+                // 番号
+                IXLRange tempRange =
+                    worksheet.Range(
+                        row,
+                        colN,
+                        row + ExcelTournamentBracket.TEAM_ROW - 1,
+                        colN + ExcelTournamentBracket.COL_NUMBER - 1).Merge(false);
+                tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+                tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_NUMBER;
+                tempRange.Value = numbering.ToString();
+                tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                string tournamentNumber =
+                    categoryText +
+                    ExcelTournamentBracket.CELL_NAME_PREFIX_TNUM +
+                    ExcelTournamentBracket.CELL_NAME_DELIMITER +
+                    numbering.ToString();
+                tempRange.AddToNamed(tournamentNumber, XLScope.Worksheet);
+                // チーム名
+                tempRange =
+                    worksheet.Range(
+                        row,
+                        colT,
+                        row + ExcelTournamentBracket.TEAM_ROW - 1,
+                        colT + ExcelTournamentBracket.COL_TEAM - 1).Merge(false);
+                tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+                tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_TEAM;
+                tempRange.Value = "";
+                tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Distributed;
+                tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                string teamName =
+                    categoryText +
+                    ExcelTournamentBracket.CELL_NAME_PREFIX_TEAM +
+                    ExcelTournamentBracket.CELL_NAME_DELIMITER +
+                    numbering.ToString();
+                tempRange.AddToNamed(teamName, XLScope.Worksheet);
+                tempRange.FormulaA1 = textFormulaA1_Right;
+
+                if (TourneyData.District)
+                {
+                    // 地区名称
+                    tempRange =
+                    worksheet.Range(
+                        row,
+                        colD,
+                        row + ExcelTournamentBracket.TEAM_ROW - 1,
+                        colD + ExcelTournamentBracket.COL_DISTRICT - 1).Merge(false);
+                    tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+                    tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_DISTRICT;
+                    tempRange.Value = "";
+                    tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    string districtName =
+                        categoryText +
+                        ExcelTournamentBracket.CELL_NAME_PREFIX_DISTRICT +
+                        ExcelTournamentBracket.CELL_NAME_DELIMITER +
+                        numbering.ToString();
+                    tempRange.AddToNamed(districtName, XLScope.Worksheet);
+                }
+
+                if (TourneyData.OpenDisplayFrame)
+                {
+                    // TO/オープン参加等表示枠
+                    row += 2;
+                    tempRange =
+                        worksheet.Range(
+                            row,
+                            colT,
+                            row + ExcelTournamentBracket.TEAM_ROW - 1,
+                            colT + ExcelTournamentBracket.COL_TEAM - 1).Merge(false);
+                    tempRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+                    tempRange.Style.Font.FontSize = ExcelTournamentBracket.FONT_SIZE_TO_ETC;
+                    tempRange.Value = "";
+                    tempRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Distributed;
+                    tempRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    string noteName =
+                        categoryText +
+                        ExcelTournamentBracket.CELL_NAME_PREFIX_NOTE +
+                        ExcelTournamentBracket.CELL_NAME_DELIMITER +
+                        numbering.ToString();
+                    tempRange.AddToNamed(noteName, XLScope.Worksheet);
+                }
+
+                numbering++;
             }
             _numOfColsUsed = col - 1;
 
