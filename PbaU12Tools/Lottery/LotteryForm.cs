@@ -87,7 +87,7 @@ namespace PbaU12Tools.Lottery
 
         private void loadTeamDatas()
         {
-            if (TeamDatas.loadTeamDatas(out TeamDatas? teamDatasBoys, out TeamDatas? teamDatasGirls))
+            if (TeamDatas.LoadTeamDatas(out TeamDatas? teamDatasBoys, out TeamDatas? teamDatasGirls))
             {
                 lotteryResultCtrlBoys.TeamDatas = teamDatasBoys;
                 lotteryResultCtrlGirls.TeamDatas = teamDatasGirls;

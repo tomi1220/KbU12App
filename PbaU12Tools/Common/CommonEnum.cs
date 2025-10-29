@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace PbaU12Tools
 {
+    public enum TournamentType
+    {
+        /// <summary>都道府県大会</summary>
+        PrefecturalTournament,
+        /// <summary>地区大会</summary>
+        DistrictTournament
+    }
+
     public enum JbaTeamRegistrationStatuses
     {
         /// <summary>不明</summary>

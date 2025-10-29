@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Spreadsheet;
 using PbaU12Tools.TournamentData;
 using System;
@@ -210,14 +211,14 @@ namespace PbaU12Tools.Bracket
                 // スーパーシードなし
                 Round1and2(worksheet, bracketGenData, categoryPrefix);
 
-                CompleteBracket(worksheet, genData, d.Value.AllDataInfo, categoryPrefix);
+                CompleteBracket(worksheet, bracketGenData, bracketGenData.AllDataInfo, categoryPrefix);
             }
             else
             {
                 // スーパーシードあり
-                Round1and2SuperSeedCompatible(worksheet, d.Value, categoryPrefix);
+                Round1and2SuperSeedCompatible(worksheet, bracketGenData, categoryPrefix);
 
-                CompleteBracket(worksheet, d.Value, d.Value.AllDataInfo, categoryPrefix);
+                CompleteBracket(worksheet, bracketGenData, bracketGenData.AllDataInfo, categoryPrefix);
             }
 
             // 行の高さ・列幅、見出しなど
@@ -855,9 +856,14 @@ namespace PbaU12Tools.Bracket
         private void CompleteBracket(
             IXLWorksheet worksheet,
             BracketGenData bracketData,
-            BracketGenData.PartInfo partInfo,
+            BracketGenData.PartInfo? partInfo,
             string categoryPrefix)
         {
+            if (partInfo == null)
+            {
+                return;
+            }
+
             int numberOfDivisionsOnOneSide = bracketData.NumberOfDivisions / 2;
 
             int[] left = new int[numberOfDivisionsOnOneSide];

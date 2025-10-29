@@ -20,7 +20,7 @@ namespace PbaU12Tools.Bracket
             //==============
             // チームリスト
             //==============
-            CreateTeamList();
+            CreateTeamList(TeamDataSheet);
 
             IXLWorksheet GameDataSheet = _workbook.Worksheets.Add(ExcelTournamentBracket.GAMEDATASHEET_NAME);
 
@@ -38,15 +38,51 @@ namespace PbaU12Tools.Bracket
             CreateTournamentData();
         }
 
-        public void CreateTeamList(IXLWorksheet TeamDataSheet)
+        private void CreateTeamList(IXLWorksheet TeamDataSheet)
         {
             //==============
             // チームリスト
             //==============
-            TeamDataOld teamData = new TeamDataOld();
-            List<TeamDataOld.DistrictInfo> districtInfos = teamData.DistrictList;
-            List<TeamDataOld.TeamInfo> boysTeamInfos = teamData.BoysTeamInfoList;
-            List<TeamDataOld.TeamInfo> girlsTeamInfos = teamData.GirlsTeamInfoList;
+            if (!TeamDatas.LoadTeamDatas(out TeamDatas? teamDatasBoysAll, out TeamDatas? teamDatasGirlsAll))
+            {
+                return;
+            }
+            if (teamDatasBoysAll == null && teamDatasGirlsAll == null)
+            {
+                return;
+            }
+            TeamDatas teamDatasBoys;
+            TeamDatas teamDatasGirls;
+            if (TourneyData!.TourneyType == TournamentType.PrefecturalTournament)
+            {
+                teamDatasBoys = teamDatasBoysAll!;
+                teamDatasGirls = teamDatasGirlsAll!;
+            }
+            else
+            {
+                teamDatasBoys = new TeamDatas();
+                foreach (var teamData in teamDatasBoysAll!.TeamDatasList!)
+                {
+                    if (teamData.District == Districts.KagoshimaNorth ||
+                        teamData.District == Districts.KagoshimaWest ||
+                        teamData.District == Districts.KagoshimaSouth ||
+                        teamData.District == Districts.KagoshimaCentral)
+                    {
+                        teamDatasBoys.TeamDatasList!.Add(teamData);
+                    }
+                }
+                teamDatasGirls = new TeamDatas();
+                foreach (var teamData in teamDatasGirlsAll!.TeamDatasList!)
+                {
+                    if (teamData.District == Districts.KagoshimaNorth ||
+                        teamData.District == Districts.KagoshimaWest ||
+                        teamData.District == Districts.KagoshimaSouth ||
+                        teamData.District == Districts.KagoshimaCentral)
+                    {
+                        teamDatasGirls.TeamDatasList!.Add(teamData);
+                    }
+                }
+            }
 
             int nextCol = 1;
             TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_1;

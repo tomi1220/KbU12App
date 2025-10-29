@@ -62,6 +62,7 @@ namespace DistTourney
             dlg.TournamentName = _tournamentData!.TournamentName;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                _tournamentData.TourneyType = TournamentType.DistrictTournament;
                 _tournamentData.NumberOfTimes = dlg.NumberOfTournaments;
                 _tournamentData.TournamentName = dlg.TournamentName;
 

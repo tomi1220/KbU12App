@@ -54,6 +54,11 @@ namespace PbaU12Tools.TournamentData
         public TournamentDataStatuses Status { get; set; } = TournamentDataStatuses.None;
 
         /// <summary>
+        /// 大会の種類
+        /// </summary>
+        public TournamentType TourneyType { get; set; }
+
+        /// <summary>
         /// 年度
         /// </summary>
         public int Year { get; set; }

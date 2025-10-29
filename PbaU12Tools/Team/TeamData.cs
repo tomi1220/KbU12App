@@ -133,7 +133,7 @@ namespace PbaU12Tools
             }
         }
 
-        public static bool loadTeamDatas(out TeamDatas? teamDatasBoys, out TeamDatas? teamDatasGirls)
+        public static bool LoadTeamDatas(out TeamDatas? teamDatasBoys, out TeamDatas? teamDatasGirls)
         {
             teamDatasBoys = null;
             teamDatasGirls = null;
