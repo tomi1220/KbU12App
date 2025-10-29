@@ -85,16 +85,16 @@ namespace PbaU12Tools.Bracket
             }
 
             int nextCol = 1;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_1;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_2;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_3;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_4;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_NO;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SHORTNAME;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_NAME;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SEEDNUMBER;
             TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.GAP_COL_WIDTH;
 
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_1;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_2;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_3;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_4;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_NO;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SHORTNAME;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_NAME;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SEEDNUMBER;
             TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.GAP_COL_WIDTH;
 
             IXLRange ttlLRange = TeamDataSheet.Range(

@@ -192,14 +192,16 @@ namespace PbaU12Tools.Bracket
 
         public const int TEAMLIST_TOP_ROW = 1;
         public const int TEAMLIST_TOP_COL = 1;
-        public const int TEAMLIST_COL_WIDTH_1 = 4;
-        public const int TEAMLIST_COL_WIDTH_2 = 9;
-        public const int TEAMLIST_COL_WIDTH_3 = 9;
-        public const int TEAMLIST_COL_WIDTH_4 = 7;
+        public const int TEAMLIST_COL_WIDTH_NO = 4;
+        public const int TEAMLIST_COL_WIDTH_SHORTNAME = 9;
+        public const int TEAMLIST_COL_WIDTH_TEANNAME = 30;
+        public const int TEAMLIST_COL_WIDTH_DISTRICT = 9;
+        public const int TEAMLIST_COL_WIDTH_SEEDNUMBER = 7;
         public const string TITLE_BOYS = "男子";
         public const string TITLE_GIRLS = "女子";
         public const string TITLE_NUMBER = "№";
-        public const string TITLE_TEAMNAME = "チーム名";
+        public const string TITLE_SHORTNAME = "チーム名";
+        public const string TITLE_TEAMNAME = "登録名";
         public const string TITLE_DISTRICT = "地区";
         public const string TITLE_SEEDNUMBER = "番号";
         public const string TITLE_TOURNAMENT = "トーナメント";
