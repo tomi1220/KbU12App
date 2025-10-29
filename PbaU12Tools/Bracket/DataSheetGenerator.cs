@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using PbaU12Tools.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,29 +86,34 @@ namespace PbaU12Tools.Bracket
             }
 
             int nextCol = 1;
+            // 男子
             TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_NO;
             TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SHORTNAME;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_NAME;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_TEAMNAME;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_DISTRICT;
             TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SEEDNUMBER;
             TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.GAP_COL_WIDTH;
 
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_NO;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SHORTNAME;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_NAME;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SEEDNUMBER;
-            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.GAP_COL_WIDTH;
-
+            int tempCol = ExcelTournamentBracket.TEAMLIST_TOP_COL + nextCol - 1;
             IXLRange ttlLRange = TeamDataSheet.Range(
                 ExcelTournamentBracket.TEAMLIST_TOP_ROW, ExcelTournamentBracket.TEAMLIST_TOP_COL,
-                ExcelTournamentBracket.TEAMLIST_TOP_ROW, ExcelTournamentBracket.TEAMLIST_TOP_COL + 3);
+                ExcelTournamentBracket.TEAMLIST_TOP_ROW, tempCol++);
             ttlLRange.Merge();
             ttlLRange.Value = ExcelTournamentBracket.TITLE_BOYS;
             ttlLRange.Style.Font.FontColor = ExcelTournamentBracket.TITLE_FONTCOLOR_WHITE;
             ttlLRange.Style.Fill.BackgroundColor = ExcelTournamentBracket.TITLE_BACKCOLOR_BOYS;
 
+            // 女子
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_NO;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SHORTNAME;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_TEAMNAME;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_DISTRICT;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.TEAMLIST_COL_WIDTH_SEEDNUMBER;
+            TeamDataSheet.Column(nextCol++).Width = ExcelTournamentBracket.GAP_COL_WIDTH;
+
             ttlLRange = TeamDataSheet.Range(
-                ExcelTournamentBracket.TEAMLIST_TOP_ROW, ExcelTournamentBracket.TEAMLIST_TOP_COL + 5,
-                ExcelTournamentBracket.TEAMLIST_TOP_ROW, ExcelTournamentBracket.TEAMLIST_TOP_COL + 8);
+                ExcelTournamentBracket.TEAMLIST_TOP_ROW, tempCol,
+                ExcelTournamentBracket.TEAMLIST_TOP_ROW, nextCol - 1);
             ttlLRange.Merge();
             ttlLRange.Value = ExcelTournamentBracket.TITLE_GIRLS;
             ttlLRange.Style.Font.FontColor = ExcelTournamentBracket.TITLE_FONTCOLOR_WHITE;
@@ -118,6 +124,9 @@ namespace PbaU12Tools.Bracket
                     ExcelTournamentBracket.TEAMLIST_TOP_ROW + 1,
                     ExcelTournamentBracket.TEAMLIST_TOP_COL);
             cell1.Value = ExcelTournamentBracket.TITLE_NUMBER;
+            cell1.Style.Fill.BackgroundColor = ExcelTournamentBracket.TITLE_BACKCOLOR_GRAY;
+            cell1 = cell1.CellRight(1);
+            cell1.Value = ExcelTournamentBracket.TITLE_SHORTNAME;
             cell1.Style.Fill.BackgroundColor = ExcelTournamentBracket.TITLE_BACKCOLOR_GRAY;
             cell1 = cell1.CellRight(1);
             cell1.Value = ExcelTournamentBracket.TITLE_TEAMNAME;
@@ -132,6 +141,9 @@ namespace PbaU12Tools.Bracket
             cell1 = cell1.CellRight(2);
 
             cell1.Value = ExcelTournamentBracket.TITLE_NUMBER;
+            cell1.Style.Fill.BackgroundColor = ExcelTournamentBracket.TITLE_BACKCOLOR_GRAY;
+            cell1 = cell1.CellRight(1);
+            cell1.Value = ExcelTournamentBracket.TITLE_SHORTNAME;
             cell1.Style.Fill.BackgroundColor = ExcelTournamentBracket.TITLE_BACKCOLOR_GRAY;
             cell1 = cell1.CellRight(1);
             cell1.Value = ExcelTournamentBracket.TITLE_TEAMNAME;
@@ -153,7 +165,7 @@ namespace PbaU12Tools.Bracket
                     ExcelTournamentBracket.TEAMLIST_TOP_COL);
             int numberCounter = 1;
             cell1 = startCell;
-            foreach (var t in boysTeamInfos)
+            foreach (var t in teamDatasBoys.TeamDatasList!)
             {
                 cell1.Style.Fill.BackgroundColor = ExcelTournamentBracket.TITLE_BACKCOLOR_GRAY;
                 cell1.Value = numberCounter;
@@ -162,12 +174,19 @@ namespace PbaU12Tools.Bracket
                 cell2.Style.Alignment.ShrinkToFit = true;
                 cell2.Value = t.ShortName;
 
+                cell2 = cell1.CellRight(1);
+                cell2.Style.Alignment.ShrinkToFit = true;
+                cell2.Value = t.TeamName;
+
+                cell2 = cell1.CellRight(1);
+                cell2.Style.Alignment.ShrinkToFit = true;
+                cell2.Value = t.TeamName;
+
                 cell2 = cell2.CellRight(1);
-                TeamDataOld.DistrictInfo districtInfo = districtInfos.FirstOrDefault(d => d.ID == t.DistrictID);
-                if (districtInfo != null)
+                if (DistrictsList.DicDistrict.TryGetValue(t.District, out string? districtName))
                 {
                     cell2.Style.Alignment.ShrinkToFit = true;
-                    cell2.Value = districtInfo.Name;
+                    cell2.Value = districtName;
                 }
                 cell1 = cell1.CellBelow();
                 numberCounter++;
@@ -202,7 +221,7 @@ namespace PbaU12Tools.Bracket
                     ExcelTournamentBracket.TEAMLIST_TOP_COL + 5);
             numberCounter = 1;
             cell1 = startCell;
-            foreach (var t in girlsTeamInfos)
+            foreach (var t in teamDatasGirls.TeamDatasList!)
             {
                 cell1.Style.Fill.BackgroundColor = ExcelTournamentBracket.TITLE_BACKCOLOR_GRAY;
                 cell1.Value = numberCounter;
@@ -211,12 +230,15 @@ namespace PbaU12Tools.Bracket
                 cell2.Style.Alignment.ShrinkToFit = true;
                 cell2.Value = t.ShortName;
 
+                cell2 = cell1.CellRight(1);
+                cell2.Style.Alignment.ShrinkToFit = true;
+                cell2.Value = t.TeamName;
+
                 cell2 = cell2.CellRight(1);
-                TeamDataOld.DistrictInfo districtInfo = districtInfos.FirstOrDefault(d => d.ID == t.DistrictID);
-                if (districtInfo != null)
+                if (DistrictsList.DicDistrict.TryGetValue(t.District, out string? districtName))
                 {
                     cell2.Style.Alignment.ShrinkToFit = true;
-                    cell2.Value = districtInfo.Name;
+                    cell2.Value = districtName;
                 }
                 cell1 = cell1.CellBelow();
                 numberCounter++;

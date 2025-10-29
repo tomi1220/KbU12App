@@ -194,7 +194,7 @@ namespace PbaU12Tools.Bracket
         public const int TEAMLIST_TOP_COL = 1;
         public const int TEAMLIST_COL_WIDTH_NO = 4;
         public const int TEAMLIST_COL_WIDTH_SHORTNAME = 9;
-        public const int TEAMLIST_COL_WIDTH_TEANNAME = 30;
+        public const int TEAMLIST_COL_WIDTH_TEAMNAME = 30;
         public const int TEAMLIST_COL_WIDTH_DISTRICT = 9;
         public const int TEAMLIST_COL_WIDTH_SEEDNUMBER = 7;
         public const string TITLE_BOYS = "男子";
