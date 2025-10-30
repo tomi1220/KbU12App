@@ -2,6 +2,7 @@
 using PbaU12Tools.Common;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,34 +13,46 @@ namespace PbaU12Tools.Bracket
     {
         private void generateDataSheet(IXLWorkbook _workbook)
         {
-            IXLWorksheet TeamDataSheet = _workbook.Worksheets.Add(ExcelTournamentBracket.TEAMDATASHEET_NAME);
+            //==================
+            // 男子チームデータ
+            //==================
+            IXLWorksheet boysTeamsDataSheet =
+                _workbook.Worksheets.Add(
+                    ExcelTournamentBracket.TITLE_BOYS + ExcelTournamentBracket.TEAMDATASHEET_NAME);
+            // 初期設定
+            teamsDatasheetDefaultSettings(boysTeamsDataSheet);
+            // チームデータを設定する
+            setTeamData(boysTeamsDataSheet);
 
-            TeamDataSheet.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-            TeamDataSheet.Style.Font.FontSize = ExcelTournamentBracket.DATASHEET_BASE_FONT_SIZE;
-            TeamDataSheet.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-            TeamDataSheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-            //==============
-            // チームリスト
-            //==============
-            CreateTeamList(TeamDataSheet);
+            //==================
+            // 女子チームデータ
+            //==================
 
             IXLWorksheet GameDataSheet = _workbook.Worksheets.Add(ExcelTournamentBracket.GAMEDATASHEET_NAME);
 
-            TeamDataSheet.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-            TeamDataSheet.Style.Font.FontSize = ExcelTournamentBracket.DATASHEET_BASE_FONT_SIZE;
-            TeamDataSheet.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-            TeamDataSheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            boysTeamsDataSheet.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+            boysTeamsDataSheet.Style.Font.FontSize = ExcelTournamentBracket.DATASHEET_BASE_FONT_SIZE;
+            boysTeamsDataSheet.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+            boysTeamsDataSheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
             //========================================
             // 試合開始時刻／ゲーム番号重複チェック欄
             //========================================
-            CreateTimeTable();
+            //CreateTimeTable();
             //======================
             // トーナメント・データ
             //======================
-            CreateTournamentData();
+            //CreateTournamentData();
         }
 
-        private void CreateTeamList(IXLWorksheet TeamDataSheet)
+        private void teamsDatasheetDefaultSettings(IXLWorksheet teamsDataSheet)
+        {
+            teamsDataSheet.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+            teamsDataSheet.Style.Font.FontSize = ExcelTournamentBracket.DATASHEET_BASE_FONT_SIZE;
+            teamsDataSheet.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+            teamsDataSheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+        }
+
+        private void setTeamData(IXLWorksheet TeamDataSheet)
         {
             //==============
             // チームリスト
@@ -267,7 +280,7 @@ namespace PbaU12Tools.Bracket
                 TeamDataSheet.Range(startCell.CellRight(3), cell1.CellRight(3).CellAbove());
             xLRange.AddToNamed(ExcelTournamentBracket.SEEDNUMBER_G_NAME);
         }
-
+/*
         private void CreateTimeTable()
         {
             //========================================
@@ -586,5 +599,6 @@ namespace PbaU12Tools.Bracket
 
             _nextCol = tempCol0;
         }
+*/
     }
 }

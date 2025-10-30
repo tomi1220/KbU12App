@@ -88,7 +88,12 @@ namespace PbaU12Tools.Bracket
                 CommonValues.ExcelExt;
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                //textBoxOutputDestination.Text = sfd.FileName;
+                BracketGenerator bracketGenerator = new BracketGenerator(30, 24, 0, 0);
+                bracketGenerator.Arrangement =
+                    TourneyData.TourneyType == TournamentType.PrefecturalTournament
+                        ? BracketGenerator.BracketArrangement.Horizontal
+                        : BracketGenerator.BracketArrangement.Vertical;
+                bracketGenerator.OutputFilePath = sfd.FileName;
             }
         }
         #endregion

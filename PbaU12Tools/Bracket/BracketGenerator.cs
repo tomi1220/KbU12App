@@ -16,13 +16,25 @@ namespace PbaU12Tools.Bracket
         #region Enum
         public enum GenerateType
         {
+            /// <summary>Excelのみで（従来の方法）</summary>
+            ExcelOnly = 1,
             /// <summary>抽選会用</summary>
-            Lottery = 1,
+            Lottery = 3,
             /// <summary>試合順調整用</summary>
-            MatchOrder = 2,
+            MatchOrder = 3,
             /// <summary>トーナメント表</summary>
-            TournamentBracket = 3,
+            TournamentBracket = 4,
         }
+        public enum BracketArrangement
+        {
+            /// <summary>横</summary>
+            Horizontal = 1,
+            /// <summary>縦</summary>
+            Vertical = 2,
+            /// <summary>シートを分ける</summary>
+            DivideTheSheet = 3,
+        }
+
         public enum BracketSide
         {
             Left,
@@ -50,7 +62,10 @@ namespace PbaU12Tools.Bracket
 
         #region フィールド
         private int _numOfColsUsed = 0;
-        private int _startRow = 0;
+        /// <summary>処理中の行</summary>
+        private int _currentRow = 0;
+        /// <summary>処理中の列</summary>
+        private int _currentCol = 0;
         private int _startColumnL = 0;
         private int _startColumnR = 0;
         #endregion
@@ -59,10 +74,12 @@ namespace PbaU12Tools.Bracket
         public BracketGenerator()
         {
         }
+
         public BracketGenerator(GenerateType generateType)
         {
             GenType = generateType;
         }
+
         public BracketGenerator(
             int numberOfBoysTeams,
             int numberOfGirlsTeams,
@@ -91,14 +108,15 @@ namespace PbaU12Tools.Bracket
 
         #region プロパティ
         public GenerateType GenType { get; set; } = (GenerateType)0;
+        public BracketArrangement Arrangement { get; set; }
         public TourneyData? TourneyData { get; set; } = null;
         public BracketGenData? GenDataBoys { get; set; } = null;
         public BracketGenData? GenDataGirls { get; set; } = null;
 
-        public string OutputPath { get; set; } = string.Empty;
-        public string FileName { get; set; } = string.Empty;
+        public string OutputFilePath { get; set; } = string.Empty;
+        //public string FileName { get; set; } = string.Empty;
 
-        public string FilePath { get; set; } = string.Empty;
+        //public string FilePath { get; set; } = string.Empty;
 
         private int RowIncriment { get; set; } = ExcelTournamentBracket.TEAM_ROW;
         private int NumOfVLine { get; set; } = ExcelTournamentBracket.TEAM_ROW / 2;
@@ -118,7 +136,7 @@ namespace PbaU12Tools.Bracket
                 return false;
             }
 
-            if (string.IsNullOrEmpty(OutputPath))
+            if (string.IsNullOrEmpty(OutputFilePath))
             {
                 return false;
             }
@@ -138,7 +156,7 @@ namespace PbaU12Tools.Bracket
                 // ワークシートを追加する
                 AddBracketSheet(workbook);
                 // データ sheet
-                generateDataSheet(workbook);
+                //generateDataSheet(workbook);
 
                 //if ((TourneyData.Usage == TournamentData.UsageCls.ForDraw ||
                 //     TourneyData.Usage == TournamentData.UsageCls.ForTournament) &&
@@ -150,9 +168,9 @@ namespace PbaU12Tools.Bracket
 
                 try
                 {
-                    string xlsxFilePath = OutputPath;
+                    string xlsxFilePath = OutputFilePath;
                     workbook.SaveAs(xlsxFilePath);
-                    FilePath = xlsxFilePath;
+                    //FilePath = xlsxFilePath;
 
                     return true;
                 }
@@ -190,7 +208,7 @@ namespace PbaU12Tools.Bracket
             int startCol,
             int startRow)
         {
-
+            _currentRow = startRow;
         }
 
         private void GenBacket(
@@ -348,7 +366,7 @@ namespace PbaU12Tools.Bracket
             // 左
             //----
             int i = 0;
-            for (int row = _startRow; genData.PureSeedArray![i] != 3; i++, row += ExcelTournamentBracket.TEAM_ROW)
+            for (int row = _currentRow; genData.PureSeedArray![i] != 3; i++, row += ExcelTournamentBracket.TEAM_ROW)
             {
                 // チーム名
                 IXLRange tempRange =
@@ -451,7 +469,7 @@ namespace PbaU12Tools.Bracket
                 colN = colT - ExcelTournamentBracket.COL_NUMBER;
             }
             //d.Value.StartColumnR = colN - 1;
-            for (int row = _startRow; i < genData.NumberOfTeams; i++, row += ExcelTournamentBracket.TEAM_ROW)
+            for (int row = _currentRow; i < genData.NumberOfTeams; i++, row += ExcelTournamentBracket.TEAM_ROW)
             {
                 // 番号
                 IXLRange tempRange =
@@ -615,7 +633,7 @@ namespace PbaU12Tools.Bracket
 
             int underNo = (int)Math.Pow(2, (bracketData.AllDataInfo!.Round - 1));
 
-            IXLCell nextCell = GetBracketStartCell(worksheet, bracketData.Category, BracketSide.Left);
+            IXLCell nextCell = getBracketStartCell(worksheet, bracketData.Category, BracketSide.Left);
             if (_startColumnL == 0)
             {
                 _startColumnL = nextCell.Address.ColumnNumber;
@@ -679,7 +697,7 @@ namespace PbaU12Tools.Bracket
                         }
                     }
 
-                    nextCell = GetBracketStartCell(worksheet, bracketData.Category, BracketSide.Right);
+                    nextCell = getBracketStartCell(worksheet, bracketData.Category, BracketSide.Right);
                     if (_startColumnR == 0)
                     {
                         _startColumnR = nextCell.Address.ColumnNumber;
@@ -728,7 +746,7 @@ namespace PbaU12Tools.Bracket
         {
             // １，２回戦の山のパターンは４種類
 
-            IXLCell nextCell = GetBracketStartCell(worksheet, bracketData.Category, BracketSide.Left);
+            IXLCell nextCell = getBracketStartCell(worksheet, bracketData.Category, BracketSide.Left);
             if (_startColumnL == 0)
             {
                 _startColumnL = nextCell.Address.ColumnNumber;
@@ -791,7 +809,7 @@ namespace PbaU12Tools.Bracket
                 {
                     if (_startColumnR == 0)
                     {
-                        nextCell = GetBracketStartCell(worksheet, bracketData.Category, BracketSide.Right);
+                        nextCell = getBracketStartCell(worksheet, bracketData.Category, BracketSide.Right);
                         _startColumnR = nextCell.Address.ColumnNumber;
                     }
 
@@ -881,8 +899,8 @@ namespace PbaU12Tools.Bracket
             int rnd = partInfo.Round - 2;
 
             int roundStartColumn = _startColumnL + 2;
-            IXLCell rule1 = null;
-            IXLCell rule2 = null;
+            IXLCell? rule1 = null;
+            IXLCell? rule2 = null;
 
             int finalRow = 0;
             int finalLeftCol = 0;
@@ -910,7 +928,7 @@ namespace PbaU12Tools.Bracket
                     //for (int il = 1; il <= left[i] * 2; il++)
                     for (int il = 1; il <= left[i] * rowIncriment; il++)
                     {
-                        IXLCell checkCell = worksheet.Cell(_startRow + il - 1, nl + roundStartColumn);
+                        IXLCell checkCell = worksheet.Cell(_currentRow + il - 1, nl + roundStartColumn);
                         if ((string)checkCell.Value == ExcelTournamentBracket.LINE_CONNECTING_POINT_FLAG)
                         {
                             if (rule1 == null)
@@ -982,7 +1000,7 @@ namespace PbaU12Tools.Bracket
                     //for (int il = 1; il <= right[i] * 2; il++)
                     for (int il = 1; il <= right[i] * rowIncriment; il++)
                     {
-                        IXLCell checkCell = worksheet.Cell(_startRow + il - 1, nl * (-1) + roundStartColumn);
+                        IXLCell checkCell = worksheet.Cell(_currentRow + il - 1, nl * (-1) + roundStartColumn);
                         if ((string)checkCell.Value == ExcelTournamentBracket.LINE_CONNECTING_POINT_FLAG)
                         {
                             if (rule1 == null)

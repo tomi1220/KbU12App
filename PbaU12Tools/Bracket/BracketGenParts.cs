@@ -16,7 +16,7 @@ namespace PbaU12Tools.Bracket
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
-        private int GetNumberOfBracketColumn(Categories category)
+        private int getNumberOfBracketColumn(Categories category)
         {
             int cols =
                 (ExcelTournamentBracket.COL_TEAM +
@@ -52,7 +52,7 @@ namespace PbaU12Tools.Bracket
         /// <param name="category"></param>
         /// <param name="bracketSide"></param>
         /// <returns></returns>
-        private IXLCell GetBracketStartCell(IXLWorksheet worksheet, Categories category, BracketSide bracketSide)
+        private IXLCell getBracketStartCell(IXLWorksheet worksheet, Categories category, BracketSide bracketSide)
         {
             // カラム
             int startColumn = ExcelTournamentBracket.DEFAULT_LEFT_COLUMN_MARGIN;
@@ -61,7 +61,7 @@ namespace PbaU12Tools.Bracket
             if (category == Categories.Girls)
             {
                 // 女子
-                startColumn += GetNumberOfBracketColumn(Categories.Boys);
+                startColumn += getNumberOfBracketColumn(Categories.Boys);
                 startColumn++;
             }
             if (bracketSide == BracketSide.Left)
