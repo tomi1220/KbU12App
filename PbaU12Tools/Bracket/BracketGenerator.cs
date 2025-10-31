@@ -83,17 +83,22 @@ namespace PbaU12Tools.Bracket
         public BracketGenerator(
             int numberOfBoysTeams,
             int numberOfGirlsTeams,
-            int NumberOfBoysSuperSeed = 0,
-            int NumberOfGirlsSuperSeed = 0)
+            int numberOfBoysSuperSeed = 0,
+            int numberOfGirlsSuperSeed = 0)
         {
             GenType = GenerateType.Lottery;
+            TourneyData = new TourneyData();
+            TourneyData.BaseDataBoys.NumberOfTeams = numberOfBoysTeams;
+            TourneyData.BaseDataBoys.NumberOfSuperSeed = numberOfBoysSuperSeed;
+            TourneyData.BaseDataBoys.NumberOfTeams = numberOfGirlsTeams;
+            TourneyData.BaseDataBoys.NumberOfSuperSeed = numberOfGirlsSuperSeed;
             GenDataBoys =
                 CreateGenData(
                     new TournenyBaseData
                     {
                         Category = Categories.Boys,
                         NumberOfTeams = numberOfBoysTeams,
-                        NumberOfSuperSeed = NumberOfBoysSuperSeed
+                        NumberOfSuperSeed = numberOfBoysSuperSeed
                     });
             GenDataGirls =
                 CreateGenData(
@@ -101,7 +106,7 @@ namespace PbaU12Tools.Bracket
                     {
                         Category = Categories.Girls,
                         NumberOfTeams = numberOfGirlsTeams,
-                        NumberOfSuperSeed = NumberOfGirlsSuperSeed
+                        NumberOfSuperSeed = numberOfGirlsSuperSeed
                     });
         }
         #endregion
@@ -197,7 +202,7 @@ namespace PbaU12Tools.Bracket
                 worksheet.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                 worksheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                GenBacket(worksheet, GenDataBoys, GenDataGirls, 0, 0);
+                GenBacket(worksheet, GenDataBoys, GenDataGirls, 1, 1);
             }
         }
 
@@ -209,6 +214,10 @@ namespace PbaU12Tools.Bracket
             int startRow)
         {
             _currentRow = startRow;
+
+            // 行の高さ・列幅、見出しなど
+            initializeBrancketWorksheet(worksheet, GenDataBoys!);
+            initializeBrancketWorksheet(worksheet, GenDataGirls!);
         }
 
         private void GenBacket(
@@ -240,8 +249,8 @@ namespace PbaU12Tools.Bracket
             }
 
             // 行の高さ・列幅、見出しなど
-            fillWorksheetWithValues(worksheet, GenDataBoys!);
-            fillWorksheetWithValues(worksheet, GenDataGirls!);
+            initializeBrancketWorksheet(worksheet, GenDataBoys!);
+            initializeBrancketWorksheet(worksheet, GenDataGirls!);
             // ブラケット以外の設定
             BuildOtherBracket(worksheet);
         }
@@ -250,7 +259,7 @@ namespace PbaU12Tools.Bracket
         /// ［組合せ］シートの初期化
         /// </summary>
         /// <param name="worksheet"></param>
-        private void fillWorksheetWithValues(
+        private void initializeBrancketWorksheet(
             IXLWorksheet worksheet, BracketGenData genData)
         {
             int maxBracketRows = 0;
@@ -386,7 +395,7 @@ namespace PbaU12Tools.Bracket
                     ExcelTournamentBracket.CELL_NAME_DELIMITER +
                     numbering.ToString();
                 tempRange.AddToNamed(teamName, XLScope.Worksheet);
-                tempRange.FormulaA1 = textFormulaA1_Left;
+                tempRange.FirstCell().FormulaA1 = textFormulaA1_Left;
 
                 if (TourneyData.District)
                 {
@@ -507,7 +516,7 @@ namespace PbaU12Tools.Bracket
                     ExcelTournamentBracket.CELL_NAME_DELIMITER +
                     numbering.ToString();
                 tempRange.AddToNamed(teamName, XLScope.Worksheet);
-                tempRange.FormulaA1 = textFormulaA1_Right;
+                tempRange.FirstCell().FormulaA1 = textFormulaA1_Right;
 
                 if (TourneyData.District)
                 {

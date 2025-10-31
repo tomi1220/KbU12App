@@ -18,30 +18,31 @@ namespace PbaU12Tools.Bracket
         /// <returns></returns>
         private int getNumberOfBracketColumn(Categories category)
         {
+            // todo : 2025-10-31未調整
             int cols =
                 (ExcelTournamentBracket.COL_TEAM +
                  ExcelTournamentBracket.COL_NUMBER) * 2 +
                  ExcelTournamentBracket.FINAL_SPACE_COLUMNS * 2;
-            if (TourneyData.District)
-            {
-                cols += ExcelTournamentBracket.COL_DISTRICT * 2;
-            }
+            //if (TourneyData.District)
+            //{
+            //    cols += ExcelTournamentBracket.COL_DISTRICT * 2;
+            //}
 
-            BracketData bracketData = null;
-            if (TourneyData.BrackectDataDic.TryGetValue(category, out bracketData))
-            {
-                cols += (bracketData.AllDataInfo.Round - 1) * 2;
-            }
-            if (TourneyData.FinalLeague)
-            {
-                // 決勝リーグ枠を確保
-                cols += ExcelTournamentBracket.FINAL_LEAGUE_SPACE_COLUMNS;
-            }
-            else
-            {
-                // 決勝
-                cols += 2;
-            }
+            //BracketData bracketData = null;
+            //if (TourneyData.BrackectDataDic.TryGetValue(category, out bracketData))
+            //{
+            //    cols += (GenDataBoys.AllDataInfo!.Round - 1) * 2;
+            //}
+            //if (TourneyData.FinalLeague)
+            //{
+            //    // 決勝リーグ枠を確保
+            //    cols += ExcelTournamentBracket.FINAL_LEAGUE_SPACE_COLUMNS;
+            //}
+            //else
+            //{
+            //    // 決勝
+            //    cols += 2;
+            //}
             return cols;
         }
 
@@ -54,14 +55,16 @@ namespace PbaU12Tools.Bracket
         /// <returns></returns>
         private IXLCell getBracketStartCell(IXLWorksheet worksheet, Categories category, BracketSide bracketSide)
         {
+            // todo : 2025-10-31未調整
+
             // カラム
             int startColumn = ExcelTournamentBracket.DEFAULT_LEFT_COLUMN_MARGIN;
             int startRow = ExcelTournamentBracket.CATEGORY_ROW + 3;
-
+/*
             if (category == Categories.Girls)
             {
                 // 女子
-                startColumn += getNumberOfBracketColumn(Categories.Boys);
+                //startColumn += getNumberOfBracketColumn(Categories.Boys);
                 startColumn++;
             }
             if (bracketSide == BracketSide.Left)
@@ -104,7 +107,7 @@ namespace PbaU12Tools.Bracket
                     startColumn += 2;
                 }
             }
-
+*/
             IXLCell startCell = worksheet.Cell(startRow, startColumn);
             return startCell;
         }

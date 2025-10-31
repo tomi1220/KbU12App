@@ -94,6 +94,7 @@ namespace PbaU12Tools.Bracket
                         ? BracketGenerator.BracketArrangement.Horizontal
                         : BracketGenerator.BracketArrangement.Vertical;
                 bracketGenerator.OutputFilePath = sfd.FileName;
+                bracketGenerator.GeneratBracket();
             }
         }
         #endregion
