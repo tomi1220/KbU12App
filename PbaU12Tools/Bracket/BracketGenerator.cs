@@ -88,6 +88,7 @@ namespace PbaU12Tools.Bracket
         {
             GenType = GenerateType.Lottery;
             TourneyData = new TourneyData();
+            TourneyData.TourneyType = TournamentType.DistrictTournament;
             TourneyData.BaseDataBoys.NumberOfTeams = numberOfBoysTeams;
             TourneyData.BaseDataBoys.NumberOfSuperSeed = numberOfBoysSuperSeed;
             TourneyData.BaseDataBoys.NumberOfTeams = numberOfGirlsTeams;
@@ -202,7 +203,14 @@ namespace PbaU12Tools.Bracket
                 worksheet.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                 worksheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                GenBacket(worksheet, GenDataBoys, GenDataGirls, 1, 1);
+                if (TourneyData.TourneyType == TournamentType.DistrictTournament)
+                {
+                    GenBacket(
+                        worksheet,
+                        GenDataBoys,
+                        GenDataGirls,
+                        8, 1);
+                }
             }
         }
 
@@ -215,9 +223,7 @@ namespace PbaU12Tools.Bracket
         {
             _currentRow = startRow;
 
-            // 行の高さ・列幅、見出しなど
-            initializeBrancketWorksheet(worksheet, GenDataBoys!);
-            initializeBrancketWorksheet(worksheet, GenDataGirls!);
+
         }
 
         private void GenBacket(
@@ -254,12 +260,16 @@ namespace PbaU12Tools.Bracket
             // ブラケット以外の設定
             BuildOtherBracket(worksheet);
         }
+        private void initializeBrancketWorksheet(IXLWorksheet worksheet)
+        {
+
+        }
 
         /// <summary>
         /// ［組合せ］シートの初期化
         /// </summary>
         /// <param name="worksheet"></param>
-        private void initializeBrancketWorksheet(
+        private void fillBrancketWorksheetWithValue(
             IXLWorksheet worksheet, BracketGenData genData)
         {
             int maxBracketRows = 0;
@@ -589,42 +599,42 @@ namespace PbaU12Tools.Bracket
 
         private void BuildOtherBracket(IXLWorksheet worksheet)
         {
-            // 先頭行"トーナメント表"
-            {
-                worksheet.Row(ExcelTournamentBracket.TOURNAMENT_TITLE_ROW).Height = ExcelTournamentBracket.TOURNAMENT_TITLE_ROW_HEIGHT;
-                IXLRange titleRange =
-                    worksheet.Range(
-                        ExcelTournamentBracket.TOURNAMENT_TITLE_ROW,
-                        1,
-                        ExcelTournamentBracket.TOURNAMENT_TITLE_ROW,
-                        _numOfColsUsed).Merge(false);
-                titleRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                titleRange.Style.Font.FontSize = ExcelTournamentBracket.TOURNAMENT_TITLE_FONT_SIZE;
-                titleRange.Value = ExcelTournamentBracket.TOURNAMENT_TITLE;
-                titleRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                titleRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-            }
+            //// 先頭行"トーナメント表"
+            //{
+            //    worksheet.Row(ExcelTournamentBracket.TOURNAMENT_TITLE_ROW).Height = ExcelTournamentBracket.TOURNAMENT_TITLE_ROW_HEIGHT;
+            //    IXLRange titleRange =
+            //        worksheet.Range(
+            //            ExcelTournamentBracket.TOURNAMENT_TITLE_ROW,
+            //            1,
+            //            ExcelTournamentBracket.TOURNAMENT_TITLE_ROW,
+            //            _numOfColsUsed).Merge(false);
+            //    titleRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+            //    titleRange.Style.Font.FontSize = ExcelTournamentBracket.TOURNAMENT_TITLE_FONT_SIZE;
+            //    titleRange.Value = ExcelTournamentBracket.TOURNAMENT_TITLE;
+            //    titleRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            //    titleRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+            //}
 
-            // 大会名称行
-            {
-                worksheet.Row(ExcelTournamentBracket.TOURNAMENT_NAME_ROW).Height = ExcelTournamentBracket.TOURNAMENT_NAME_ROW_HEIGHT;
-                IXLRange nameRange =
-                    worksheet.Range(
-                        ExcelTournamentBracket.TOURNAMENT_NAME_ROW,
-                        1,
-                        ExcelTournamentBracket.TOURNAMENT_NAME_ROW,
-                        _numOfColsUsed).Merge(false);
-                nameRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
-                nameRange.Style.Font.FontSize = ExcelTournamentBracket.TOURNAMENT_NAME_FONT_SIZE;
-                nameRange.Value = TourneyData!.TournamentName;
-                nameRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                nameRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-            }
+            //// 大会名称行
+            //{
+            //    worksheet.Row(ExcelTournamentBracket.TOURNAMENT_NAME_ROW).Height = ExcelTournamentBracket.TOURNAMENT_NAME_ROW_HEIGHT;
+            //    IXLRange nameRange =
+            //        worksheet.Range(
+            //            ExcelTournamentBracket.TOURNAMENT_NAME_ROW,
+            //            1,
+            //            ExcelTournamentBracket.TOURNAMENT_NAME_ROW,
+            //            _numOfColsUsed).Merge(false);
+            //    nameRange.Style.Font.FontName = ExcelTournamentBracket.DEFAULT_FONT_NAME;
+            //    nameRange.Style.Font.FontSize = ExcelTournamentBracket.TOURNAMENT_NAME_FONT_SIZE;
+            //    nameRange.Value = TourneyData!.TournamentName;
+            //    nameRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            //    nameRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+            //}
 
-            // 大会名称行の下の隙間行
-            {
-                worksheet.Row(ExcelTournamentBracket.TOURNAMENT_NAME_ROW + 1).Height = ExcelTournamentBracket.GAP_L_ROW_HEIGHT;
-            }
+            //// 大会名称行の下の隙間行
+            //{
+            //    worksheet.Row(ExcelTournamentBracket.TOURNAMENT_NAME_ROW + 1).Height = ExcelTournamentBracket.GAP_L_ROW_HEIGHT;
+            //}
         }
 
         /// <summary>
