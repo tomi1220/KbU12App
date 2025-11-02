@@ -54,6 +54,8 @@ namespace PbaU12Tools.Bracket
 
         public static Color FINAL_LEAGUE_MATCH_BOX_BACK_COLOR = Color.FromArgb(228, 223, 236);
 
+        public const string SCHEDULE_DUMMY = "日程行";
+
         public const string CATEGORY_BOYS = "【男子の部】";
         public const string CATEGORY_GIRLS = "【女子の部】";
 

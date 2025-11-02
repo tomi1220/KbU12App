@@ -63,11 +63,11 @@ namespace PbaU12Tools.Bracket
         #region フィールド
         private int _numOfColsUsed = 0;
         /// <summary>処理中の行</summary>
-        private int _currentRow = 0;
+        private int _currentRow = 1;
         /// <summary>処理中の列</summary>
-        private int _currentCol = 0;
-        private int _startColumnL = 0;
-        private int _startColumnR = 0;
+        private int _currentCol = 1;
+        //private int _startColumnL = 0;
+        //private int _startColumnR = 0;
         #endregion
 
         #region コンストラクタ
@@ -205,34 +205,17 @@ namespace PbaU12Tools.Bracket
 
                 if (TourneyData.TourneyType == TournamentType.DistrictTournament)
                 {
-                    GenBacket(
-                        worksheet,
-                        GenDataBoys,
-                        GenDataGirls,
-                        8, 1);
+                    GenBacket(worksheet,　GenDataBoys);
                 }
             }
         }
 
         private void GenBacket(
             IXLWorksheet worksheet,
-            BracketGenData bracketGenDataBoys,
-            BracketGenData bracketGenDataGirls,
-            int startCol,
-            int startRow)
-        {
-            _currentRow = startRow;
-
-
-        }
-
-        private void GenBacket(
-            IXLWorksheet worksheet,
-            BracketGenData bracketGenData,
-            int startCol, int startRow)
+            BracketGenData bracketGenData)
         {
             // トーナメントの山
-            startRow = ExcelTournamentBracket.CATEGORY_ROW + 3;
+            //startRow = ExcelTournamentBracket.CATEGORY_ROW + 3;
 
             string categoryPrefix =
                 (bracketGenData.Category == Categories.Boys
@@ -255,11 +238,12 @@ namespace PbaU12Tools.Bracket
             }
 
             // 行の高さ・列幅、見出しなど
-            initializeBrancketWorksheet(worksheet, GenDataBoys!);
-            initializeBrancketWorksheet(worksheet, GenDataGirls!);
+            //initializeBrancketWorksheet(worksheet, GenDataBoys!);
+            //initializeBrancketWorksheet(worksheet, GenDataGirls!);
             // ブラケット以外の設定
-            BuildOtherBracket(worksheet);
+            //BuildOtherBracket(worksheet);
         }
+
         private void initializeBrancketWorksheet(IXLWorksheet worksheet)
         {
 
@@ -653,10 +637,10 @@ namespace PbaU12Tools.Bracket
             int underNo = (int)Math.Pow(2, (bracketData.AllDataInfo!.Round - 1));
 
             IXLCell nextCell = getBracketStartCell(worksheet, bracketData.Category, BracketSide.Left);
-            if (_startColumnL == 0)
-            {
-                _startColumnL = nextCell.Address.ColumnNumber;
-            }
+            //if (_startColumnL == 0)
+            //{
+            //    _startColumnL = nextCell.Address.ColumnNumber;
+            //}
 
             if (bracketData.NumberOfDivisions < 2)
             {
@@ -717,10 +701,10 @@ namespace PbaU12Tools.Bracket
                     }
 
                     nextCell = getBracketStartCell(worksheet, bracketData.Category, BracketSide.Right);
-                    if (_startColumnR == 0)
-                    {
-                        _startColumnR = nextCell.Address.ColumnNumber;
-                    }
+                    //if (_startColumnR == 0)
+                    //{
+                    //    _startColumnR = nextCell.Address.ColumnNumber;
+                    //}
 
                     for (int i = leftNumber - 1; i < leftNumber + interval - 1; i++)
                     {
@@ -766,10 +750,10 @@ namespace PbaU12Tools.Bracket
             // １，２回戦の山のパターンは４種類
 
             IXLCell nextCell = getBracketStartCell(worksheet, bracketData.Category, BracketSide.Left);
-            if (_startColumnL == 0)
-            {
-                _startColumnL = nextCell.Address.ColumnNumber;
-            }
+            //if (_startColumnL == 0)
+            //{
+            //    _startColumnL = nextCell.Address.ColumnNumber;
+            //}
 
             //foreach (var d in bracketData.PartInfos)
             foreach (var partInfo in bracketData.PartInfos)
@@ -826,11 +810,11 @@ namespace PbaU12Tools.Bracket
                 }
                 else
                 {
-                    if (_startColumnR == 0)
-                    {
-                        nextCell = getBracketStartCell(worksheet, bracketData.Category, BracketSide.Right);
-                        _startColumnR = nextCell.Address.ColumnNumber;
-                    }
+                    //if (_startColumnR == 0)
+                    //{
+                    //    nextCell = getBracketStartCell(worksheet, bracketData.Category, BracketSide.Right);
+                    //    _startColumnR = nextCell.Address.ColumnNumber;
+                    //}
 
                     if (partInfo.PartNumber % 2 == 1)
                     {
@@ -917,7 +901,7 @@ namespace PbaU12Tools.Bracket
 
             int rnd = partInfo.Round - 2;
 
-            int roundStartColumn = _startColumnL + 2;
+            //int roundStartColumn = _startColumnL + 2;
             IXLCell? rule1 = null;
             IXLCell? rule2 = null;
 
@@ -943,11 +927,11 @@ namespace PbaU12Tools.Bracket
             {
                 for (int nl = 0; nl < rnd; nl++)
                 {
-                    roundStartColumn = _startColumnL + 2;
+                    //roundStartColumn = _startColumnL + 2;
                     //for (int il = 1; il <= left[i] * 2; il++)
                     for (int il = 1; il <= left[i] * rowIncriment; il++)
                     {
-                        IXLCell checkCell = worksheet.Cell(_currentRow + il - 1, nl + roundStartColumn);
+                        IXLCell checkCell = worksheet.Cell(_currentRow + il - 1, nl + 1/*roundStartColumn*/); 
                         if ((string)checkCell.Value == ExcelTournamentBracket.LINE_CONNECTING_POINT_FLAG)
                         {
                             if (rule1 == null)
@@ -1015,11 +999,11 @@ namespace PbaU12Tools.Bracket
                             }
                         }
                     }
-                    roundStartColumn = _startColumnR - 2;
+                    //roundStartColumn = _startColumnR - 2;
                     //for (int il = 1; il <= right[i] * 2; il++)
                     for (int il = 1; il <= right[i] * rowIncriment; il++)
                     {
-                        IXLCell checkCell = worksheet.Cell(_currentRow + il - 1, nl * (-1) + roundStartColumn);
+                        IXLCell checkCell = worksheet.Cell(_currentRow + il - 1, nl * (-1) + 1/*roundStartColumn*/);
                         if ((string)checkCell.Value == ExcelTournamentBracket.LINE_CONNECTING_POINT_FLAG)
                         {
                             if (rule1 == null)

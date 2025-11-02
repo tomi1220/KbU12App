@@ -78,6 +78,22 @@ namespace PbaU12Tools.Bracket
             // 出力先 Button
 
             // トーナメント表作成用データの生成
+            if (TourneyData.BaseDataBoys.NumberOfTeams == 0 &&
+                TourneyData.BaseDataGirls.NumberOfTeams ==0)
+            {
+                return;
+            }
+
+            BracketGenerator.GenerateType genType;
+            if (radioButtonPurposeForRaffle.Checked)
+            {
+                genType = BracketGenerator.GenerateType.Lottery;
+            }
+            else
+            {
+                genType = BracketGenerator.GenerateType.ExcelOnly;
+            }
+
             using SaveFileDialog sfd = new();
             sfd.Title = "トーナメント表を保存するExcelファイルを指定してください。";
             sfd.Filter = CommonValues.BracketExcelFileFilter;
@@ -88,7 +104,9 @@ namespace PbaU12Tools.Bracket
                 CommonValues.ExcelExt;
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                BracketGenerator bracketGenerator = new BracketGenerator(30, 24, 0, 0);
+                BracketGenerator bracketGenerator = new BracketGenerator();
+                bracketGenerator.TourneyData = TourneyData;
+                bracketGenerator.GenType = genType;
                 bracketGenerator.Arrangement =
                     TourneyData.TourneyType == TournamentType.PrefecturalTournament
                         ? BracketGenerator.BracketArrangement.Horizontal
