@@ -107,6 +107,8 @@ namespace PbaU12Tools.Bracket
                 BracketGenerator bracketGenerator = new BracketGenerator();
                 bracketGenerator.TourneyData = TourneyData;
                 bracketGenerator.GenType = genType;
+                bracketGenerator.GenDataBoys = BracketGenDataBoys;
+                bracketGenerator.GenDataGirls = BracketGenDataGirls;
                 bracketGenerator.Arrangement =
                     TourneyData.TourneyType == TournamentType.PrefecturalTournament
                         ? BracketGenerator.BracketArrangement.Horizontal

@@ -58,7 +58,7 @@ namespace PbaU12Tools.Bracket
             // todo : 2025-10-31未調整
 
             // カラム
-            int startColumn = ExcelTournamentBracket.DEFAULT_LEFT_COLUMN_MARGIN;
+            int startColumn = ExcelTournamentBracket.DEFAULT_LEFT_COLUMN_MARGIN + 1;
             int startRow = ExcelTournamentBracket.CATEGORY_ROW + 3;
 /*
             if (category == Categories.Girls)
